@@ -1,10 +1,14 @@
 # Might change this to using os.environ.get() instead in future sprints
+from unicodedata import name
 from decouple import config
 from flask import Flask, json, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_cors import CORS
 from datetime import datetime
+
+import hashlib
+
 # from classes import *
 
 # Database connection
@@ -24,87 +28,55 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class Orders(db.Model):
+class User(db.Model):
     __tablename__ = "User"
-    order_id = db.Column(db.String(500),primary_key=True, nullable=False)
-    user_id = db.Column(db.String(500), nullable=False)
-    products_purchased = db.Column(db.String(500), nullable=False)
-    purchased_quantity = db.Column(db.String(500), nullable=False)
-    sub_prices = db.Column(db.String(500), nullable=False)
-    total_price = db.Column(db.String(500), nullable=False)
-    billing_address = db.Column(db.String(500), nullable=False)
-    payment_status = db.Column(db.String(500), nullable=False)
-    datetime_purchased= db.Column(db.String(500), nullable=False) 
+    user_id = db.Column(db.String(500),primary_key=True, nullable=False)
+    email = db.Column(db.String(500), nullable=False)
+    name = db.Column(db.String(500), nullable=False)
+    password = db.Column(db.String(500), nullable=False)
+    creation_date = db.Column(db.String(500), nullable=False)
 
-    def create_order(self):
-        try:
-            db.session.add(self)
-            db.session.commit()
-            return 200
-        except Exception as e:
-            return 502
-
-    def array_conversion_purchased(self):
-        
-        comma = ","
-        if comma in self.products_purchased:
-            array = self.products_purchased.split(',')
-        else:
-            return [self.products_purchased]
-        return array
-
-    def array_conversion_quantity(self):
-        
-        comma = ","
-        if comma in self.purchased_quantity:
-            array = self.purchased_quantity.split(',')
-        else:
-            return [self.purchased_quantity]
-        return array
 
     def json(self):
-        array_products_purchased = self.array_conversion_purchased()
-        array_purchased_quantity = self.array_conversion_quantity()
-
-        print(array_products_purchased)
-        print(array_purchased_quantity)
-
-
-        order_detail = {
-            'order_id': self.order_id,
+        user_detail = {
             'user_id': self.user_id,
-            'products_purchased': array_products_purchased,
-            'purchased_quantity': array_purchased_quantity,
-            'sub_prices': self.sub_prices,
-            'total_price': self.total_price,
-            'billing_address': self.billing_address,
-            'payment_status': self.payment_status,
-            'datetime_purchased' : self.datetime_purchased
+            'email': self.email,
+            'name': self.name,
+            'creation_date': self.creation_date
         }
-        return order_detail
+        return user_detail
+
+def get_hash_password():
+    user_entered_password = 'pa$$w0rd'
+    salt = "5gz"
+    db_password = user_entered_password+salt
+    h = hashlib.md5(db_password.encode())
+    print(h.hexdigest())
 
 
-@app.route("/get_orders_by_user_id/<string:user_id>", methods=['GET'])
-def get_orders_by_user_id(user_id):
+
+@app.route("/get_user_info/<string:email>", methods=['GET'])
+def get_user_info(email):
     try:
         # data = request.get_json()
         # user_id = data['user_id']
 
-        order_list = Orders.query.filter_by(user_id=user_id).all()
-
-        if(len(order_list)):
-            print("enter")
-
+        user_detail = User.query.filter_by(email=email).first()
+        if not user_detail:
             return jsonify(
-            {
-                'code': 200,
-                'results': [order.json() for order in order_list]
-            })
+                {
+                    "code": 404,
+                    "message": "email not found."
+                }
+            ), 404
+        
         return jsonify(
-        {
-            'code': 404,
-            'results': "no order found"
-        })
+            {
+                "code": 200,
+                "data": user_detail.json(),
+                "message": "successfully retrieved"
+            }
+        ), 200
         
     except Exception as e:
         return jsonify(
@@ -114,54 +86,43 @@ def get_orders_by_user_id(user_id):
             }
         ), 500
 
-@app.route("/create_order", methods=['POST'])
-def create_order():
+@app.route("/login", methods=['POST'])
+def login():
     #insert into class record, update slot available, delete from registration
     try:
-        #retrieve id 
-        Order = Orders.query.order_by(Orders.order_id.desc()).first()
-        print(Order.order_id)
-        print("hold")
-        order_id_number = Order.order_id[1:]
-        print(order_id_number)
-        order_id_number = int(order_id_number) + 1
-        order_id_number = "o" + str(order_id_number)
-        print("order id now is " , order_id_number)
 
-        now = datetime.now()
         data = request.get_json()
 
-        # Should immediately exit upon failing this line.....
-        
-        order_record = Orders(
-            order_id= order_id_number,
-            user_id=data['user_id'],
-            products_purchased=data['products_purchased'],
-            purchased_quantity=data['purchased_quantity'],
-            sub_prices=data['sub_prices'],
-            total_price=data['total_price'],
-            billing_address=data['billing_address'],
-            payment_status=data['payment_status'],
-            datetime_purchased = str(now)
-            
-        )
+        db_password = data['password']
+        h = hashlib.md5(db_password.encode())
+        password = h.hexdigest()
 
-        insert_code = order_record.create_order()
+        user_detail = User.query.filter_by(email=data['email']).first()
 
+        if(user_detail.password == password):
+            return jsonify(
+            {
+                "code": 200,
+                "message": "Successfully login"
+
+            }
+            )
         return jsonify(
             {
-                "code": insert_code
+                "code": 404,
+                 "message": "password is incorrect"
             }
-        )
+            )
+
 
     except Exception as e:
         return jsonify(
             {
                 "code": 500,
-                "message": "An error occur when update the slot " + str(e)
+                "message": "An error occur when log in" + str(e)
             }
         ), 500
 
 if __name__ == '__main__':
     print("stock ")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5003, debug=True)
