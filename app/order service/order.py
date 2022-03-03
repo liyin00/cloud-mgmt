@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_cors import CORS
 from datetime import datetime
+
 # from classes import *
 
 # Database connection
@@ -33,7 +34,8 @@ class Orders(db.Model):
     sub_prices = db.Column(db.String(500), nullable=False)
     total_price = db.Column(db.String(500), nullable=False)
     billing_address = db.Column(db.String(500), nullable=False)
-    payment_status = db.Column(db.String(500), nullable=False)
+    payment_status = db.Column(db.String(1), nullable=False)
+    order_status = db.Column(db.String(500), nullable=False)
     datetime_purchased= db.Column(db.String(500), nullable=False) 
 
     def create_order(self):
@@ -79,7 +81,10 @@ class Orders(db.Model):
             'total_price': self.total_price,
             'billing_address': self.billing_address,
             'payment_status': self.payment_status,
+            'order_status': self.order_status,
             'datetime_purchased' : self.datetime_purchased
+            
+
         }
         return order_detail
 
@@ -142,6 +147,7 @@ def create_order():
             total_price=data['total_price'],
             billing_address=data['billing_address'],
             payment_status=data['payment_status'],
+            order_status = data['order_status'],
             datetime_purchased = str(now)
             
         )
@@ -162,6 +168,127 @@ def create_order():
             }
         ), 500
 
+
+@app.route("/get_order_list", methods=['GET'])
+def get_order_list():
+    try:
+        # data = request.get_json()
+        # user_id = data['user_id']
+
+        order_list = Orders.query.filter_by().all()
+
+        if(len(order_list)):
+            print("enter")
+
+            return jsonify(
+            {
+                'code': 200,
+                'results': [order.json() for order in order_list]
+            })
+        return jsonify(
+        {
+            'code': 404,
+            'results': "no order found"
+        })
+        
+    except Exception as e:
+        return jsonify(
+            {
+                "code": 500,
+                "message": "An error occurred while getting the order. " + str(e)
+            }
+        ), 500
+
+
+
+@app.route("/update_order_status", methods=['PUT'])
+def update_order_status():
+    try:
+        data = request.get_json()
+        order_id = data['order_id']
+        order_status = data['order_status']
+
+        order = Orders.query.filter_by(order_id=order_id).first()
+        if not order:
+            return jsonify(
+                {
+                    "code": 404,
+                    "data": {
+                        "order_id": order_id
+                    },
+                    "message": "order_id" + str(order_id) +  "not found."
+                }
+            ), 404
+        order.order_status = order_status
+
+        db.session.commit()
+        return jsonify(
+            {
+                "code": 200,
+                "data": order.json(),
+                "message": "successfully updated order"
+            }
+        ), 200
+
+
+
+    except Exception as e:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                    "order_id": order_id
+                },
+                "message": "An error occurred while updating the order status. " + str(e)
+            }
+        ), 500
+
+
+
+
+
+@app.route("/update_payment_status", methods=['PUT'])
+def update_payment_status():
+    try:
+        data = request.get_json()
+        order_id = data['order_id']
+        payment_status = data['payment_status']
+
+        order = Orders.query.filter_by(order_id=order_id).first()
+        if not order:
+            return jsonify(
+                {
+                    "code": 404,
+                    "data": {
+                        "order_id": order_id
+                    },
+                    "message": "order_id" + str(order_id) +  "not found."
+                }
+            ), 404
+        order.payment_status = payment_status
+
+        db.session.commit()
+        return jsonify(
+            {
+                "code": 200,
+                "data": order.json(),
+                "message": "successfully updated payment status "
+            }
+        ), 200
+
+
+
+    except Exception as e:
+        return jsonify(
+            {
+                "code": 500,
+                "data": {
+                    "order_id": order_id
+                },
+                "message": "An error occurred while updating the payment status. " + str(e)
+            }
+        ), 500
+
 if __name__ == '__main__':
-    print("stock ")
+    print("order ")
     app.run(host='0.0.0.0', port=5000, debug=True)
