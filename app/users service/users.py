@@ -17,12 +17,23 @@ import hashlib
 app = Flask(__name__)
 # EC2 DB port is 3306 instead, change accordingly.
 #
-app.config['SQLALCHEMY_DATABASE_URI'] = config('dbURL') or  environ.get("dbURL")
-# app.config['SQLALCHEMY_DATABASE_URI'] = config('localURL') or environ.get('localURL')
+# app.config['SQLALCHEMY_DATABASE_URI'] = config('dbURL') or  environ.get("dbURL")
+# # app.config['SQLALCHEMY_DATABASE_URI'] = config('localURL') or environ.get('localURL')
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
-                                           'pool_recycle': 280}
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
+#                                            'pool_recycle': 280}
+
+PASSWORD =config('PASSWORD') or  environ.get("PASSWORD")
+PUBLIC_IP_ADDRESS =config('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
+DBNAME =config('DBNAME') or  environ.get("DBNAME")
+PROJECT_ID =config('PROJECT_ID') or  environ.get("PROJECT_ID")
+INSTANCE_NAME =config('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
+ 
+# configuration
+# app.config["SECRET_KEY"] = "yoursecretkey"
+app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+mysqldb://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket=/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]= True
 
 db = SQLAlchemy(app)
 
