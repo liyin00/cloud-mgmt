@@ -22,7 +22,7 @@ pipeline {
                 }
 
                 dir('../app/users_service') {
-                    myapp = docker.build("lingliyin/clae-users:${env.BUILD_ID}")
+                    sh "myapp = docker.build('lingliyin/clae-users:${env.BUILD_ID}')"
                     // script {
                     //     myapp = docker.build("lingliyin/clae-users:${env.BUILD_ID}")
                     // }
