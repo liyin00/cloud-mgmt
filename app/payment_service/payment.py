@@ -6,7 +6,7 @@ import stripe
 # This is a public sample test API key.
 # Don’t submit any personally identifiable information in requests made with this key.
 # Sign in to see your own test API key embedded in code samples.
-stripe.api_key = config('apikey') or  environ.get("apikey")
+stripe.api_key = config('apikey') or environ.get("apikey")
 app = Flask(__name__,
             static_url_path='',
             static_folder='public')
