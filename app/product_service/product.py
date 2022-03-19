@@ -110,6 +110,7 @@ def get_specific_product(product_id):
         return jsonify(
             {
                 'code': 200,
+                'product_id' : product_id,
                 'data': res,
                 'desc': "success"
                 
@@ -179,10 +180,19 @@ def create():
         res = collection.document('p10').set({
             'product_name': 'DAZY Solid Puff Sleeve Blouse', 
             'product_description' : 'Blouse that only available in green. ',
-            'product_price' : '21',
-            'product_img': '',
+            'price' : '21',
+            'product_img': ' https://storage.cloud.google.com/is548_cloud_product_image/p10.png',
             'is_active': 1
         })
+
+
+
+
+
+
+
+
+
 
 
 
