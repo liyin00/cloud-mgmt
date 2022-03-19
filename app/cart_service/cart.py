@@ -14,7 +14,7 @@ import os
 app = Flask(__name__)
 
 # Initialize Firestore DB
-cred = credentials.Certificate(json.loads(environ.get("SERVICE_ACC")))
+cred = credentials.Certificate(json.loads(os.getenv('SERVICE_ACC')))
 default_app = firebase_admin.initialize_app(cred)
 print("-====")
 print(default_app)
