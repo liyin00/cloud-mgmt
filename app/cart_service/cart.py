@@ -148,42 +148,30 @@ def modify_cart():
     try:
         #if the user delete all the cart item, should not be a problem because product_list will be []
         #means the user cart exist BUT, it is deem as exist but is empty instead
+        print("enter modify cart")
 
         data = request.get_json()
         user_id = data['user_id']
+        product_list = data['product_list']
 
         doc = collection.document(user_id).get()
         del data["user_id"]
         array  = []
-        product_id = data['product_id'].split(",")
-        print(product_id)
-        price = data['price'].split(",")
-        quantity = data['quantity'].split(",")
-        product_name = data['product_name'].split(",")
-        product_description = data['product_description'].split(",")
-        product_img = data['product_img'].split(",")
+        # product_id = data['product_id'].split(",")
+        # print(product_id)
+        # price = data['price'].split(",")
+        # quantity = data['quantity'].split(",")
+        # product_name = data['product_name'].split(",")
+        # product_description = data['product_description'].split(",")
+        # product_img = data['product_img'].split(",")
         
-        print(len(product_id))
-        if(product_id == ['']):
+        if(len(data['product_list']) == 0):
             #delete the document 
             collection.document(user_id).delete()
         else:
-            for i in range(0, len(product_id)):
-                value = {
-                    "product_id" : product_id[i],
-                    "price" : price[i],
-                    "quantity" : quantity[i],
-                    "product_name" : product_name[i],
-                    "product_description" : product_description[i],
-                    "product_img" : product_img[i],
-
-
-                }
-                array.append(value)
-
-        res = collection.document(user_id).update({
-            'product_list': array
-            })
+            res = collection.document(user_id).update({
+                'product_list': product_list
+                })
 
 
 
@@ -210,6 +198,73 @@ def modify_cart():
         )
 
 
+
+
+# @app.route("/modify_cart", methods=['POST'])
+# def modify_cart():
+#     try:
+#         #if the user delete all the cart item, should not be a problem because product_list will be []
+#         #means the user cart exist BUT, it is deem as exist but is empty instead
+
+#         data = request.get_json()
+#         user_id = data['user_id']
+
+#         doc = collection.document(user_id).get()
+#         del data["user_id"]
+#         array  = []
+#         product_id = data['product_id'].split(",")
+#         print(product_id)
+#         price = data['price'].split(",")
+#         quantity = data['quantity'].split(",")
+#         product_name = data['product_name'].split(",")
+#         product_description = data['product_description'].split(",")
+#         product_img = data['product_img'].split(",")
+        
+#         print(len(product_id))
+#         if(product_id == ['']):
+#             #delete the document 
+#             collection.document(user_id).delete()
+#         else:
+#             for i in range(0, len(product_id)):
+#                 value = {
+#                     "product_id" : product_id[i],
+#                     "price" : price[i],
+#                     "quantity" : quantity[i],
+#                     "product_name" : product_name[i],
+#                     "product_description" : product_description[i],
+#                     "product_img" : product_img[i],
+
+
+#                 }
+#                 array.append(value)
+
+#         res = collection.document(user_id).update({
+#             'product_list': array
+#             })
+
+
+
+
+#         return jsonify(
+#             {
+#                 'code': 200,
+#                 'data': {},
+#                 'desc': "success"
+
+#             }
+#         )
+        
+
+    
+#     except Exception as e:
+#         return jsonify(
+#             {
+#                 'code': 500,
+#                 'data': {},
+#                 'desc': "An Error Occured:" + str(e)
+
+#             }
+#         )
 
 
 
