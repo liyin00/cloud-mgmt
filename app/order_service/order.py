@@ -5,6 +5,9 @@ from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_cors import CORS
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # from classes import *
 
@@ -22,11 +25,11 @@ app = Flask(__name__)
 #                                            'pool_recycle': 280}
 
 
-PASSWORD =config('PASSWORD') or  environ.get("PASSWORD")
-PUBLIC_IP_ADDRESS =config('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
-DBNAME =config('DBNAME') or  environ.get("DBNAME")
-PROJECT_ID =config('PROJECT_ID') or  environ.get("PROJECT_ID")
-INSTANCE_NAME =config('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
+PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
+PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
+DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
+PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
+INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
  
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"

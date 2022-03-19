@@ -5,27 +5,29 @@ from flask_sqlalchemy import SQLAlchemy
 from os import environ
 from flask_cors import CORS
 from datetime import datetime
+## new
+import os
+from dotenv import load_dotenv
+load_dotenv()
 # from classes import *
 
 # Database connection
 
 # EC2 DB port is 3306 instead, change accordingly.
 app = Flask(__name__)
-# EC2 DB port is 3306 instead, change accordingly.
-#config('dbURL') or 
-# app.config['SQLALCHEMY_DATABASE_URI'] =  config('dbURL') or  environ.get("dbURL")
-# # app.config['SQLALCHEMY_DATABASE_URI'] = config('localURL') or environ.get('localURL')
-
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
-#                                            'pool_recycle': 280}
 
 
-PASSWORD =config('PASSWORD') or  environ.get("PASSWORD")
-PUBLIC_IP_ADDRESS =config('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
-DBNAME =config('DBNAME') or  environ.get("DBNAME")
-PROJECT_ID =config('PROJECT_ID') or  environ.get("PROJECT_ID")
-INSTANCE_NAME =config('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
+
+
+
+
+
+
+PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
+PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
+DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
+PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
+INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
  
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"
@@ -38,7 +40,7 @@ CORS(app)
 class Stock(db.Model):
     __tablename__ = "Stock"
     product_id = db.Column(db.String(500),primary_key=True, nullable=False)
-    stock_count = db.Column(db.String(500), nullable=False)
+    quantity = db.Column(db.String(500), nullable=False)
 
     def create_stock(self):
         try:
@@ -53,7 +55,7 @@ class Stock(db.Model):
     def json(self):
         product_detail = {
             'product_id': self.product_id,
-            'stock_count': self.stock_count
+            'quantity': self.quantity
         }
         return product_detail
 
@@ -77,9 +79,9 @@ def update_deduct_stock_by_product_id():
                 }
             ), 404
         
-        quantity = int(stock.stock_count) - int(quantity)
+        quantity = int(stock.quantity) - int(quantity)
         if(quantity >= 0):
-            stock.stock_count = str(quantity)
+            stock.quantity = str(quantity)
         #reduce by 1
             db.session.commit()
             
@@ -157,7 +159,7 @@ def update_stock_by_product_id():
     try:
         data = request.get_json()
         product_id = data['product_id']
-        stock_count = data['stock_count']
+        quantity = data['quantity']
 
         stock = Stock.query.filter_by(product_id=product_id).first()
         if not stock:
@@ -170,7 +172,7 @@ def update_stock_by_product_id():
                     "message": "product_id" + str(product_id) +  "not found."
                 }
             ), 404
-        if(int(stock_count) < 0 ):
+        if(int(quantity) < 0 ):
             return jsonify(
             {
                 "code": 400,
@@ -178,7 +180,7 @@ def update_stock_by_product_id():
                 "message": "Please enter a positive stock number"
             }
         ), 200
-        stock.stock_count = stock_count
+        stock.quantity = quantity
 
         db.session.commit()
         return jsonify(
@@ -215,7 +217,7 @@ def create_stock():
         
         stock_record = Stock(
             product_id=data['product_id'],
-            stock_count = data['stock_count']
+            quantity = data['quantity']
             
         )
         print("come here")
