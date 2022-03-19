@@ -15,14 +15,14 @@ pipeline {
         stage("Build image") {
             steps {
                 dir('../app/stock_service') {
-                    sh "myapp = docker.build('lingliyin/clae-stock:${env.BUILD_ID}')"
+                    sh 'stock = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")'
                     // script {
                     //     myapp = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")
                     // }
                 }
 
                 dir('../app/users_service') {
-                    sh "myapp = docker.build('lingliyin/clae-users:${env.BUILD_ID}')"
+                    sh 'users = docker.build("lingliyin/clae-users:${env.BUILD_ID}")'
                     // script {
                     //     myapp = docker.build("lingliyin/clae-users:${env.BUILD_ID}")
                     // }
