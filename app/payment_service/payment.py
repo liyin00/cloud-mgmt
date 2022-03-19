@@ -1,12 +1,14 @@
 import os
 from flask import Flask, redirect, request
 from os import environ
-from decouple import config
 import stripe
+from dotenv import load_dotenv
+load_dotenv()
+
 # This is a public sample test API key.
 # Don’t submit any personally identifiable information in requests made with this key.
 # Sign in to see your own test API key embedded in code samples.
-stripe.api_key = config('apikey') or environ.get("apikey")
+stripe.api_key = os.getenv('apikey') or environ.get("apikey")
 app = Flask(__name__,
             static_url_path='',
             static_folder='public')
