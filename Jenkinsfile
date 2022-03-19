@@ -20,7 +20,7 @@ pipeline {
                 // }
                 
                 dir('../app/stock_service') {
-                    sh "docker build . -t lingliyin/clae-stock:${env.BUILD_ID}"
+                    sh "docker build . -t lingliyin/clae-stock:${env.BUILD_ID} -f app/stock_service/Dockerfile"
                     // sh 'stock = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")'
                     // script {
                     //     myapp = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")
@@ -28,7 +28,7 @@ pipeline {
                 }
 
                 dir('../app/users_service') {
-                    sh "docker build . -t lingliyin/clae-users:${env.BUILD_ID}"
+                    sh "docker build . -t lingliyin/clae-users:${env.BUILD_ID} -f app/users_service/Dockerfile"
                     // sh 'users = docker.build("lingliyin/clae-users:${env.BUILD_ID}")'
                     // script {
                     //     myapp = docker.build("lingliyin/clae-users:${env.BUILD_ID}")
