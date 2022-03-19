@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { URL, checkoutPayment } from '../callAPI/endpoint.js'
+import { URL, checkoutPayment } from '../callAPI/paymentAPI.js'
 import { Link } from 'react-router-dom';
 
 class Cart extends Component {

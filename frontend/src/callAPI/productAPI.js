@@ -1,7 +1,8 @@
-export const URL = "http://127.0.0.1:5000";
+export const productURL = "http://127.0.0.1:5005";
 
 // ====== create ========
 //Create payment
+//sample
 export async function checkoutPayment(URL, body) {
     try {
         const data = {
