@@ -3,6 +3,7 @@
 # Required imports
 import os
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from os import environ
 import firebase_admin
 from firebase_admin import credentials, firestore
@@ -12,7 +13,7 @@ import json
 import os
 # Initialize Flask app
 app = Flask(__name__)
-
+CORS(app)
 def service_acc_conversion():
     service_account_info = {"credential":
     {
