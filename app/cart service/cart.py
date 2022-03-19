@@ -33,10 +33,10 @@ def create_cart_item():
     try:
         data = request.get_json()
         user_id = data['user_id']
-        print(data)
-        print(data['user_id'])
+        # print(data)
+        # print(data['user_id'])
         doc = collection.document(user_id).get()
-        print(doc)
+        # print(doc)
         del data["user_id"]
         if(doc.exists):
             print("exist")
@@ -47,9 +47,23 @@ def create_cart_item():
             print("below")
             # print(value)  
             print(data)
+            is_already_exist_product = 0 
+            #check if product exist inside document 
             value = list(doc.to_dict()['product_list'])
-            value.append(data)
-            print(value)
+            print("product id now is " + data['product_id'])
+            print("length of the product list currently is " + str(len(value)))
+
+            for i in range(0,len(value)):
+                print("product_id current is " + value[i]['product_id'])
+                if (data['product_id'] == value[i]['product_id']):
+                    total = int(value[i]['quantity']) + 1
+                    value[i]['quantity'] = str(total)
+                    is_already_exist_product = 1
+
+            #means is new item 
+            if(is_already_exist_product == 0):
+                value.append(data)
+                print(value)
 
             res = collection.document(user_id).update({
                 'product_list': value
