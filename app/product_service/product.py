@@ -26,7 +26,7 @@ def service_acc_conversion():
         "auth_uri" : os.getenv("AUTH_URI"),
         "token_uri" : os.getenv("TOKEN_URI"),
         "auth_provider_x509_cert_url" : os.getenv("AUTH_PROVIDER_X509_CERT_URL"),
-        "client_x509_cert_url" : os.getenv("CLIENT_X509_CRET_URL")
+        "client_x509_cert_url" : os.getenv("CLIENT_X509_CERT_URL")
     }}
     return service_account_info
 
