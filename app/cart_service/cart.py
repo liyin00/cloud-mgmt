@@ -3,16 +3,18 @@
 # Required imports
 import os
 from flask import Flask, request, jsonify
-
+from os import environ
 import firebase_admin
 from firebase_admin import credentials, firestore
-
-
+from dotenv import load_dotenv
+load_dotenv()
+import json
+import os
 # Initialize Flask app
 app = Flask(__name__)
 
 # Initialize Firestore DB
-cred = credentials.Certificate('../../linen-age-337916-4de2c2a07c3c.json')
+cred = credentials.Certificate(json.loads(environ.get("SERVICE_ACC")))
 default_app = firebase_admin.initialize_app(cred)
 print("-====")
 print(default_app)
