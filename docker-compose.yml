@@ -12,6 +12,16 @@ services:
     image: jingweisim/product:v1
     restart: always
     environment:
+      TYPE: ${TYPE}
+      PROJECT_ID: ${PROJECT_ID}
+      PRIVATE_KEY_ID: ${PRIVATE_KEY_ID}
+      PRIVATE_KEY: ${PRIVATE_KEY}
+      CLIENT_EMAIL: ${CLIENT_EMAIL}
+      CLIENT_ID: ${CLIENT_ID}
+      AUTH_URI: ${AUTH_URI}
+      TOKEN_URI: ${TOKEN_URI}
+      AUTH_PROVIDER_X509_CERT_URL: ${AUTH_PROVIDER_X509_CERT_URL}
+      CLIENT_X509_CERT_URL: ${CLIENT_X509_CERT_URL}
       PYTHONUNBUFFERED: 1
     ports:
       - "5005:5005"
@@ -26,6 +36,16 @@ services:
     image: jingweisim/cart:v1
     restart: always
     environment:
+      TYPE: ${TYPE}
+      PROJECT_ID: ${PROJECT_ID}
+      PRIVATE_KEY_ID: ${PRIVATE_KEY_ID}
+      PRIVATE_KEY: ${PRIVATE_KEY}
+      CLIENT_EMAIL: ${CLIENT_EMAIL}
+      CLIENT_ID: ${CLIENT_ID}
+      AUTH_URI: ${AUTH_URI}
+      TOKEN_URI: ${TOKEN_URI}
+      AUTH_PROVIDER_X509_CERT_URL: ${AUTH_PROVIDER_X509_CERT_URL}
+      CLIENT_X509_CERT_URL: ${CLIENT_X509_CERT_URL}
       PYTHONUNBUFFERED: 1
     ports:
       - "5006:5006"
@@ -40,7 +60,11 @@ services:
     image: jingweisim/order:v1
     restart: always
     environment:
-      dbURL: ${dbURL}
+      PASSWORD: ${PASSWORD}
+      PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
+      DBNAME: ${DBNAME}
+      PROJECT_ID: ${PROJECT_ID}
+      INSTANCE_NAME: ${INSTANCE_NAME}
       PYTHONUNBUFFERED: 1
     ports:
       - "5000:5000"
@@ -70,7 +94,11 @@ services:
     image: jingweisim/stock:v1
     restart: always
     environment:
-      dbURL: ${dbURL}
+      PASSWORD: ${PASSWORD}
+      PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
+      DBNAME: ${DBNAME}
+      PROJECT_ID: ${PROJECT_ID}
+      INSTANCE_NAME: ${INSTANCE_NAME}
       PYTHONUNBUFFERED: 1
     ports:
       - "5001:5001"
@@ -85,7 +113,11 @@ services:
     image: jingweisim/users:v1
     restart: always
     environment:
-      dbURL: ${dbURL}
+      PASSWORD: ${PASSWORD}
+      PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
+      DBNAME: ${DBNAME}
+      PROJECT_ID: ${PROJECT_ID}
+      INSTANCE_NAME: ${INSTANCE_NAME}
       PYTHONUNBUFFERED: 1
     ports:
       - "5003:5003"
