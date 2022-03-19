@@ -8,7 +8,7 @@ services:
   product:
     build:
       context: ./app/product_service
-      dockerfile: product.Dockerfile
+      dockerfile: Dockerfile
     image: jingweisim/product:v1
     restart: always
     environment:
@@ -32,7 +32,7 @@ services:
   cart:
     build:
       context: ./app/cart_service
-      dockerfile: cart.Dockerfile
+      dockerfile: Dockerfile
     image: jingweisim/cart:v1
     restart: always
     environment:
@@ -56,7 +56,7 @@ services:
   order:
     build:
       context: ./app/order_service
-      dockerfile: order.Dockerfile
+      dockerfile: Dockerfile
     image: jingweisim/order:v1
     restart: always
     environment:
@@ -75,7 +75,7 @@ services:
   payment:
     build:
       context: ./app/payment_service
-      dockerfile: payment.Dockerfile
+      dockerfile: Dockerfile
     image: jingweisim/payment:v1
     restart: always
     environment:
@@ -90,7 +90,7 @@ services:
   stock:
     build:
       context: ./app/stock_service
-      dockerfile: stock.Dockerfile
+      dockerfile: Dockerfile
     image: jingweisim/stock:v1
     restart: always
     environment:
@@ -109,7 +109,7 @@ services:
   users:
     build:
       context: ./app/users_service
-      dockerfile: users.Dockerfile
+      dockerfile: Dockerfile
     image: jingweisim/users:v1
     restart: always
     environment:

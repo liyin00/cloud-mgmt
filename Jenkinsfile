@@ -14,15 +14,17 @@ pipeline {
         }
         stage("Build image") {
             steps {
-                command.execute(null, new File("../app/stock_service"))
-                script {
-                    myapp = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")
-                }
-                command.execute(null, new File("../app/users_service"))
-                script {
-                    myapp = docker.build("lingliyin/clae-users:${env.BUILD_ID}")
+                dir('../app/stock_service') {
+                    script {
+                        myapp = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")
+                    }
                 }
 
+                dir('../app/users_service') {
+                    script {
+                        myapp = docker.build("lingliyin/clae-users:${env.BUILD_ID}")
+                    }
+                }
             }
         }
         stage("Push image") {
