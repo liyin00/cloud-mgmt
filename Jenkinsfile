@@ -14,11 +14,15 @@ pipeline {
         }
         stage("Build image") {
             steps {
-                command.execute(null, new File("../app/stock_service"))
+                dir('../app/stock_service') {
+                    sh "pwd"
+                }
                 script {
                     myapp = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")
                 }
-                command.execute(null, new File("../app/users_service"))
+                dir('../app/users_service') {
+                    sh "pwd"
+                }
                 script {
                     myapp = docker.build("lingliyin/clae-users:${env.BUILD_ID}")
                 }
