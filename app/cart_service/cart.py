@@ -158,6 +158,10 @@ def modify_cart():
         print(product_id)
         price = data['price'].split(",")
         quantity = data['quantity'].split(",")
+        product_name = data['product_name'].split(",")
+        product_description = data['product_description'].split(",")
+        product_img = data['product_img'].split(",")
+        
         print(len(product_id))
         if(product_id == ['']):
             #delete the document 
@@ -167,7 +171,11 @@ def modify_cart():
                 value = {
                     "product_id" : product_id[i],
                     "price" : price[i],
-                    "quantity" : quantity[i]
+                    "quantity" : quantity[i],
+                    "product_name" : product_name[i],
+                    "product_description" : product_description[i],
+                    "product_img" : product_img[i],
+
 
                 }
                 array.append(value)
