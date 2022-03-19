@@ -15,7 +15,7 @@ pipeline {
         stage("Build image") {
             steps {
                 dir('../app/stock_service') {
-                    sh "myapp = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")"
+                    sh "myapp = docker.build('lingliyin/clae-stock:${env.BUILD_ID}')"
                     // script {
                     //     myapp = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")
                     // }
