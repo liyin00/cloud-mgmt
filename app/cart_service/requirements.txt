@@ -9,3 +9,5 @@ Flask-SQLAlchemy==2.5.1
 SQLAlchemy==1.4.5
 python-decouple==3.3.0
 Flask-Testing==0.8.1
+firebase-admin==5.2.0
+python-dotenv==0.15.0

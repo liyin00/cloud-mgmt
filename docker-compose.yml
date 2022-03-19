@@ -7,7 +7,7 @@ services:
   ###################################
   product:
     build:
-      context: ./
+      context: ./app/product_service
       dockerfile: product.Dockerfile
     image: jingweisim/product:v1
     restart: always
@@ -21,7 +21,7 @@ services:
   #######################################################
   cart:
     build:
-      context: ./
+      context: ./app/cart_service
       dockerfile: cart.Dockerfile
     image: jingweisim/cart:v1
     restart: always
@@ -35,7 +35,7 @@ services:
   #################################################
   order:
     build:
-      context: ./
+      context: ./app/order_service
       dockerfile: order.Dockerfile
     image: jingweisim/order:v1
     restart: always
@@ -50,7 +50,7 @@ services:
   ###################################
   payment:
     build:
-      context: ./
+      context: ./app/payment_service
       dockerfile: payment.Dockerfile
     image: jingweisim/payment:v1
     restart: always
@@ -64,7 +64,7 @@ services:
   ###############################################
   stock:
     build:
-      context: ./
+      context: ./app/stock_service
       dockerfile: stock.Dockerfile
     image: jingweisim/stock:v1
     restart: always
@@ -79,7 +79,7 @@ services:
   ##################################
   users:
     build:
-      context: ./
+      context: ./app/users_service
       dockerfile: users.Dockerfile
     image: jingweisim/users:v1
     restart: always
