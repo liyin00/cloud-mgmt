@@ -10,9 +10,11 @@ import base64
 from dotenv import load_dotenv
 load_dotenv()
 import json
+from flask_cors import CORS
 
 # Initialize Flask app 
 app = Flask(__name__)
+CORS(app)
 
 def service_acc_conversion():
     service_account_info = {"credential":
