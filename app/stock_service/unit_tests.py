@@ -7,11 +7,11 @@ from stock import *
 
 class TestStock(unittest.TestCase):
     def test_json(self):
-        stock = Stock(product_id="p3", stock_count="4")
+        stock = Stock(product_id="p3", quantity="4")
 
         self.assertEqual(stock.json(), {
             "product_id": "p3",
-            "stock_count": "4"
+            "quantity": "4"
         })
 
 
