@@ -14,23 +14,12 @@ pipeline {
         }
         stage("Build image") {
             steps {
-                // dir('./app'){
-                //     sh "docker build . -t lingliyin/clae-stock:${env.BUILD_ID} -f stock_service/Dockerfile"
-                //     sh "docker build . -t lingliyin/clae-users:${env.BUILD_ID} -f users_service/Dockerfile"
-                // }
-                
-                sh "docker build . -t lingliyin/clae-stock:${env.BUILD_ID} -f app/stock_service/Dockerfile"
-                    // sh 'stock = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")'
-                    // script {
-                    //     myapp = docker.build("lingliyin/clae-stock:${env.BUILD_ID}")
-                    // }
+                echo "workspace directory is ${workspace}"
+                dir ("$workspace/app"){
+                    sh 'docker build -t stock_service -f $WORKSPACE/app/stock_service/Dockerfile .'
+                    sh 'docker build -t users_service -f $WORKSPACE/app/users_service/Dockerfile .'
+                }
 
-                sh "docker build . -t lingliyin/clae-users:${env.BUILD_ID} -f app/users_service/Dockerfile"
-                    // sh 'users = docker.build("lingliyin/clae-users:${env.BUILD_ID}")'
-                    // script {
-                    //     myapp = docker.build("lingliyin/clae-users:${env.BUILD_ID}")
-                    // }
-                
             }
         }
         stage("Push image") {
