@@ -14,13 +14,13 @@ pipeline {
         }
         stage("Build image") {
             steps {
-                sh "/usr/local/bin/docker-compose up --build"
+                sh "/var/lib/jenkins/workspace/jenkins-gcp-integration-pipeline/docker-compose.yml up --build"
                 
             }
         }
         stage("Push image") {
             steps {
-                sh "docker-compose push"
+                sh "/var/lib/jenkins/workspace/jenkins-gcp-integration-pipeline/docker-compose.yml  push"
             }
         }        
         stage('Deploy to GKE') {
