@@ -14,22 +14,13 @@ pipeline {
         }
         stage("Build image") {
             steps {
-                echo "workspace directory is ${workspace}"
-                dir ("$workspace/app"){
-                    sh 'docker build -t stock_service -f $WORKSPACE/app/stock_service/Dockerfile .'
-                    sh 'docker build -t users_service -f $WORKSPACE/app/users_service/Dockerfile .'
-                }
-
+                sh "/usr/local/bin/docker-compose up --build"
+                
             }
         }
         stage("Push image") {
             steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'lingliyin') {
-                            myapp.push("latest")
-                            myapp.push("${env.BUILD_ID}")
-                    }
-                }
+                sh "docker-compose push"
             }
         }        
         stage('Deploy to GKE') {
