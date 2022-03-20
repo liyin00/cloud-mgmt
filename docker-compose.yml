@@ -9,7 +9,7 @@ services:
     build:
       context: ./app/product_service
       dockerfile: Dockerfile
-    image: jingweisim/product:v1
+    image: lingliyin/product:v1
     restart: always
     environment:
       TYPE: ${TYPE}
@@ -33,7 +33,7 @@ services:
     build:
       context: ./app/cart_service
       dockerfile: Dockerfile
-    image: jingweisim/cart:v1
+    image: lingliyin/cart:v1
     restart: always
     environment:
       TYPE: ${TYPE}
@@ -57,7 +57,7 @@ services:
     build:
       context: ./app/order_service
       dockerfile: Dockerfile
-    image: jingweisim/order:v1
+    image: lingliyin/order:v1
     restart: always
     environment:
       PASSWORD: ${PASSWORD}
@@ -76,7 +76,7 @@ services:
     build:
       context: ./app/payment_service
       dockerfile: Dockerfile
-    image: jingweisim/payment:v1
+    image: lingliyin/payment:v1
     restart: always
     environment:
       apikey: ${apikey}
@@ -91,7 +91,7 @@ services:
     build:
       context: ./app/stock_service
       dockerfile: Dockerfile
-    image: jingweisim/stock:v1
+    image: lingliyin/stock:v1
     restart: always
     environment:
       PASSWORD: ${PASSWORD}
@@ -110,7 +110,7 @@ services:
     build:
       context: ./app/users_service
       dockerfile: Dockerfile
-    image: jingweisim/users:v1
+    image: lingliyin/users:v1
     restart: always
     environment:
       PASSWORD: ${PASSWORD}
