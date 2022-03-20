@@ -1,5 +1,5 @@
 pipeline {
-    agent { any }
+    agent any
     environment {
         PROJECT_ID = 'composed-future-332501'
         CLUSTER_NAME = 'clae-gcp'
