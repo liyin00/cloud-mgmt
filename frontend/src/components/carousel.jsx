@@ -29,42 +29,48 @@ class Carousel extends Component {
     }
 
     render() {
-        const {cart, onIncrement, products, onProductData} = this.props;
-        const {productId} = products;
-
-        return ( 
-            <div>
-                <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel" data-interval="false">
-                    <ol className="carousel-indicators">
-                        {this.numCarouselSlides().map(num => (
-                            <li key={num} data-target="#carouselExampleIndicators" data-slide-to={num} className={this.formatIndicatorsClass(num)} ></li>
-                        ))}
-                    </ol>
-                    <div className="carousel-inner">
-                        {this.numProductsArray().map((group, index) => (
-                            <div className={this.formatCarouselItemClass(index)}>
-                                <div className="row mb-4">
-                                    {group.map(i => (
-                                        <div className="col-4 carousel-card" key={productId} >
-                                            <Card product={products[i]} cart={cart} onIncrement={onIncrement} onProductData={onProductData} />
-                                        </div>
-                                    ))}
+        if (this.props.products === undefined) {
+            return null
+        } else {
+            const {cart, onIncrement, products, onProductData} = this.props;
+            console.log(this.props)
+            // const {product_id} = products;
+            return (
+                <div>
+                    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel" data-interval="false">
+                        <ol className="carousel-indicators">
+                            {[...Array(4).keys()].map(num => (
+                                <li key={num} data-target="#carouselExampleIndicators" data-slide-to={num} className={this.formatIndicatorsClass(num)} ></li>
+                            ))}
+                        </ol>
+                        <div className="carousel-inner">
+                            {this.numProductsArray().map((group, index) => (
+                                <div className={this.formatCarouselItemClass(index)}>
+                                    <div className="row mb-4">
+                                        {group.map(i => (
+                                            // <div className="col-4 carousel-card" key={product_id} >
+                                            <div className="col-4 carousel-card" key={products[i]['product_id']}>
+                                                <Card product={products[i]} cart={cart} onIncrement={onIncrement} onProductData={onProductData} />
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        ))}                        
-                    </div>
+                            ))}                        
+                        </div>
 
-                    <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="sr-only">Previous</span>
-                    </a>
-                    <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="sr-only">Next</span>
-                    </a>
-                </div>
-        </div>
-        );
+                        <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span className="sr-only">Previous</span>
+                        </a>
+                        <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span className="sr-only">Next</span>
+                        </a>
+                    </div>
+            </div>
+            );
+        }
+        
     }
 }
 

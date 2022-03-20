@@ -8,7 +8,7 @@ import Product from './components/product';
 import Cart from './components/cart';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, withRouter  } from 'react-router-dom';
-
+import {cartURL,createCartItem} from  './callAPI/cartAPI'
 
 class App extends Component {
     state = {
@@ -21,25 +21,50 @@ class App extends Component {
         product: []
     };
 
-    handleIncrement = (product) => {
-        const cart = [...this.state.cart];
-        const itemArray = this.state.cart.filter(item=>item.productId == product.productId);
-        //create the value attribute in product
-        if (itemArray.length === 0) {
-            product.value = 1;
-            cart.push(product);
-            this.setState({cart});
+    handleIncrement = (product, product_id) => {
+        let product_data = {
+            'user_id' : 'u6',
+            'product_id' :  product_id,
+            'product_name': product.product_name,
+            'product_description': product.product_description,
+            'product_img': product.product_img,
+            'quantity':'1',
+            'price' : product.price
         }
-        else {
-            const itemInCart = itemArray[0];
-            //ensure only max 5 products can be added to cart
-            if (itemInCart.value === 5 ) return;
-            const index = cart.indexOf(itemInCart);
-            cart[index] = {...itemInCart};
-            cart[index].value++;
-            this.setState({cart});
-        }
-    };
+        createCartItem(cartURL, product_data).then(result => {
+            console.log("result is ", result)
+            if (result.code == 200) {
+                this.setState({ alert: true });
+                this.error = false;
+
+                //copy cart items
+                const cart = [...this.state.cart];
+                const itemArray = this.state.cart.filter(item=>item.productId == product.productId);
+                //create the value attribute in product
+                if (itemArray.length === 0) {
+                    product.value = 1;
+                    cart.push(product);
+                    this.setState({cart});
+                }
+                else {
+                    const itemInCart = itemArray[0];
+                    //ensure only max 5 products can be added to cart
+                    if (itemInCart.value === 5 ) return;
+                    const index = cart.indexOf(itemInCart);
+                    cart[index] = {...itemInCart};
+                    cart[index].value++;
+                    this.setState({cart});
+                }
+                
+            } else {
+                console.log("test")
+                this.error = true;
+            }
+            
+        })
+
+    }
+
 
     handleDelete = (product) => {
         const cart = [...this.state.cart];
