@@ -50,3 +50,31 @@ export async function getCartByUserId(URL, userId) {
         return error;
     }
 }
+
+
+export async function modifyCart(URL, body) {
+    try {
+        console.log("inside cart api")
+        console.log(body)
+        const data = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        }
+        const response = await fetch(`${URL}/modify_cart`,data)
+        if (response) {
+            console.log("SUCCESS")
+            const result = await response.json()
+            return result;
+        }
+    } catch(e) {
+        console.log("ERROR")
+        const error = {
+            "code": 404,
+            "error": e
+        }
+        return error;
+    }
+}

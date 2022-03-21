@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { URL, checkoutPayment } from '../callAPI/paymentAPI.js'
 import { Link, NavLink } from 'react-router-dom';
-import {cartURL,getCartByUserId} from  '../callAPI/cartAPI'
+import {cartURL,getCartByUserId,modifyCart} from  '../callAPI/cartAPI'
 
 class Cart extends Component {
     state = {}
@@ -38,8 +38,57 @@ class Cart extends Component {
 
     }
 
+    modifyCartByUserId(){
+        modifyCart(cartURL, this.state).then(result => {
+            console.log("result is ", result)
+            if (result.code == 200) {
+
+                console.log('result is')
+                console.log(result.data)
+                this.error = false;
+                //const courses = result.data;
+                
+                //sort courses according to course id in ascending order
+                
+            } else {
+                console.log("test")
+                this.error = true;
+            }
+        });
+    }
+
+
+    changeCartQuantity(array_obj, quantity){
+        console.log(array_obj)
+        var position = this.state.result.product_list.indexOf(array_obj);
+        console.log("in change cart quantity, position is " , position)
+        console.log("previous quantity" , this.state.result.product_list[position].quantity)
+        this.state.result.product_list[position].quantity = quantity
+        console.log("after quantity" , this.state.result.product_list[position].quantity)
+        this.setState(this.state);
+        this.modifyCartByUserId();
+
+        // this.renderTableMobile();
+
+    }
+
+    deleteItem(product_obj){
+        console.log('delete item');
+        var position = this.state.result.product_list.indexOf(product_obj);
+        this.state.result.product_list.splice(position,1)
+        this.setState(this.state);
+        this.modifyCartByUserId();
+        console.log(this.state);
+        
+
+
+
+    }
+
     renderTable() {
+        console.log(this.state)
         console.log("run second")
+        var counter = 0 
         return (
             <div className="cart-page-desk">
                 <table className='table mt-3'>
@@ -52,13 +101,13 @@ class Cart extends Component {
                         <td>Subtotal</td>
                     </tr>
                     { this.state.result.product_list.map(p => (
+                        
                         <tr key={ p.product_id }>
                             <td className="px-0"><img className="cart-image" src={ p.product_img } alt="" /></td>
                             <td>{ p.product_name }</td>
                             <td>S$ { Number(p.price).toFixed(2) }</td>
                             <td>
-                                <select className="custom-select" value={ p.quantity } 
-                                        onChange={ (event) => this.props.onChange(event, p) }>
+                                <select className="custom-select" onChange={(event) => this.changeCartQuantity(p, event.target.value)} value={p.quantity}  >
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -69,13 +118,18 @@ class Cart extends Component {
                             <td>
                                 S$ { (p.quantity * p.price).toFixed(2) }
                                 <br /><br /><br /><br /><br />
-                                <Link onClick={this.props.onDelete}>
+                                <Link onClick={(event) => this.deleteItem(p)}>
                                     <u className="text-danger">Remove Item</u>
                                 </Link>
                                 
                             </td>
                         </tr>
-                    )) }
+                        
+                    )
+
+                    ) 
+                    
+                    }
                     <tr>
                         <td></td>
                         <td></td>
@@ -99,6 +153,8 @@ class Cart extends Component {
     }
 
     renderTableMobile() {
+        console.log('MObile view');
+        console.log(this.state);
         return (
             <div className="cart-page-mobile">
                 <table className='table mt-3'>
@@ -115,8 +171,8 @@ class Cart extends Component {
                                 <p>Unit Price: S$ { p.productPrice.toFixed(2) }</p>
                                 <div className="mb-3">
                                     Qty:
-                                    <select className="custom-select ml-2" value={ p.quantity } 
-                                            onChange={ (event) => this.props.onChange(event, p) }>
+                                    <select className="custom-select ml-2"  value={ p.quantity } 
+                                            onChange={ (event) => this.change_cart_quantity(p,p.quantity, event.target.value)}>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -168,7 +224,7 @@ class Cart extends Component {
                     </div>
                         }
                     
-                    { this.state.result.product_list.length > 0 && this.renderTableMobile() }
+                    {/* { this.state.result.product_list.length > 0 && this.renderTableMobile() } */}
                 </div>
                 
             );

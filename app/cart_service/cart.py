@@ -151,6 +151,9 @@ def modify_cart():
         print("enter modify cart")
 
         data = request.get_json()
+        print(data)
+        data = data['result']
+        print(data)
         user_id = data['user_id']
         product_list = data['product_list']
 
@@ -167,8 +170,10 @@ def modify_cart():
         
         if(len(data['product_list']) == 0):
             #delete the document 
+            print("no more should delete")
             collection.document(user_id).delete()
         else:
+            print("got existing data")
             res = collection.document(user_id).update({
                 'product_list': product_list
                 })
