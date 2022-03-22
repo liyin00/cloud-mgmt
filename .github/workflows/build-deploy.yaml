@@ -66,10 +66,15 @@ jobs:
         chmod +x kompose
         sudo mv ./kompose /usr/local/bin/kompose
 
+    - name: Set up Kompose Permissions 
+      run: |-
+        chmod +x kompose 
+        sudo mv ./kompose /usr/local/bin/kompose 
+
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
       run: |-
-        ./kompose.exe convert 
+        ./kompose convert 
         kubectl apply -f cart-deployment.yaml, cart-service.yaml, order-deployment.yaml, order-service.yaml, payment-deployment.yaml, payment-service.yaml, product-deployment.yaml, product-service.yaml, stock-deployment.yaml, stock-service.yaml, users-deployment.yaml, users-service.yaml
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
