@@ -42,7 +42,7 @@ class Card extends Component {
 
     displayCartItem = () => {
         const itemArray = this.props.cart.filter(item=>item.product_id === this.props.product.product_id);
-        return itemArray.length !== 0 ? itemArray[0].value + ' added to Cart' : 0;
+        return itemArray.length !== 0 ? 'Item added to Cart' : 0;
     }
 
     render() { 
@@ -59,7 +59,7 @@ class Card extends Component {
                         <br/>
                         <p className='my-2'>{ this.formatPrice() }</p>
                         <p className={ this.formatStockCount() }>{ this.displayStockCount() }</p>
-                        { this.displayCartItem() !== 0 && (<Link to="/cart" className='btn btn-white border'>{ this.displayCartItem() }</Link>) }
+                        { this.displayCartItem() !== 0 && (<Link to="/cart" className='btn border tertiary-bg'>{ this.displayCartItem() }</Link>) }
                         { this.product && <h3>String(this.product)</h3> }
                         
                         {/* <p>{ this.displayCartItem() }</p> */}

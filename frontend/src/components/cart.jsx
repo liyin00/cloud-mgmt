@@ -4,60 +4,35 @@ import { Link, NavLink } from 'react-router-dom';
 import {cartURL,getCartByUserId,modifyCart} from  '../callAPI/cartAPI'
 
 class Cart extends Component {
-    state = {}
+    state = {
+        cart:[],
+        user_id: ""
+    }
 
     componentDidMount() {
-        console.log("run first")
-        //HARDCODE
-        // if (this.props.cart.length > 0 ){
-        //     this.setState({
-        //         "cart": {
-        //             "product_list": this.props.cart,
-        //             "user_id": "u6"
-        //         }
-        //     });
-        // } else {
-        //     getCartByUserId(cartURL,"u6").then(result => {
-        //         if (result.code == 200) {
-    
-        //             console.log('result is')
-        //             console.log(result.data)
-        //             this.error = false;
-        //             const courses = result.data;
-    
-        //             this.setState(
-        //                 {result:result.data}
-        //             )
-                    
-        //             //sort courses according to course id in ascending order
-                    
-        //         } else {
-        //             console.log("test")
-        //             this.error = true;
-        //         }
-        //     });
-    
-        // }
-        getCartByUserId(cartURL,"u6").then(result => {
-            if (result.code == 200) {
+        if (this.state.cart.length === 0){
+            getCartByUserId(cartURL,"u6").then(result => {
+                if (result.code == 200) {
+                    this.error = false;
+                    const response = result.data;
+                    if (response){
+                        this.setState({
+                            "cart": response.product_list,
+                            "user_id": response.user_id
+                        })       
+                    }
+                } else {
+                    console.log("Error getting cart data", result);
+                }
+            });
+        }
 
-                console.log('result is')
-                console.log(result.data)
-                this.error = false;
-                const courses = result.data;
+    }
 
-                this.setState(
-                    {result:result.data}
-                )
-                
-                //sort courses according to course id in ascending order
-                
-            } else {
-                console.log("test")
-                this.error = true;
-            }
-        });
-
+    componentDidUpdate(){
+        if (this.state.cart !== this.props.cart){
+            this.setState({"cart": this.props.cart});
+        }
     }
 
     modifyCartByUserId(){
@@ -102,6 +77,7 @@ class Cart extends Component {
         console.log(this.state);
     }
 
+
     renderTable() {
         console.log(this.state)
         console.log("run second")
@@ -117,14 +93,15 @@ class Cart extends Component {
                         <td>Quantity</td>
                         <td>Subtotal</td>
                     </tr>
-                    { this.state.result.product_list.map(p => (
+                    { this.state.cart.map(p => (
                         
                         <tr key={ p.product_id }>
                             <td className="px-0"><img className="cart-image" src={ p.product_img } alt="" /></td>
                             <td>{ p.product_name }</td>
                             <td>S$ { Number(p.price).toFixed(2) }</td>
                             <td>
-                                <select className="custom-select" onChange={(event) => this.changeCartQuantity(p, event.target.value)} value={p.quantity}  >
+                                {/* <select className="custom-select" onChange={(event) => this.changeCartQuantity(p, event.target.value)} value={p.quantity}  > */}
+                                <select className="custom-select" onChange={(event) => this.props.onChange(p, event.target.value)} value={p.quantity}  >
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -135,7 +112,8 @@ class Cart extends Component {
                             <td>
                                 S$ { (p.quantity * p.price).toFixed(2) }
                                 <br /><br /><br /><br /><br />
-                                <Link onClick={(event) => this.deleteItem(p)}>
+                                {/* <Link onClick={(event) => this.deleteItem(p)}> */}
+                                <Link onClick={() => this.props.onDelete(p) }>
                                     <u className="text-danger">Remove Item</u>
                                 </Link>
                                 
@@ -152,7 +130,8 @@ class Cart extends Component {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><b>Total</b>: S$ {(this.state.result.product_list.map(p => Number((p.quantity * p.price).toFixed(2)))).reduce((a,b) => a+b).toFixed(2)}</td>
+                        {/* <td><b>Total</b>: S$ {(this.state.result.product_list.map(p => Number((p.quantity * p.price).toFixed(2)))).reduce((a,b) => a+b).toFixed(2)}</td> */}
+                        <td><b>Total</b>: S$ {(this.state.cart.map(p => Number((p.quantity * p.price).toFixed(2)))).reduce((a,b) => a+b).toFixed(2)}</td>
                     </tr>
                 </tfoot>
                 </table>
@@ -198,7 +177,7 @@ class Cart extends Component {
                                     </select> 
                                 </div>
                                 <p>Subtotal: S$ { (p.value * p.productPrice).toFixed(2) }</p>
-                                <Link onClick={this.props.onDelete}>
+                                <Link onClick={this.props.onDelete(p)}>
                                     <u className="text-danger">Remove Item</u>
                                 </Link>
                             </td>
@@ -234,7 +213,7 @@ class Cart extends Component {
             return (
                 <div className='cart-page-margin'>
                     <h3>My Shopping Cart</h3>
-                    {this.state.result.product_list.length > 0 ? this.renderTable()
+                    {this.state.cart.length > 0 ? this.renderTable()
                     : <div className="cart-page tertiary-bg">
                         <p>Your shopping cart is currently empty.</p>
                         <Link to="/shop" className="btn primary-bg ml-3">Continue Shopping</Link>

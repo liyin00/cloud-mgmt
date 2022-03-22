@@ -55,8 +55,8 @@ class Product extends Component {
 
     // Formats and displays add to cart button
     formatValue = () => {
-        const itemArray = this.props.cart.filter(item=>item.productId === this.props.product.productId);
-        return itemArray.length === 0 ? 'Add to Cart': itemArray[0].value + ' in Cart';
+        const itemArray = this.props.cart.filter(item=>item.product_id === this.props.product.product_id);
+        return itemArray.length === 0 ? 'Add to Cart': 'Item in Cart';
     }
 
     formatButton = () => {
@@ -188,8 +188,7 @@ class Product extends Component {
                                     //prevent adding to cart if a product is out of stock
                                     // disabled={ this.state.product.stockCount === 0 ? true : false }>
                                     disabled={ this.productInCart(product_id) }>
-                                    {/* { this.formatValue() } */}
-                                    Add to Cart
+                                    { this.formatValue() }
                                 </button>
                             </div>
 

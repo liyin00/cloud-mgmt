@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import ScrollToTop from './components/scrollToTop'; //helps to reset scroll during page change
 import Navbar from './components/navbar';
 import Footer from './components/footer';
@@ -8,18 +8,37 @@ import Product from './components/product';
 import Cart from './components/cart';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, withRouter  } from 'react-router-dom';
-import {cartURL, createCartItem, getCartByUserId} from  './callAPI/cartAPI'
+
+import {productURL, getAllProducts} from './callAPI/productAPI';
+import {cartURL, createCartItem, getCartByUserId, modifyCart} from  './callAPI/cartAPI'
 
 class App extends Component {
     state = {
         //retrieve cart items for sessionStorage
         //update state if cart item exists in sessionStorage
-
+        user_id: "",
         cart: [],
-        // {productId: 3, value: 1},
-        // {productId: 4, value: 2}
+        products: [],
         product: []
     };
+
+    componentDidMount() {
+        //get cart data
+        if (this.state.cart.length === 0){
+            getCartByUserId(cartURL, 'u6').then(result => {
+                if (result.code === 200){
+                    const response = result.data
+                    if (response){
+                        this.state.cart = response.product_list;
+                        this.state.user_id = response.user_id
+                        this.setState(this.state);
+                    }
+                } else {
+                    console.log("error in getting cart items from home page", result.data);
+                }
+            })
+        };
+    }
 
     handleIncrement = (product, product_id) => {
         const product_data = {
@@ -32,56 +51,87 @@ class App extends Component {
             'price' : product.price
         }
 
-        createCartItem(cartURL, product_data).then(result => {
-            console.log("result is ", result)
-            if (result.code == 200) {
-                this.setState({ alert: true });
-                this.error = false;
-
-                const cart = [...this.state.cart];
-                const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
-                //create the value attribute in product
-                if (itemArray.length === 0) {
-                    // convert quantity to numeric to count
-                    product_data.quantity = Number(product_data.quantity)
-                    cart.push(product_data);
-                    this.setState({cart});
+        const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
+        //create the value attribute in product
+        if (itemArray.length === 0) {
+            createCartItem(cartURL, product_data).then(result => {
+                console.log("result is ", result)
+                if (result.code === 200) {
+                    this.setState({ alert: true });
+                    this.error = false;
+    
+                    const cart = [...this.state.cart];
+                    const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
+                    //create the value attribute in product
+                    if (itemArray.length === 0) {
+                        // convert quantity to numeric to count
+                        product_data.quantity = Number(product_data.quantity)
+                        cart.push(product_data);
+                        this.setState({cart});
+                    }
+                    // else {
+                    //     const itemInCart = itemArray[0];
+                    //     //ensure only max 5 products can be added to cart
+                    //     if (itemInCart.value === 5 ) return;
+                    //     const index = cart.indexOf(itemInCart);
+                    //     cart[index] = {...itemInCart};
+                    //     cart[index].value++;
+                    //     this.setState({cart});
+                    // }
+                    
+                } else {
+                    console.log("test")
+                    this.error = true;
                 }
-                // else {
-                //     const itemInCart = itemArray[0];
-                //     //ensure only max 5 products can be added to cart
-                //     if (itemInCart.value === 5 ) return;
-                //     const index = cart.indexOf(itemInCart);
-                //     cart[index] = {...itemInCart};
-                //     cart[index].value++;
-                //     this.setState({cart});
-                // }
                 
+            })
+        }
+    }
+
+    onModifyCart = (body, cart) => {
+        modifyCart(cartURL, body).then(result => {
+            console.log(result)
+            if (result.code === 200){
+                this.error = false;
+                const response = result.data;
+                console.log(response);
+                this.setState({cart});
             } else {
-                console.log("test")
+                console.log("Error in deleting product from cart", result.data);
                 this.error = true;
             }
-            
-        })
-
+        });
     }
 
 
     handleDelete = (product) => {
         const cart = [...this.state.cart];
-        const index = cart.indexOf(product);
-        cart[index] = {...product};
+        const product_data = cart.filter(item => item.product_id === product.product_id)[0];
+        const index = cart.indexOf(product_data);
+        // cart[index] = {...product};
         cart.splice(index, 1);
-        this.setState({cart});
-        console.log(this.state.cart);
+        const body = {
+            result: {
+                "product_list": cart,
+                "user_id": "u6"
+            }
+        }
+        this.onModifyCart(body, cart);
     }
 
-    handleChange = (event, product) => {
+    handleChange = (product, selectedQuantity) => {
         const cart = [...this.state.cart];
-        const index = cart.indexOf(product);
-        cart[index] = {...product};
-        cart[index].value = Number(event.target.value);
-        this.setState({cart});
+        const product_data = cart.filter(item => item.product_id === product.product_id)[0];
+        const index = cart.indexOf(product_data);
+        // cart[index] = {...product};
+        cart[index].quantity = String(selectedQuantity);
+        const body = {
+            result: {
+                "product_list": cart,
+                "user_id": "u6"
+            }
+        }
+        this.onModifyCart(body, cart);
     }
 
     handleTotalCartItems = () => {
@@ -105,7 +155,7 @@ class App extends Component {
                 <Navbar totalCartItems={this.handleTotalCartItems}/>
                 <Switch>
                     <Route exact path="/">
-                        <Home 
+                        <Home
                             cart={this.state.cart} 
                             onIncrement={this.handleIncrement} 
                             onProductData={this.handleProductData}
@@ -113,11 +163,13 @@ class App extends Component {
                     </Route>
                     <Route exact path="/shop">
                         <div class="wrapper container mx-auto">
-                            <Shop 
+                            <Suspense fallback={<div>Loading ... </div>}>
+                            <Shop
                                 cart={this.state.cart} 
                                 onIncrement={this.handleIncrement} 
                                 onProductData={this.handleProductData}
                             />
+                            </Suspense>
                         </div>
                     </Route>
                         <Route exact path="/shop/:productId/:encodedProductName">
