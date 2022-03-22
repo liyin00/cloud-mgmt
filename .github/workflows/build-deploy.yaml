@@ -73,6 +73,10 @@ jobs:
     - name: Deploy
       run: |-
         kompose convert 
+<<<<<<< Updated upstream
         kubectl apply -f cart-deployment.yaml, cart-service.yaml, order-deployment.yaml, order-service.yaml, payment-deployment.yaml, payment-service.yaml, product-deployment.yaml, product-service.yaml, stock-deployment.yaml, stock-service.yaml, users-deployment.yaml, users-service.yaml
+=======
+        kubectl apply -f - 
+>>>>>>> Stashed changes
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
