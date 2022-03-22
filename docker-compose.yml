@@ -25,7 +25,9 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5005:5005"
- 
+    label:
+      kompose.service.type: LoadBalancer
+
   #######################################################
   # Cart: The Cart microservice
   #######################################################
@@ -49,7 +51,9 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5006:5006"
-      
+    label:
+      kompose.service.type: LoadBalancer
+
   #################################################
   # Order: The Order microservice
   #################################################
@@ -68,7 +72,9 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5000:5000"
-
+    label:
+      kompose.service.type: LoadBalancer
+      
   ###################################
   # Payment: The Payment microservice
   ###################################
@@ -83,6 +89,8 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "4242:4242"
+    label:
+      kompose.service.type: LoadBalancer
 
   ###############################################
   # Stock: The Stock microservice
@@ -102,6 +110,8 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5001:5001"
+    label:
+      kompose.service.type: LoadBalancer
 
   ##################################
   # Users: The Users microservice
@@ -121,3 +131,6 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5003:5003"
+    label:
+      kompose.service.type: LoadBalancer
+
