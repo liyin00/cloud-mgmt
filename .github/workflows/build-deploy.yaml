@@ -73,6 +73,6 @@ jobs:
     - name: Deploy
       run: |-
         kompose convert 
-        kubectl apply -f ./cart-service.yaml -f ./order-service.yaml -f ./payment-service.yaml -f ./payment-service.yaml -f ./product-service.yaml -f ./stock-service.yaml -f ./users-service.yaml -f /cart-deployment.yaml -f ./order-deployment.yaml -f ./payment-deployment.yaml -f ./product-deployment.yaml -f ./stock-deployment.yaml -f users-deployment.yaml
+        kubectl apply -f ./cart-service.yaml -f ./order-service.yaml -f ./payment-service.yaml -f ./payment-service.yaml -f ./product-service.yaml -f ./stock-service.yaml -f ./users-service.yaml -f ./cart-deployment.yaml -f ./order-deployment.yaml -f ./payment-deployment.yaml -f ./product-deployment.yaml -f ./stock-deployment.yaml -f ./users-deployment.yaml
         kubectl rollout status deployment/$DEPLOYMENT_NAME
         kubectl get services -o wide
