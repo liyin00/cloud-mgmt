@@ -66,9 +66,8 @@ jobs:
 
     - name: Set up Kompose Permissions 
       run: |-
-        ls -a 
-        # chmod +x kompose.exe
-        # sudo mv ./kompose.exe /usr/local/bin/kompose
+        chmod +x kompose
+        sudo mv ./kompose /usr/local/bin/kompose
 
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
