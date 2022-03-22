@@ -25,7 +25,7 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5005:5005"
-    label:
+    labels:
       kompose.service.type: LoadBalancer
 
   #######################################################
@@ -51,7 +51,7 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5006:5006"
-    label:
+    labels:
       kompose.service.type: LoadBalancer
 
   #################################################
@@ -72,9 +72,9 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5000:5000"
-    label:
+    labels:
       kompose.service.type: LoadBalancer
-      
+
   ###################################
   # Payment: The Payment microservice
   ###################################
@@ -89,7 +89,7 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "4242:4242"
-    label:
+    labels:
       kompose.service.type: LoadBalancer
 
   ###############################################
@@ -110,7 +110,7 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5001:5001"
-    label:
+    labels:
       kompose.service.type: LoadBalancer
 
   ##################################
@@ -131,6 +131,6 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5003:5003"
-    label:
+    labels:
       kompose.service.type: LoadBalancer
 
