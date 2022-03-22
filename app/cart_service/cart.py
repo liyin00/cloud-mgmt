@@ -178,9 +178,6 @@ def modify_cart():
                 'product_list': product_list
                 })
 
-
-
-
         return jsonify(
             {
                 'code': 200,
@@ -189,8 +186,7 @@ def modify_cart():
 
             }
         )
-        
-
+    
     
     except Exception as e:
         return jsonify(

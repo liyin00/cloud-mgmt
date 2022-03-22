@@ -9,7 +9,8 @@ import {productURL,getProductById} from  '../callAPI/productAPI'
 class Product extends Component {
     state = {
         product : [],
-        alert: false
+        alert: false,
+        cart: []
     }
 
     componentDidMount() {
@@ -77,6 +78,16 @@ class Product extends Component {
         return className;
     }
 
+    productInCart = (product_id) => {
+        const product = this.props.cart.filter(product => product.product_id === product_id)[0];
+        console.log("product", product);
+        return product ? true: false
+    }
+
+    onAlert = () => {
+        this.setState({ alert: true });
+    }
+
     // onAddToCart = (test) => {
     //     //user need update HARDCODE
     //     let data = {
@@ -127,7 +138,7 @@ class Product extends Component {
     }
     
     render() {
-        
+
         if(this.state.result == undefined ){
             console.log("herehehrehrhehreh nothing")
             return null
@@ -139,6 +150,7 @@ class Product extends Component {
 
 
             const {onIncrement, cart} = this.props;
+            console.log(cart)
             const product_id = this.state.product_id;
             const {product_name, product_img, product_description} = this.state.result;
 
@@ -172,17 +184,22 @@ class Product extends Component {
                                 <p>{ product_description }</p>
                                 <button 
                                     className={ this.formatButton() } 
-                                    onClick={() => {onIncrement(this.state.result, product_id)}}
+                                    onClick={() => {onIncrement(this.state.result, product_id); this.onAlert()}}
                                     //prevent adding to cart if a product is out of stock
-                                    disabled={ this.state.product.stockCount === 0 ? true : false }>
+                                    // disabled={ this.state.product.stockCount === 0 ? true : false }>
+                                    disabled={ this.productInCart(product_id) }>
                                     {/* { this.formatValue() } */}
                                     Add to Cart
                                 </button>
                             </div>
+
+                            <div className="d-flex justify-content-center">
+                            { this.state.alert && <Alert product_name={product_name} onCloseAlert={this.handleCloseAlert} /> }
+                            </div>
                         </div>
-                        <div className="col-sm-5 d-flex justify-content-center">
+                        {/* <div className="col-sm-5 d-flex justify-content-center">
                             { this.state.alert && <Alert cart={cart} product={this.state.product} onCloseAlert={this.handleCloseAlert} /> }
-                        </div>
+                        </div> */}
                     </div>
 
                 </div>

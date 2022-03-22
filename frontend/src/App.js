@@ -8,7 +8,7 @@ import Product from './components/product';
 import Cart from './components/cart';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, withRouter  } from 'react-router-dom';
-import {cartURL,createCartItem} from  './callAPI/cartAPI'
+import {cartURL, createCartItem, getCartByUserId} from  './callAPI/cartAPI'
 
 class App extends Component {
     state = {
@@ -22,7 +22,7 @@ class App extends Component {
     };
 
     handleIncrement = (product, product_id) => {
-        let product_data = {
+        const product_data = {
             'user_id' : 'u6',
             'product_id' :  product_id,
             'product_name': product.product_name,
@@ -31,30 +31,31 @@ class App extends Component {
             'quantity':'1',
             'price' : product.price
         }
+
         createCartItem(cartURL, product_data).then(result => {
             console.log("result is ", result)
             if (result.code == 200) {
                 this.setState({ alert: true });
                 this.error = false;
 
-                //copy cart items
                 const cart = [...this.state.cart];
-                const itemArray = this.state.cart.filter(item=>item.productId == product.productId);
+                const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
                 //create the value attribute in product
                 if (itemArray.length === 0) {
-                    product.value = 1;
-                    cart.push(product);
+                    // convert quantity to numeric to count
+                    product_data.quantity = Number(product_data.quantity)
+                    cart.push(product_data);
                     this.setState({cart});
                 }
-                else {
-                    const itemInCart = itemArray[0];
-                    //ensure only max 5 products can be added to cart
-                    if (itemInCart.value === 5 ) return;
-                    const index = cart.indexOf(itemInCart);
-                    cart[index] = {...itemInCart};
-                    cart[index].value++;
-                    this.setState({cart});
-                }
+                // else {
+                //     const itemInCart = itemArray[0];
+                //     //ensure only max 5 products can be added to cart
+                //     if (itemInCart.value === 5 ) return;
+                //     const index = cart.indexOf(itemInCart);
+                //     cart[index] = {...itemInCart};
+                //     cart[index].value++;
+                //     this.setState({cart});
+                // }
                 
             } else {
                 console.log("test")
@@ -85,7 +86,7 @@ class App extends Component {
 
     handleTotalCartItems = () => {
         //calculate the sum of items
-        return this.state.cart.map(item => item.value).reduce((a,b) => a + b, 0)
+        return this.state.cart.map(item => Number(item.quantity)).reduce((a,b) => a + b, 0)
     };
 
     handleProductData = (productData) => {

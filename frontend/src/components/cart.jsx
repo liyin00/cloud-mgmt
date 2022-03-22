@@ -8,13 +8,36 @@ class Cart extends Component {
 
     componentDidMount() {
         console.log("run first")
-        // 1. API call for featured collection
-        // 2. update state with new data invoked
-        // fetch(cartURL,"p2")
-        //     .then(response => response.json())
-        //     .then(data => this.setState({ totalReactPackages: data.total }));
-        // console.log(test)
         //HARDCODE
+        // if (this.props.cart.length > 0 ){
+        //     this.setState({
+        //         "cart": {
+        //             "product_list": this.props.cart,
+        //             "user_id": "u6"
+        //         }
+        //     });
+        // } else {
+        //     getCartByUserId(cartURL,"u6").then(result => {
+        //         if (result.code == 200) {
+    
+        //             console.log('result is')
+        //             console.log(result.data)
+        //             this.error = false;
+        //             const courses = result.data;
+    
+        //             this.setState(
+        //                 {result:result.data}
+        //             )
+                    
+        //             //sort courses according to course id in ascending order
+                    
+        //         } else {
+        //             console.log("test")
+        //             this.error = true;
+        //         }
+        //     });
+    
+        // }
         getCartByUserId(cartURL,"u6").then(result => {
             if (result.code == 200) {
 
@@ -34,7 +57,6 @@ class Cart extends Component {
                 this.error = true;
             }
         });
-
 
     }
 
@@ -68,21 +90,16 @@ class Cart extends Component {
         this.setState(this.state);
         this.modifyCartByUserId();
 
-        // this.renderTableMobile();
-
     }
 
     deleteItem(product_obj){
         console.log('delete item');
         var position = this.state.result.product_list.indexOf(product_obj);
         this.state.result.product_list.splice(position,1)
+        console.log("HERER!!!!", this.state.result)
         this.setState(this.state);
         this.modifyCartByUserId();
         console.log(this.state);
-        
-
-
-
     }
 
     renderTable() {
@@ -213,7 +230,7 @@ class Cart extends Component {
         }else{
             console.log("value below")
             console.log(this.state)
-            console.log(this.state.result.product_list.length)
+            // console.log(this.state.result.product_list.length)
             return (
                 <div className='cart-page-margin'>
                     <h3>My Shopping Cart</h3>

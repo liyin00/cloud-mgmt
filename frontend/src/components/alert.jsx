@@ -5,11 +5,10 @@ import React from 'react';
 //     return itemArray[0].value;
 // }
 
-const Alert = ({cart, product, onCloseAlert}) => {
+const Alert = ({product_name, onCloseAlert}) => {
     return (
         <div className="alert alert-success" role="alert">
-            You added { cart.filter(item => (item.productId === product.productId))[0].value }
-            <strong> { product.productName }</strong> to your cart.
+            <strong> { product_name }</strong> is added to your cart.
             <button type="button" className="close" onClick={() => onCloseAlert() } >
                 <span aria-hidden="true">&times;</span>
             </button>
