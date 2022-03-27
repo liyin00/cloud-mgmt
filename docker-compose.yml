@@ -9,7 +9,7 @@ services:
     build:
       context: ./app/product_service
       dockerfile: Dockerfile
-    image: gcr.io/${{ secrets.GKE_PROJECT }}/product:v1
+    image: gcr.io/elegant-fort-344208/product:v1
     restart: always
     environment:
       TYPE: ${TYPE}
@@ -35,7 +35,7 @@ services:
     build:
       context: ./app/cart_service
       dockerfile: Dockerfile
-    image: gcr.io/${{ secrets.GKE_PROJECT }}/cart:v1
+    image: gcr.io/elegant-fort-344208/cart:v1
     restart: always
     environment:
       TYPE: ${TYPE}
@@ -61,7 +61,7 @@ services:
     build:
       context: ./app/order_service
       dockerfile: Dockerfile
-    image: gcr.io/${{ secrets.GKE_PROJECT }}/order:v1
+    image: gcr.io/elegant-fort-344208/order:v1
     restart: always
     environment:
       PASSWORD: ${PASSWORD}
@@ -82,7 +82,7 @@ services:
     build:
       context: ./app/payment_service
       dockerfile: Dockerfile
-    image: gcr.io/${{ secrets.GKE_PROJECT }}/payment:v1
+    image: gcr.io/elegant-fort-344208/payment:v1
     restart: always
     environment:
       apikey: ${apikey}
@@ -99,7 +99,7 @@ services:
     build:
       context: ./app/stock_service
       dockerfile: Dockerfile
-    image: gcr.io/${{ secrets.GKE_PROJECT }}/stock:v1
+    image: gcr.io/elegant-fort-344208/stock:v1
     restart: always
     environment:
       PASSWORD: ${PASSWORD}
@@ -120,7 +120,7 @@ services:
     build:
       context: ./app/users_service
       dockerfile: Dockerfile
-    image: gcr.io/${{ secrets.GKE_PROJECT }}/users:v1
+    image: gcr.io/elegant-fort-344208/users:v1
     restart: always
     environment:
       PASSWORD: ${PASSWORD}
