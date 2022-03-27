@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    # kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
+    # kompose.service.type: LoadBalancer
+    # kompose.version: 1.26.0 (40646f47)
+  # creationTimestamp: null
+  labels:
+    # io.kompose.service: cart
+  name: cart
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      # io.kompose.service: cart
+      app: cart 
+  strategy: {}
+  template:
+    metadata:
+      # annotations:
+      #   kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
+      #   kompose.service.type: LoadBalancer
+      #   kompose.version: 1.26.0 (40646f47)
+      # creationTimestamp: null
+      labels:
+        # io.kompose.service: cart
+        app: cart 
+    spec:
+      containers:
+        - env:
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ secrets.GKE_SQL_USERNAME }}
+                key: username
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: {{ secrets.GKE_SQL_NAME }}
+                key: password
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ secrets.GKE_SQL_USER_PW }}
+                key: database        
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: 34.142.229.136:3306
+                key: db_host
+            # - name: AUTH_PROVIDER_X509_CERT_URL
+            # - name: AUTH_URI
+            # - name: CLIENT_EMAIL
+            # - name: CLIENT_ID
+            # - name: CLIENT_X509_CERT_URL
+            # - name: PRIVATE_KEY
+            # - name: PRIVATE_KEY_ID
+            # - name: PROJECT_ID
+            # - name: PYTHONUNBUFFERED
+            #   value: "1"
+            # - name: TOKEN_URI
+            # - name: TYPE
+          image: gcr.io/composed-future-332501/cart:v1
+          name: cart
+          ports:
+            - containerPort: 5006
+          resources: {}
+      restartPolicy: Always
+status: {}
+
