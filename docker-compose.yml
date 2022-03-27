@@ -76,7 +76,7 @@ services:
       - "5000:5000"
     labels:
       kompose.service.type: LoadBalancer
-      kompose.service.group: {stock-order}
+      kompose.service.group: stock-order
 
   # ###################################
   # # Payment: The Payment microservice
@@ -115,7 +115,7 @@ services:
       - "5001:5001"
     labels:
       kompose.service.type: LoadBalancer
-      kompose.service.group: {stock-order}
+      kompose.service.group: stock-order
 
   ##################################
   # Users: The Users microservice
