@@ -1,39 +1,62 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
-    kompose.service.type: LoadBalancer
-    kompose.version: 1.26.0 (40646f47)
-  creationTimestamp: null
+  # annotations:
+  #   kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
+  #   kompose.service.type: LoadBalancer
+  #   kompose.version: 1.26.0 (40646f47)
+  # creationTimestamp: null
   labels:
-    io.kompose.service: users
+    name: users 
+    # io.kompose.service: users
   name: users
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: users
+      name: users 
+      # io.kompose.service: users
   strategy: {}
   template:
     metadata:
-      annotations:
-        kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
-        kompose.service.type: LoadBalancer
-        kompose.version: 1.26.0 (40646f47)
-      creationTimestamp: null
+      # annotations:
+      #   kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
+      #   kompose.service.type: LoadBalancer
+      #   kompose.version: 1.26.0 (40646f47)
+      # creationTimestamp: null
       labels:
-        io.kompose.service: users
+        # io.kompose.service: users
+        name: users 
     spec:
       containers:
         - env:
-            - name: DBNAME
-            - name: INSTANCE_NAME
-            - name: PASSWORD
-            - name: PROJECT_ID
-            - name: PUBLIC_IP_ADDRESS
-            - name: PYTHONUNBUFFERED
-              value: "1"
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ secrets.GKE_SQL_USERNAME }}
+                key: username
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: {{ secrets.GKE_SQL_NAME }}
+                key: password
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ secrets.GKE_SQL_USER_PW }}
+                key: database        
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: 34.142.229.136:3306
+                key: db_host
+            # - name: DBNAME
+            # - name: INSTANCE_NAME
+            # - name: PASSWORD
+            # - name: PROJECT_ID
+            # - name: PUBLIC_IP_ADDRESS
+            # - name: PYTHONUNBUFFERED
+            #   value: "1"
           image: gcr.io/composed-future-332501/users:v1
           name: users
           ports:
@@ -41,3 +64,4 @@ spec:
           resources: {}
       restartPolicy: Always
 status: {}
+

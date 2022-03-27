@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  # annotations:
+  #   kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
+  #   kompose.service.type: LoadBalancer
+  #   kompose.version: 1.26.0 (40646f47)
+  # creationTimestamp: null
+  labels:
+    # io.kompose.service: users-tcp
+    name: users
+  name: users
+spec:
+  ports:
+    - name: "5003"
+      port: 5003
+      targetPort: 5003
+  selector:
+    io.kompose.service: users
+  # type: LoadBalancer
+status:
+  loadBalancer: {}
