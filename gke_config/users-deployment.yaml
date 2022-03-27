@@ -33,17 +33,17 @@ spec:
           - name: DB_USER
             valueFrom:
               secretKeyRef:
-                name: {{ secrets.GKE_SQL_USERNAME }}
+                name: ${{ secrets.GKE_SQL_USERNAME }}
                 key: username
           - name: DB_PASS
             valueFrom:
               secretKeyRef:
-                name: {{ secrets.GKE_SQL_NAME }}
+                name: ${{ secrets.GKE_SQL_NAME }}
                 key: password
           - name: DB_NAME
             valueFrom:
               secretKeyRef:
-                name: {{ secrets.GKE_SQL_USER_PW }}
+                name: ${{ secrets.GKE_SQL_USER_PW }}
                 key: database        
           - name: DB_HOST
             valueFrom:
