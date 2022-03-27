@@ -11,8 +11,8 @@ services:
       dockerfile: Dockerfile
     image: gcr.io/elegant-fort-344208/product:v1
     restart: always
-    environment:
-      service_account_key: ${{ secrets.GKE_SA_KEY }}
+    # environment:
+    #   service_account_key: ${{ secrets.GKE_SA_KEY }}
       # TYPE: ${TYPE}
       # PROJECT_ID: ${PROJECT_ID}
       # PROJECT_ID: ${{ secrets.GKE_PROJECT }}
