@@ -11,20 +11,6 @@ services:
       dockerfile: Dockerfile
     image: gcr.io/elegant-fort-344208/product:v1
     restart: always
-    # environment:
-    #   service_account_key: ${{ secrets.GKE_SA_KEY }}
-      # TYPE: ${TYPE}
-      # PROJECT_ID: ${PROJECT_ID}
-      # PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-      # PRIVATE_KEY_ID: ${PRIVATE_KEY_ID}
-      # PRIVATE_KEY: ${PRIVATE_KEY}
-      # CLIENT_EMAIL: ${CLIENT_EMAIL}
-      # CLIENT_ID: ${CLIENT_ID}
-      # AUTH_URI: ${AUTH_URI}
-      # TOKEN_URI: ${TOKEN_URI}
-      # AUTH_PROVIDER_X509_CERT_URL: ${AUTH_PROVIDER_X509_CERT_URL}
-      # CLIENT_X509_CERT_URL: ${CLIENT_X509_CERT_URL}
-      # PYTHONUNBUFFERED: 1
     ports:
       - "5005:5005"
     labels:
@@ -39,18 +25,6 @@ services:
       dockerfile: Dockerfile
     image: gcr.io/elegant-fort-344208/cart:v1
     restart: always
-    # environment:
-    #   TYPE: ${TYPE}
-    #   PROJECT_ID: ${PROJECT_ID}
-    #   PRIVATE_KEY_ID: ${PRIVATE_KEY_ID}
-    #   PRIVATE_KEY: ${PRIVATE_KEY}
-    #   CLIENT_EMAIL: ${CLIENT_EMAIL}
-    #   CLIENT_ID: ${CLIENT_ID}
-    #   AUTH_URI: ${AUTH_URI}
-    #   TOKEN_URI: ${TOKEN_URI}
-    #   AUTH_PROVIDER_X509_CERT_URL: ${AUTH_PROVIDER_X509_CERT_URL}
-    #   CLIENT_X509_CERT_URL: ${CLIENT_X509_CERT_URL}
-    #   PYTHONUNBUFFERED: 1
     ports:
       - "5006:5006"
     labels:
@@ -65,13 +39,6 @@ services:
       dockerfile: Dockerfile
     image: gcr.io/elegant-fort-344208/order:v1
     restart: always
-    # environment:
-    #   PASSWORD: ${PASSWORD}
-    #   PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
-    #   DBNAME: ${DBNAME}
-    #   PROJECT_ID: ${PROJECT_ID}
-    #   INSTANCE_NAME: ${INSTANCE_NAME}
-    #   PYTHONUNBUFFERED: 1
     ports:
       - "5000:5000"
     labels:
@@ -87,9 +54,6 @@ services:
       dockerfile: Dockerfile
     image: gcr.io/elegant-fort-344208/payment:v1
     restart: always
-    # environment:
-    #   apikey: ${apikey}
-    #   PYTHONUNBUFFERED: 1
     ports:
       - "4242:4242"
     labels:
@@ -104,13 +68,6 @@ services:
       dockerfile: Dockerfile
     image: gcr.io/elegant-fort-344208/stock:v1
     restart: always
-    # environment:
-    #   PASSWORD: ${PASSWORD}
-    #   PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
-    #   DBNAME: ${DBNAME}
-    #   PROJECT_ID: ${PROJECT_ID}
-    #   INSTANCE_NAME: ${INSTANCE_NAME}
-    #   PYTHONUNBUFFERED: 1
     ports:
       - "5001:5001"
     labels:
@@ -126,13 +83,6 @@ services:
       dockerfile: Dockerfile
     image: gcr.io/elegant-fort-344208/users:v1
     restart: always
-    # environment:
-    #   PASSWORD: ${PASSWORD}
-    #   PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
-    #   DBNAME: ${DBNAME}
-    #   PROJECT_ID: ${PROJECT_ID}
-    #   INSTANCE_NAME: ${INSTANCE_NAME}
-    #   PYTHONUNBUFFERED: 1
     ports:
       - "5003:5003"
     labels:

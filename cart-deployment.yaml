@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # annotations:
+  #   kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
+  #   kompose.service.type: LoadBalancer
+  #   kompose.version: 1.26.0 (40646f47)
+  # creationTimestamp: null
+  labels:
+    # io.kompose.service: cart
+    name: cart
+  name: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      # io.kompose.service: cart
+      name: cart
+  strategy: {}
+  template:
+    metadata:
+      # annotations:
+      #   kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
+      #   kompose.service.type: LoadBalancer
+      #   kompose.version: 1.26.0 (40646f47)
+      # creationTimestamp: null
+      labels:
+        # io.kompose.service: cart
+        name: cart
+    spec:
+      containers:
+        - image: gcr.io/elegant-fort-344208/cart:v1
+          name: cart
+          ports:
+            - containerPort: 5006
+          resources: {}
+      restartPolicy: Always
+status: {}

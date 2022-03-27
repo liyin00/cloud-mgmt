@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  # annotations:
+  #   kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
+  #   kompose.service.group: stock-order
+  #   kompose.service.type: LoadBalancer
+  #   kompose.version: 1.26.0 (40646f47)
+  # creationTimestamp: null
+  labels:
+    # io.kompose.service: stock-tcp
+    name: stock
+  # name: stock-tcp
+spec:
+  ports:
+    - name: "5001"
+      port: 5001
+      targetPort: 5001
+  selector:
+    # io.kompose.service: stock
+    name: stock
+  type: LoadBalancer
+status:
+  loadBalancer: {}
