@@ -52,7 +52,10 @@ class Stock(db.Model):
             'quantity': self.quantity
         }
         return product_detail
-
+        
+@app.route('/hello', methods=['GET'])
+def hello():
+    return "app created"
 
 @app.route("/update_deduct_stock_by_product_id", methods=['PUT'])
 def update_deduct_stock_by_product_id():

@@ -59,6 +59,10 @@ collection = db.collection('Products')  # opens 'places' collection
 # docs = todo_ref.get()
 # print(docs)
 
+@app.route('/hello', methods=['GET'])
+def hello():
+    return "app created"
+    
 #testing
 @app.route("/get_product_name/<string:product_name>", methods=['GET'])
 def get_product_name(product_name):
@@ -166,9 +170,6 @@ def get_product_list():
                 
             }
         )
-    
-
-
 
 
 ## for developer to insert data 

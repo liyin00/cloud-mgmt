@@ -48,6 +48,10 @@ collection = db.collection('Cart')  # opens 'places' collection
 # docs = todo_ref.get()
 # print(docs)
 
+@app.route('/hello', methods=['GET'])
+def hello():
+    return "app created"
+
 #when select a item and add them to cart because usually is add 1 by 1  (when making specifc item)
 @app.route("/create_cart_item", methods=['POST'])
 def create_cart_item():

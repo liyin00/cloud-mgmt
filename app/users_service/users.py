@@ -62,7 +62,9 @@ class User(db.Model):
         return user_detail
 
 
-
+@app.route('/hello', methods=['GET'])
+def hello():
+    return "app created"
 
 @app.route("/get_user_info/<string:email>", methods=['GET'])
 def get_user_info(email):

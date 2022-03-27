@@ -107,7 +107,10 @@ class Orders(db.Model):
         }
         return order_detail
 
-
+@app.route('/hello', methods=['GET'])
+def hello():
+    return "app created"
+    
 @app.route("/get_orders_by_user_id/<string:user_id>", methods=['GET'])
 def get_orders_by_user_id(user_id):
     try:
