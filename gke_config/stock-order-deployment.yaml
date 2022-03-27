@@ -8,8 +8,8 @@ metadata:
   # creationTimestamp: null
   labels:
     # io.kompose.service: stock
-    name: stock-cart
-  name: stock-cart
+    name: stock-order
+  name: stock-order
 spec:
   replicas: 2
   selector:
