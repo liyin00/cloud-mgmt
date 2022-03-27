@@ -21,5 +21,7 @@ spec:
   # selector:
     # io.kompose.service: stock
   type: LoadBalancer
+  selector: 
+    name: stock-order
 status:
   loadBalancer: {}
