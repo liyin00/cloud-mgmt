@@ -2,80 +2,80 @@ version: "3.8"
 
 services:
  
-  # ###################################
-  # # Product: The Product microservice
-  # ###################################
-  # product:
-  #   build:
-  #     context: ./app/product_service
-  #     dockerfile: Dockerfile
-  #   image: gcr.io/elegant-fort-344208/product:v1
-  #   restart: always
-  #   # environment:
-  #   #   service_account_key: ${{ secrets.GKE_SA_KEY }}
-  #     # TYPE: ${TYPE}
-  #     # PROJECT_ID: ${PROJECT_ID}
-  #     # PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  #     # PRIVATE_KEY_ID: ${PRIVATE_KEY_ID}
-  #     # PRIVATE_KEY: ${PRIVATE_KEY}
-  #     # CLIENT_EMAIL: ${CLIENT_EMAIL}
-  #     # CLIENT_ID: ${CLIENT_ID}
-  #     # AUTH_URI: ${AUTH_URI}
-  #     # TOKEN_URI: ${TOKEN_URI}
-  #     # AUTH_PROVIDER_X509_CERT_URL: ${AUTH_PROVIDER_X509_CERT_URL}
-  #     # CLIENT_X509_CERT_URL: ${CLIENT_X509_CERT_URL}
-  #     # PYTHONUNBUFFERED: 1
-  #   ports:
-  #     - "5005:5005"
-  #   # labels:
-  #   #   kompose.service.type: LoadBalancer
+  ###################################
+  # Product: The Product microservice
+  ###################################
+  product:
+    build:
+      context: ./app/product_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/product:v1
+    restart: always
+    # environment:
+    #   service_account_key: ${{ secrets.GKE_SA_KEY }}
+      # TYPE: ${TYPE}
+      # PROJECT_ID: ${PROJECT_ID}
+      # PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+      # PRIVATE_KEY_ID: ${PRIVATE_KEY_ID}
+      # PRIVATE_KEY: ${PRIVATE_KEY}
+      # CLIENT_EMAIL: ${CLIENT_EMAIL}
+      # CLIENT_ID: ${CLIENT_ID}
+      # AUTH_URI: ${AUTH_URI}
+      # TOKEN_URI: ${TOKEN_URI}
+      # AUTH_PROVIDER_X509_CERT_URL: ${AUTH_PROVIDER_X509_CERT_URL}
+      # CLIENT_X509_CERT_URL: ${CLIENT_X509_CERT_URL}
+      # PYTHONUNBUFFERED: 1
+    ports:
+      - "5005:5005"
+    # labels:
+    #   kompose.service.type: LoadBalancer
 
-  # #######################################################
-  # # Cart: The Cart microservice
-  # #######################################################
-  # cart:
-  #   build:
-  #     context: ./app/cart_service
-  #     dockerfile: Dockerfile
-  #   image: gcr.io/elegant-fort-344208/cart:v1
-  #   restart: always
-  #   # environment:
-  #   #   TYPE: ${TYPE}
-  #   #   PROJECT_ID: ${PROJECT_ID}
-  #   #   PRIVATE_KEY_ID: ${PRIVATE_KEY_ID}
-  #   #   PRIVATE_KEY: ${PRIVATE_KEY}
-  #   #   CLIENT_EMAIL: ${CLIENT_EMAIL}
-  #   #   CLIENT_ID: ${CLIENT_ID}
-  #   #   AUTH_URI: ${AUTH_URI}
-  #   #   TOKEN_URI: ${TOKEN_URI}
-  #   #   AUTH_PROVIDER_X509_CERT_URL: ${AUTH_PROVIDER_X509_CERT_URL}
-  #   #   CLIENT_X509_CERT_URL: ${CLIENT_X509_CERT_URL}
-  #   #   PYTHONUNBUFFERED: 1
-  #   ports:
-  #     - "5006:5006"
-  #   # labels:
-  #   #   kompose.service.type: LoadBalancer
+  #######################################################
+  # Cart: The Cart microservice
+  #######################################################
+  cart:
+    build:
+      context: ./app/cart_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/cart:v1
+    restart: always
+    # environment:
+    #   TYPE: ${TYPE}
+    #   PROJECT_ID: ${PROJECT_ID}
+    #   PRIVATE_KEY_ID: ${PRIVATE_KEY_ID}
+    #   PRIVATE_KEY: ${PRIVATE_KEY}
+    #   CLIENT_EMAIL: ${CLIENT_EMAIL}
+    #   CLIENT_ID: ${CLIENT_ID}
+    #   AUTH_URI: ${AUTH_URI}
+    #   TOKEN_URI: ${TOKEN_URI}
+    #   AUTH_PROVIDER_X509_CERT_URL: ${AUTH_PROVIDER_X509_CERT_URL}
+    #   CLIENT_X509_CERT_URL: ${CLIENT_X509_CERT_URL}
+    #   PYTHONUNBUFFERED: 1
+    ports:
+      - "5006:5006"
+    # labels:
+    #   kompose.service.type: LoadBalancer
 
-  # #################################################
-  # # Order: The Order microservice
-  # #################################################
-  # order:
-  #   build:
-  #     context: ./app/order_service
-  #     dockerfile: Dockerfile
-  #   image: gcr.io/elegant-fort-344208/order:v1
-  #   restart: always
-  #   # environment:
-  #   #   PASSWORD: ${PASSWORD}
-  #   #   PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
-  #   #   DBNAME: ${DBNAME}
-  #   #   PROJECT_ID: ${PROJECT_ID}
-  #   #   INSTANCE_NAME: ${INSTANCE_NAME}
-  #   #   PYTHONUNBUFFERED: 1
-  #   ports:
-  #     - "5000:5000"
-  #   # labels:
-  #   #   kompose.service.type: LoadBalancer
+  #################################################
+  # Order: The Order microservice
+  #################################################
+  order:
+    build:
+      context: ./app/order_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/order:v1
+    restart: always
+    # environment:
+    #   PASSWORD: ${PASSWORD}
+    #   PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
+    #   DBNAME: ${DBNAME}
+    #   PROJECT_ID: ${PROJECT_ID}
+    #   INSTANCE_NAME: ${INSTANCE_NAME}
+    #   PYTHONUNBUFFERED: 1
+    ports:
+      - "5000:5000"
+    # labels:
+    #   kompose.service.type: LoadBalancer
 
   # ###################################
   # # Payment: The Payment microservice
@@ -94,26 +94,26 @@ services:
   #   # labels:
   #   #   kompose.service.type: LoadBalancer
 
-  # ###############################################
-  # # Stock: The Stock microservice
-  # ###############################################
-  # stock:
-  #   build:
-  #     context: ./app/stock_service
-  #     dockerfile: Dockerfile
-  #   image: gcr.io/elegant-fort-344208/stock:v1
-  #   restart: always
-  #   # environment:
-  #   #   PASSWORD: ${PASSWORD}
-  #   #   PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
-  #   #   DBNAME: ${DBNAME}
-  #   #   PROJECT_ID: ${PROJECT_ID}
-  #   #   INSTANCE_NAME: ${INSTANCE_NAME}
-  #   #   PYTHONUNBUFFERED: 1
-  #   ports:
-  #     - "5001:5001"
-  #   # labels:
-  #   #   kompose.service.type: LoadBalancer
+  ###############################################
+  # Stock: The Stock microservice
+  ###############################################
+  stock:
+    build:
+      context: ./app/stock_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/stock:v1
+    restart: always
+    # environment:
+    #   PASSWORD: ${PASSWORD}
+    #   PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
+    #   DBNAME: ${DBNAME}
+    #   PROJECT_ID: ${PROJECT_ID}
+    #   INSTANCE_NAME: ${INSTANCE_NAME}
+    #   PYTHONUNBUFFERED: 1
+    ports:
+      - "5001:5001"
+    # labels:
+    #   kompose.service.type: LoadBalancer
 
   ##################################
   # Users: The Users microservice
@@ -124,13 +124,13 @@ services:
       dockerfile: Dockerfile
     image: gcr.io/elegant-fort-344208/users:v1
     restart: always
-    # environment:
-    #   PASSWORD: ${PASSWORD}
-    #   PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
-    #   DBNAME: ${DBNAME}
-    #   PROJECT_ID: ${PROJECT_ID}
-    #   INSTANCE_NAME: ${INSTANCE_NAME}
-    #   PYTHONUNBUFFERED: 1
+    environment:
+      PASSWORD: ${PASSWORD}
+      PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
+      DBNAME: ${DBNAME}
+      PROJECT_ID: ${PROJECT_ID}
+      INSTANCE_NAME: ${INSTANCE_NAME}
+      PYTHONUNBUFFERED: 1
     ports:
       - "5003:5003"
     # labels:

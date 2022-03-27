@@ -51,6 +51,7 @@ jobs:
         DBNAME: ${{secrets.GKE_SQL_NAME}}
         PROJECT_ID: ${{secrets.GKE_PROJECT}}
         PUBLIC_IP_ADDRESS: 34.142.229.136
+
       run: |-
         docker-compose -f ./docker-compose.yml build 
       
@@ -74,6 +75,7 @@ jobs:
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/users-service.yaml -f ./gke_config/users-deployment.yaml 
-        kubectl rollout status deployment.apps/users
+        kubectl apply -f ./gke_config/users-service.yaml -f ./gke_config/users-deployment.yaml -f ./gke_config/stock-order-deployment.yaml -f ./gke_config/stock-order-service.yml
+        kubectl rollout status deployment.apps/users 
+        kubectl rollout status deployment.apps/stock-order
         kubectl get services -o wide
