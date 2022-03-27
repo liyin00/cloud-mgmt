@@ -29,12 +29,12 @@ spec:
         name: users 
     spec:
       containers:
-        - env:
-          - name: SA_KEY
-          - name: DBNAME
-          - name: PASSWORD
-          - name: PROJECT_ID
-          - name: PUBLIC_IP_ADDRESS
+        # - env:
+        #   - name: SA_KEY
+        #   - name: DBNAME
+        #   - name: PASSWORD
+        #   - name: PROJECT_ID
+        #   - name: PUBLIC_IP_ADDRESS
           # - name: DB_USER
           #   valueFrom:
           #     secretKeyRef:

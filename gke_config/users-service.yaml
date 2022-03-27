@@ -15,8 +15,8 @@ spec:
     - name: "5003"
       port: 5003
       targetPort: 5003
-  selector:
-    io.kompose.service: users
+  # selector:
+  #   io.kompose.service: users
   # type: LoadBalancer
 status:
   loadBalancer: {}
