@@ -75,7 +75,11 @@ jobs:
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl apply -f ./users-tcp-service.yaml -f ./users-deployment.yaml -f ./stock-order-deployment.yaml -f ./stock-order-tcp-service.yaml
+        kubectl apply -f ./cart-service.yaml -f ./order-service.yaml -f ./payment-service.yaml -f ./payment-service.yaml -f ./product-service.yaml -f ./stock-service.yaml -f ./users-service.yaml -f ./cart-deployment.yaml -f ./order-deployment.yaml -f ./payment-deployment.yaml -f ./product-deployment.yaml -f ./stock-deployment.yaml -f ./users-deployment.yaml
         kubectl rollout status deployment.apps/users 
-        kubectl rollout status deployment.apps/stock-order
+        kubectl rollout status deployment.apps/stock
+        kubectl rollout status deployment.apps/order
+        kubectl rollout status deployment.apps/cart
+        kubectl rollout status deployment.apps/payment
+        kubectl rollout status deployment.apps/product
         kubectl get services -o wide

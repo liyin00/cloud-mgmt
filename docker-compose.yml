@@ -81,19 +81,19 @@ services:
   # ###################################
   # # Payment: The Payment microservice
   # ###################################
-  # payment:
-  #   build:
-  #     context: ./app/payment_service
-  #     dockerfile: Dockerfile
-  #   image: gcr.io/elegant-fort-344208/payment:v1
-  #   restart: always
-  #   # environment:
-  #   #   apikey: ${apikey}
-  #   #   PYTHONUNBUFFERED: 1
-  #   ports:
-  #     - "4242:4242"
-  #   # labels:
-  #   #   kompose.service.type: LoadBalancer
+  payment:
+    build:
+      context: ./app/payment_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/payment:v1
+    restart: always
+    # environment:
+    #   apikey: ${apikey}
+    #   PYTHONUNBUFFERED: 1
+    ports:
+      - "4242:4242"
+    # labels:
+    #   kompose.service.type: LoadBalancer
 
   ###############################################
   # Stock: The Stock microservice
