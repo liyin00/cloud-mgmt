@@ -30,6 +30,11 @@ spec:
     spec:
       containers:
         - env:
+          - name: SA_KEY
+          - name: DBNAME
+          - name: PASSWORD
+          - name: PROJECT_ID
+          - name: PUBLIC_IP_ADDRESS
           # - name: DB_USER
           #   valueFrom:
           #     secretKeyRef:
@@ -50,13 +55,7 @@ spec:
           #     secretKeyRef:
           #       name: 34.142.229.136:3306
           #       key: db_host
-            # - name: DBNAME
-            # - name: INSTANCE_NAME
-            # - name: PASSWORD
-            # - name: PROJECT_ID
-            # - name: PUBLIC_IP_ADDRESS
-            # - name: PYTHONUNBUFFERED
-            #   value: "1"
+
           image: gcr.io/composed-future-332501/users:v1
           name: users
           ports:

@@ -70,22 +70,6 @@ jobs:
     #     chmod +x kompose
     #     sudo mv ./kompose /usr/local/bin/kompose
     #     kompose convert 
-
-    - name: Validate Kubernetes YAML files 
-      runs-on: ubuntu-latest 
-      steps: 
-      - uses: actions/checkout@main 
-      - name: Kubeval 
-        uses: stefanprodan/kube-tools@v1.2.0
-        with:
-          kubectl: 1.16.2 
-          kustomize: 3.4.0 
-          helm: 2.16.1
-          helmv3: 3.0.0
-          run: |-
-            cd ./gke_config
-            echo "Run kubeval"
-            kubeval -d config --strict --ignore-missing-schemas
             
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
