@@ -1,15 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  # annotations:
-  #   kompose.cmd: C:\Users\lingl\OneDrive\Documents\GitHub\cloud-mgmt\kompose.exe convert
-  #   kompose.service.type: LoadBalancer
-  #   kompose.version: 1.26.0 (40646f47)
-  # creationTimestamp: null
   labels:
-    # io.kompose.service: payment-tcp
     name: payment 
-  # name: payment-tcp
   name: payment
 spec:
   ports:
@@ -17,7 +10,6 @@ spec:
       port: 4242
       targetPort: 4242
   selector:
-    # io.kompose.service: payment
     name: payment
   type: LoadBalancer
 status:
