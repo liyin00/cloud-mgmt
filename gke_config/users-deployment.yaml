@@ -55,9 +55,8 @@ spec:
           #     secretKeyRef:
           #       name: 34.142.229.136:3306
           #       key: db_host
-
-          image: gcr.io/composed-future-332501/users:v1
-          name: users
+        - name: users
+          image: gcr.io/elegant-fort-344208/users:v1
           ports:
             - containerPort: 5003
           resources: {}
