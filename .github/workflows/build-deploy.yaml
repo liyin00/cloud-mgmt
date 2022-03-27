@@ -58,11 +58,6 @@ jobs:
     # Push the Docker images to Google Container Registry
     - name: Publish
       run: |-
-        gcloud docker -- push gcr.io/$PROJECT_ID/product:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/cart:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/order:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/payment:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/stock:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
 
     # Set up Kompose 
