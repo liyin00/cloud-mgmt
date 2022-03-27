@@ -82,7 +82,7 @@ jobs:
           kustomize: 3.4.0 
           helm: 2.16.1
           helmv3: 3.0.0
-          command: |
+          run: |-
             cd ./gke_config
             echo "Run kubeval"
             kubeval -d config --strict --ignore-missing-schemas
