@@ -45,14 +45,15 @@ jobs:
 
     # Build the Docker images
     - name: Build
-      with: 
+      env: 
         SA_KEY: ${{ secrets.GKE_SA_KEY }}
         PASSWORD: ${{secrets.GKE_SQL_USER_PW}}
         DBNAME: ${{secrets.GKE_SQL_NAME}}
         PROJECT_ID: ${{secrets.GKE_PROJECT}}
         PUBLIC_IP_ADDRESS: 34.142.229.136
-    - run: |-
+      run: |-
         docker-compose -f ./docker-compose.yml build 
+      
 
     # Push the Docker images to Google Container Registry
     - name: Publish
