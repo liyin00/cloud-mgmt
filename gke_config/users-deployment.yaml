@@ -38,12 +38,12 @@ spec:
           - name: DB_PASS
             valueFrom:
               secretKeyRef:
-                name: ${{ secrets.GKE_SQL_NAME }}
+                name: ${{ secrets.GKE_SQL_USER_PW }} 
                 key: password
           - name: DB_NAME
             valueFrom:
               secretKeyRef:
-                name: ${{ secrets.GKE_SQL_USER_PW }}
+                name: ${{ secrets.GKE_SQL_NAME }}
                 key: database        
           - name: DB_HOST
             valueFrom:
