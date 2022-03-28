@@ -1,10 +1,11 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: Deployment
 metadata:
   name: stock-order
   labels:
     app: stock-order
 spec:
+  replicas: 1
   strategy:
     type: Recreate
   selector:
