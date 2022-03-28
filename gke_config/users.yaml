@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users
+  labels:
+    app: users
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: users
+      
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users 
+          image: gcr.io/elegant-fort-344208/users:v1
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5003
+            name: order          
