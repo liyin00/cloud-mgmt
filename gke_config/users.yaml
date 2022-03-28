@@ -12,12 +12,6 @@ spec:
     matchLabels:
       app: users
 
-  strategy: 
-    type: RollingUpdate
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 1
-        
   template:
     metadata:
       labels:
