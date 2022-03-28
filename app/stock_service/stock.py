@@ -16,11 +16,12 @@ load_dotenv()
 # EC2 DB port is 3306 instead, change accordingly.
 app = Flask(__name__)
 
+
 PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
 PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
 DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
 PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
-# INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
+INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
  
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"
@@ -52,10 +53,7 @@ class Stock(db.Model):
             'quantity': self.quantity
         }
         return product_detail
-        
-@app.route('/hello', methods=['GET'])
-def hello():
-    return "app created"
+
 
 @app.route("/update_deduct_stock_by_product_id", methods=['PUT'])
 def update_deduct_stock_by_product_id():

@@ -15,10 +15,6 @@ app = Flask(__name__,
 
 YOUR_DOMAIN = 'http://localhost:4242'
 
-@app.route('/hello', methods=['GET'])
-def hello():
-    return "app created"
-    
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:

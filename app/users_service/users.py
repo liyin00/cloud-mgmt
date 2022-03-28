@@ -30,8 +30,8 @@ PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
 PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
 DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
 PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
-# INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
-
+INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
+ 
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"
 # app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket=/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
@@ -62,9 +62,7 @@ class User(db.Model):
         return user_detail
 
 
-@app.route('/hello', methods=['GET'])
-def hello():
-    return "app created"
+
 
 @app.route("/get_user_info/<string:email>", methods=['GET'])
 def get_user_info(email):
