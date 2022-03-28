@@ -72,4 +72,5 @@ jobs:
       run: |-
         kubectl apply -f ./gke_config/users.yaml
         kubectl expose deployment users --type LoadBalancer --port 5003 --target-port 5003
+        kubectl rollout status deployment/users
         kubectl get services -o wide
