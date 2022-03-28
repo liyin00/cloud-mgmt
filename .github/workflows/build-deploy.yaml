@@ -66,20 +66,9 @@ jobs:
         gcloud docker -- push gcr.io/$PROJECT_ID/payment:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/stock:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
-
-    - name: Set up Kompose
-      run: |-
-        curl -L https://github.com/kubernetes/kompose/releases/download/v1.26.0/kompose-linux-amd64 -o kompose
-
-    - name: Set up Kompose Permissions 
-      run: |-
-        chmod +x kompose
-        sudo mv ./kompose /usr/local/bin/kompose
-        kompose convert 
         
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl apply -f ./users-tcp-service.yaml -f ./users-deployment.yaml
-        kubectl rollout status deployment.apps/users  
+        kubectl apply -f ./gke_config/deployment.yaml
         kubectl get services -o wide

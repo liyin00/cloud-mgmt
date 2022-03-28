@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-order
+  labels:
+    app: stock-order
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: stock-order
+      
+  template:
+    metadata:
+      labels:
+        app: stock-order
+    spec:
+      containers:
+        - name: stock
+          image: gcr.io/elegant-fort-344208/stock:v1
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5001
+            name: stock
+        - name: order
+          image: gcr.io/elegant-fort-344208/order:v1
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5000
+            name: order
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stock-order
+  labels:
+    app: stock-order
+spec:
+  ports:
+    - port: 5001
+      targetPort: 5001
+    - port: 5000
+      targetPort: 500
+  selector:
+    app: stock-order
+  type: LoadBalancer
