@@ -4,14 +4,15 @@ metadata:
   name: users
   labels:
     app: users
+
 spec:
   replicas: 1
-  strategy:
+  updateStrategy:
     type: RollingUpdate
     rollingUpdate: 
       maxSurge: 1 
       maxUnavailable: 0
-      
+
   selector:
     matchLabels:
       app: users
@@ -28,3 +29,4 @@ spec:
           ports:
           - containerPort: 5003
             name: order          
+      restartPolicy: Always
