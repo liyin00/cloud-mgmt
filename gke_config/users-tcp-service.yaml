@@ -10,7 +10,7 @@ metadata:
     # io.kompose.service: users-tcp
     label: users
   # name: users-tcp
-  name: users-tcp
+  name: users
 spec:
   ports:
     - name: "5003"

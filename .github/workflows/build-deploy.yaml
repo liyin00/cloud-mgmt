@@ -70,7 +70,6 @@ jobs:
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/users.yaml
-        kubectl expose deployment users --type LoadBalancer --port 5003 --target-port 5003
+        kubectl apply -f ./gke_config/users.yaml -f ./gke_config/users-tcp-service.yaml
         kubectl rollout status deployment/users
         kubectl get services -o wide
