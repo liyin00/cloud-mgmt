@@ -62,7 +62,9 @@ class User(db.Model):
         return user_detail
 
 
-
+@app.route("/", methods=['GET'])
+def jx_asshole():
+    return "hihi working le"
 
 @app.route("/get_user_info/<string:email>", methods=['GET'])
 def get_user_info(email):
