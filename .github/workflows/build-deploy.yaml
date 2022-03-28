@@ -9,18 +9,18 @@ on:
   push:
     branches:
       - main
-      - staging 
+      # - staging 
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: clae-gke    # Add your cluster name here.
-  GKE_ZONE: asia-southeast1-a   # Add your cluster zone here.
+  GKE_CLUSTER: clae    # Add your cluster name here.
+  GKE_ZONE: asia-southeast1   # Add your cluster zone here.
 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
-    environment: production
+    # environment: production
 
     steps:
     - name: Checkout
@@ -70,5 +70,5 @@ jobs:
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/deployment.yaml
+        kubectl apply -f ./gke_config/stock-order.yaml
         kubectl get services -o wide
