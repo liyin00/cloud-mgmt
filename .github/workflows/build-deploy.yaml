@@ -46,30 +46,32 @@ jobs:
   
 
     # Build the Docker images
-    # - name: Build
-    #   env: 
-    #     PASSWORD: ${{secrets.GKE_SQL_USER_PW}}
-    #     PUBLIC_IP_ADDRESS: ${{secrets.CLOUD_SQL_IP}}
-    #     DBNAME: ${{secrets.GKE_SQL_NAME}}
-    #     PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-    #     INSTANCE_NAME: ${{secrets.CLOUD_SQL_INSTANCE_NAME}}
-    #     # SA_KEY: ${{secrets.GKE_SA_KEY}}
-    #   run: |-
-    #     docker-compose -f ./docker-compose.yml build 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+    - name: Build
+      # env: 
+      #   PASSWORD: ${{secrets.GKE_SQL_USER_PW}}
+      #   PUBLIC_IP_ADDRESS: ${{secrets.CLOUD_SQL_IP}}
+      #   DBNAME: ${{secrets.GKE_SQL_NAME}}
+      #   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+      #   INSTANCE_NAME: ${{secrets.CLOUD_SQL_INSTANCE_NAME}}
+        # SA_KEY: ${{secrets.GKE_SA_KEY}}
+      run: |-
+        docker-compose -f ./docker-compose.yml build 
 
-    # Build Docker Image with Buildx
-    - name: Build 
-      uses: docker/docker/bake-action@master
-      with: 
-        push: true 
-        secrets: |
-          "PASSWORD: ${{secrets.GKE_SQL_USER_PW}}"
-          "PUBLIC_IP_ADDRESS: ${{secrets.CLOUD_SQL_IP}}"
-          "DBNAME: ${{secrets.GKE_SQL_NAME}}"
-          "PROJECT_ID: ${{ secrets.GKE_PROJECT }}"
-          "INSTANCE_NAME: ${{secrets.CLOUD_SQL_INSTANCE_NAME}}"          
+    # - name: Set up Docker Buildx
+    #   uses: docker/setup-buildx-action@v1
+
+    # # Build Docker Image with Buildx
+    # - name: Build 
+    #   uses: docker/docker/bake-action@master
+    #   with: 
+    #     files: ./docker-compose.yml
+    #     push: true 
+    #     secrets: |
+    #       "PASSWORD: ${{secrets.GKE_SQL_USER_PW}}"
+    #       "PUBLIC_IP_ADDRESS: ${{secrets.CLOUD_SQL_IP}}"
+    #       "DBNAME: ${{secrets.GKE_SQL_NAME}}"
+    #       "PROJECT_ID: ${{ secrets.GKE_PROJECT }}"
+    #       "INSTANCE_NAME: ${{secrets.CLOUD_SQL_INSTANCE_NAME}}"          
 
     # Push the Docker images to Google Container Registry
     - name: Publish

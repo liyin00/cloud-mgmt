@@ -26,11 +26,17 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 #                                            'pool_recycle': 280}
 
+# PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
+# PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
+# DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
+# PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
+# INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
 PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
-PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
-DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
-PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
-INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
+
+PUBLIC_IP_ADDRESS = "L0llip0p0!"
+DBNAME = "clae_cloud_sql"
+PROJECT_ID = "elegant-fort-344208"
+INSTANCE_NAME = "claecloudsql"
  
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"
