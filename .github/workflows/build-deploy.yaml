@@ -55,7 +55,8 @@ jobs:
       #   INSTANCE_NAME: ${{secrets.CLOUD_SQL_INSTANCE_NAME}}
         # SA_KEY: ${{secrets.GKE_SA_KEY}}
       run: |-
-        touch /users_service/.env
+        touch .env
+        mv .env /users_service
         echo PASSWORD=${{ secrets.GKE_SQL_USER_PW }} >> /users_service/.env
         echo PUBLIC_IP_ADDRESS=${{secrets.CLOUD_SQL_IP}} >> /users_service/.env
         echo DBNAME=${{secrets.GKE_SQL_NAME}} >> /users_service/.env
