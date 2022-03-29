@@ -46,6 +46,7 @@ jobs:
 
     # Build the Docker images
     - name: Build
+      uses: docker/build-push-action@v2
       with:
         secrets: |
           "PASSWORD: ${{secrets.GKE_SQL_USER_PW}}"
