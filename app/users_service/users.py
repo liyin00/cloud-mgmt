@@ -61,10 +61,10 @@ class User(db.Model):
         }
         return user_detail
 
-
-@app.route("/", methods=['GET'])
-def jx_asshole():
-    return "hihi working le"
+@app.route("/spit-env", methods=['GET'])
+def myenv():
+    creds = "Password is" + str(PASSWORD) + " IP is " + str(PUBLIC_IP_ADDRESS) + " Database Name is " + str(DBNAME) + " Project ID is " + str(PROJECT_ID) + " Instance Name is " + str(INSTANCE_NAME)
+    return creds
 
 @app.route("/get_user_info/<string:email>", methods=['GET'])
 def get_user_info(email):
