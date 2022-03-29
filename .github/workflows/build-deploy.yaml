@@ -60,16 +60,11 @@ jobs:
     # Push the Docker images to Google Container Registry
     - name: Publish
       run: |-
-        gcloud docker -- push gcr.io/$PROJECT_ID/product:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/cart:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/order:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/payment:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/stock:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
+        gcloud docker -- push gcr.io/$PROJECT_ID/useless:v1
         
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/users.yaml -f ./gke_config/users-tcp-service.yaml
-        kubectl rollout status deployment/users
+        kubectl apply -f ./gke_config/useless.yaml -f ./gke_config/useless-service.yaml
+        kubectl rollout status deployment/useless
         kubectl get services -o wide
