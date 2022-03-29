@@ -79,6 +79,10 @@ jobs:
         gcloud docker -- push gcr.io/$PROJECT_ID/useless:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
         
+    # Authentication to DB
+    - name: Authentication 
+      run: |-
+        kubectl create secret generic sasecret --from-file=service_acc.json=${{secrets.GKE_SA_KEY}}
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
       run: |-
