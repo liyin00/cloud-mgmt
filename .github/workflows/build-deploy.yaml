@@ -46,13 +46,14 @@ jobs:
 
     # Build the Docker images
     - name: Build
-      secrets: |-
-        "PASSWORD: ${{secrets.GKE_SQL_USER_PW}}"
-        "PUBLIC_IP_ADDRESS: ${{secrets.CLOUD_SQL_IP}}"
-        "DBNAME: ${{secrets.GKE_SQL_NAME}}"
-        "PROJECT_ID: ${{ secrets.GKE_PROJECT }}"
-        "INSTANCE_NAME: ${{secrets.CLOUD_SQL_INSTANCE_NAME}}"
-        "SA_KEY: ${{secrets.GKE_SA_KEY}}"
+      with:
+        secrets: |
+          "PASSWORD: ${{secrets.GKE_SQL_USER_PW}}"
+          "PUBLIC_IP_ADDRESS: ${{secrets.CLOUD_SQL_IP}}"
+          "DBNAME: ${{secrets.GKE_SQL_NAME}}"
+          "PROJECT_ID: ${{ secrets.GKE_PROJECT }}"
+          "INSTANCE_NAME: ${{secrets.CLOUD_SQL_INSTANCE_NAME}}"
+          "SA_KEY: ${{secrets.GKE_SA_KEY}}"
       run: |-
         docker-compose -f ./docker-compose.yml build 
 
