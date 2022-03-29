@@ -39,12 +39,12 @@ spec:
           - name: USERNAME
             valueFrom:
               secretKeyRef:
-                name: clae-cicd
+                name: liyin
                 key: username
           - name: PASSWORD
             valueFrom:
               secretKeyRef:
-                name: L0llip0p0!
+                name: lollipop
                 key: password
           - name: DBNAME
             valueFrom:
