@@ -22,12 +22,6 @@ services:
       dockerfile: Dockerfile
     image: gcr.io/elegant-fort-344208/users:v1
     restart: always
-    environment:
-      PASSWORD: ${PASSWORD}
-      PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
-      DBNAME: ${DBNAME}
-      PROJECT_ID: ${PROJECT_ID}
-      INSTANCE_NAME: ${INSTANCE_NAME}
-      PYTHONUNBUFFERED: 1
     ports:
       - "5003:5003"
+
