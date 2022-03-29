@@ -22,10 +22,10 @@ spec:
         app: useless
     spec:
       containers:
-        - name: users 
+        - name: useless 
           image: "gcr.io/elegant-fort-344208/useless:v1"
           imagePullPolicy: Always
           ports:
           - containerPort: 5050
-            name: users          
+            name: useless          
       restartPolicy: Always
