@@ -82,7 +82,9 @@ jobs:
     # Authentication to DB
     - name: Authentication 
       run: |-
-        kubectl create secret generic sasecret --from-file=service_acc.json=${{secrets.GKE_SA_KEY}}
+        touch key.json
+        echo credentials=${{ secrets.GKE_SA_KEY }} >> key.json
+        kubectl create secret generic sasecret --from-file=service_acc.json=~/key.json}}
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
       run: |-
