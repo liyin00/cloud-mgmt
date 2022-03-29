@@ -12,7 +12,6 @@ services:
     restart: always
     ports:
       - "5050:5050"
-      
 
   ##################################
   # Users: The Users microservice
@@ -32,5 +31,3 @@ services:
       PYTHONUNBUFFERED: 1
     ports:
       - "5003:5003"
-    labels:
-      kompose.service.type: LoadBalancer

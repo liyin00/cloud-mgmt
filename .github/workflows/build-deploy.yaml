@@ -60,6 +60,7 @@ jobs:
     - name: Publish
       run: |-
         gcloud docker -- push gcr.io/$PROJECT_ID/useless:v1
+        gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
         
     # Deploy the Docker images to the GKE cluster
     - name: Deploy
