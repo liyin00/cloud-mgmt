@@ -11,3 +11,5 @@ python-decouple==3.3.0
 Flask-Testing==0.8.1
 stripe==2.56.0
 python-dotenv==0.15.0
+Jinja2==3.0.3
+Werkzeug==0.16.0

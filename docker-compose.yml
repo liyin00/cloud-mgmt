@@ -12,4 +12,25 @@ services:
     restart: always
     ports:
       - "5050:5050"
+      
 
+  ##################################
+  # Users: The Users microservice
+  ##################################
+  users:
+    build:
+      context: ./app/users_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/users:v1
+    restart: always
+    environment:
+      PASSWORD: ${PASSWORD}
+      PUBLIC_IP_ADDRESS: ${PUBLIC_IP_ADDRESS}
+      DBNAME: ${DBNAME}
+      PROJECT_ID: ${PROJECT_ID}
+      INSTANCE_NAME: ${INSTANCE_NAME}
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5003:5003"
+    labels:
+      kompose.service.type: LoadBalancer

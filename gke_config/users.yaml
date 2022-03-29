@@ -6,7 +6,7 @@ metadata:
     app: users
 
 spec:
-  replicas: 2
+  replicas: 1
   strategy: 
     type: RollingUpdate 
     rollingUpdate: 
@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: users 
-          image: gcr.io/elegant-fort-344208/users:v1
+          image: "gcr.io/elegant-fort-344208/users:v1"
           imagePullPolicy: Always
           ports:
           - containerPort: 5003
