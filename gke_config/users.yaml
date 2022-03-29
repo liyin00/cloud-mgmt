@@ -35,27 +35,27 @@ spec:
           image: "gcr.io/elegant-fort-344208/users:v1"
           imagePullPolicy: Always
  
-          # env:
-          # - name: USERNAME
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: clae-cicd
-          #       key: username
-          # - name: PASSWORD
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: L0llip0p0!
-          #       key: password
-          # - name: DBNAME
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: clae_cloud_sql
-          #       key: database
+          env:
+          - name: USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: clae-cicd
+                key: username
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: L0llip0p0!
+                key: password
+          - name: DBNAME
+            valueFrom:
+              secretKeyRef:
+                name: clae_cloud_sql
+                key: database
   
           ports:
           - containerPort: 5003
             name: users  
-          # restartPolicy: Always
+        #   restartPolicy: Always
         # - name: cloud-sql-proxy
         #   # It is recommended to use the latest version of the Cloud SQL proxy
         #   # Make sure to update on a regular schedule!
@@ -79,7 +79,7 @@ spec:
         #     # "nonroot" user and group (uid: 65532) by default.
         #     runAsNonRoot: true
         #   volumeMounts:
-        #   - name: <YOUR-SA-SECRET-VOLUME>
+        #   - name: savolume
         #     mountPath: /secrets/
         #     readOnly: true
         #     # [END cloud_sql_proxy_k8s_volume_mount]

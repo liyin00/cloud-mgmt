@@ -79,7 +79,7 @@ jobs:
         gcloud docker -- push gcr.io/$PROJECT_ID/useless:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
         
-    # Authentication to DB
+    # # Authentication to DB
     # - name: Authentication 
     #   run: |-
     #     touch key.json
