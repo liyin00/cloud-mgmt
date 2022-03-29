@@ -55,7 +55,6 @@ jobs:
       #   INSTANCE_NAME: ${{secrets.CLOUD_SQL_INSTANCE_NAME}}
         # SA_KEY: ${{secrets.GKE_SA_KEY}}
       run: |-
-        cd user_service
         touch .env
         echo PASSWORD=${{ secrets.GKE_SQL_USER_PW }} >> .env
         echo PUBLIC_IP_ADDRESS=${{secrets.CLOUD_SQL_IP}} >> .env
@@ -63,8 +62,7 @@ jobs:
         echo PROJECT_ID=${{ secrets.GKE_PROJECT }} >> .env
         echo INSTANCE_NAME=${{secrets.CLOUD_SQL_INSTANCE_NAME}} >> .env
         cat .env
-        cd ..
-        docker-compose -f ./docker-compose.yml build 
+        docker-compose --env-file ./.env -f ./docker-compose.yml build 
 
     # - name: Set up Docker Buildx
     #   uses: docker/setup-buildx-action@v1
