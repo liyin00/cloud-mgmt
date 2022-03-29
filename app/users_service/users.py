@@ -61,7 +61,7 @@ class User(db.Model):
         }
         return user_detail
 
-@app.route("/spit-env", methods=['GET'])
+@app.route("/myenv", methods=['GET'])
 def myenv():
     creds = "Password is" + str(PASSWORD) + " IP is " + str(PUBLIC_IP_ADDRESS) + " Database Name is " + str(DBNAME) + " Project ID is " + str(PROJECT_ID) + " Instance Name is " + str(INSTANCE_NAME)
     return creds
@@ -135,5 +135,5 @@ def login():
         ), 500
 
 if __name__ == '__main__':
-    print("stock ")
+    print("users ")
     app.run(host='0.0.0.0', port=5003, debug=True)
