@@ -55,7 +55,7 @@ spec:
           ports:
           - containerPort: 5003
             name: users  
-          restartPolicy: Always
+          # restartPolicy: Always
         # - name: cloud-sql-proxy
         #   # It is recommended to use the latest version of the Cloud SQL proxy
         #   # Make sure to update on a regular schedule!
