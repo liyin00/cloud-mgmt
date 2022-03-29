@@ -63,7 +63,6 @@ jobs:
     - name: Build 
       uses: docker/docker/bake-action@master
       with: 
-        files: ./docker-compose.yml
         push: true 
         secrets: |
           "PASSWORD: ${{secrets.GKE_SQL_USER_PW}}"
