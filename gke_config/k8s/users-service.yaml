@@ -5,10 +5,10 @@ metadata:
     app: users
   name: users-lb
 spec:
-  type: LoadBalancer
+  type: ClusterIP 
   selector:
     app: users
   ports:
-    - protocol: TCP
+    # - protocol: TCP
       port: 5003
       targetPort: 5003
