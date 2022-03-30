@@ -88,6 +88,14 @@ collection = db.collection('Products')  # opens 'places' collection
 # docs = todo_ref.get()
 # print(docs)
 
+# for liveness probe 
+@app.route("/", methods=['GET'])
+def returnlive():
+    return jsonify({
+        'code': 200,
+        'desc': "success"
+    })
+
 #testing
 @app.route("/get_product_name/<string:product_name>", methods=['GET'])
 def get_product_name(product_name):
