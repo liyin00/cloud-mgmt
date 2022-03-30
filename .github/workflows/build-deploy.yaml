@@ -47,7 +47,7 @@ jobs:
     # Build the Docker images
     - name: Build
       run: |-
-        docker-compose -f ./docker-compose.yml build           
+        docker-compose -f ./docker-compose.yml build          
 
     # Push the Docker images to Google Container Registry
     - name: Publish
