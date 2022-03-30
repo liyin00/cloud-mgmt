@@ -85,7 +85,6 @@ jobs:
       run: |-
         kubectl apply -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml
         kubectl get deployment/product -o yaml
-        kubectl rollout status deployment/useless
         kubectl rollout status deployment/users
         kubectl rollout status deployment/product
         kubectl get services -o wide
