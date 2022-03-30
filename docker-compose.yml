@@ -25,3 +25,15 @@ services:
     ports:
       - "5003:5003"
 
+  ###################################
+  # Product: The Product microservice
+  ###################################
+  product:
+    build:
+      context: ./app/product_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/product:v1
+    restart: always
+    ports:
+      - "5005:5005"
+
