@@ -54,6 +54,16 @@ jobs:
         echo DBNAME=${{secrets.GKE_SQL_NAME}} >> .env
         echo PROJECT_ID=${{ secrets.GKE_PROJECT }} >> .env
         echo INSTANCE_NAME=${{secrets.CLOUD_SQL_INSTANCE_NAME}} >> .env
+        echo TYPE=${{secrets.TYPE}} >> .env
+        echo PROJECT_ID=${{secrets.PROJECT_ID}} >> .env
+        echo PRIVATE_KEY_ID=${{secrets.PRIVATE_KEY_ID}} >> .env
+        echo PRIVATE_KEY=${{secrets.PRIVATE_KEY}} >> .env
+        echo CLIENT_EMAIL=${{secrets.CLIENT_EMAIL}} >> .env
+        echo CLIENT_ID=${{secrets.CLIENT_ID}} >> .env
+        echo AUTH_URI=${{secrets.AUTH_URI}} >> .env
+        echo TOKEN_URI=${{secrets.TOKEN_URI}} >> .env
+        echo AUTH_PROVIDER_X509_CERT_URL=${{secrets.AUTH_PROVIDER_X509_CERT_URL}} >> .env
+        echo CLIENT_X509_CERT_URL=${{secrets.CLIENT_X509_CERT_URL}} >> .env
         cat .env
         docker-compose --env-file ./.env -f ./docker-compose.yml build           
 
