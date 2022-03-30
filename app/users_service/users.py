@@ -41,9 +41,9 @@ app = Flask(__name__)
  
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"
-app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:L0llip0p0!@10.208.16.2:3306/clae_cloud_sql?unix_socket=/cloudsql/elegant-fort-344208:claecloudsql"
+# app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:L0llip0p0!@10.208.16.2:3306/clae_cloud_sql?unix_socket=/cloudsql/elegant-fort-344208:claecloudsql"
 # app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}:3306/{DBNAME}"
-# app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:L0llip0p0!@10.208.16.2:3306/clae_cloud_sql"
+app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:L0llip0p0!@10.208.16.2:3306/clae_cloud_sql"
 
 # app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@/{DBNAME}?unix_socket=/cloudsql/{INSTANCE_NAME}"
 
