@@ -33,15 +33,15 @@ app = Flask(__name__)
 # INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
 # PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
 
-PUBLIC_IP_ADDRESS = "34.143.209.243"
-DBNAME = "clae_cloud_sql"
-PROJECT_ID = "elegant-fort-344208"
-INSTANCE_NAME = "claecloudsqlbackup"
-PASSWORD = "L0llip0p0!"
+# PUBLIC_IP_ADDRESS = "34.143.209.243"
+# DBNAME = "clae_cloud_sql"
+# PROJECT_ID = "elegant-fort-344208"
+# INSTANCE_NAME = "claecloudsqlbackup"
+# PASSWORD = "L0llip0p0!"
  
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"
-app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket=/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
+app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:L0llip0p0!@34.142.229.136/clae_cloud_sql?unix_socket=/cloudsql/elegant-fort-344208:claecloudsql"
 # app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}:3306/{DBNAME}"
 # app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:L0llip0p0!@127.0.0.1:3306/clae_cloud_sql"
 
