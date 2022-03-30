@@ -35,22 +35,22 @@ spec:
           image: "gcr.io/elegant-fort-344208/users:v1"
           imagePullPolicy: Always
  
-          env:
-          - name: USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: liyin
-                key: username
-          - name: PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: lollipop
-                key: password
-          - name: DBNAME
-            valueFrom:
-              secretKeyRef:
-                name: clae_cloud_sql
-                key: database
+          # env:
+          # - name: USERNAME
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: liyin
+          #       key: username
+          # - name: PASSWORD
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: lollipop
+          #       key: password
+          # - name: DBNAME
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: clae_cloud_sql
+          #       key: database
   
           ports:
           - containerPort: 5003

@@ -40,11 +40,11 @@ PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
  
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"
-# app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket=/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
+app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket=/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
 # app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}:3306/{DBNAME}"
 # app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:L0llip0p0!@127.0.0.1:3306/clae_cloud_sql"
 
-app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@/{DBNAME}?unix_socket=/cloudsql/{INSTANCE_NAME}"
+# app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@/{DBNAME}?unix_socket=/cloudsql/{INSTANCE_NAME}"
 
 # def open_connection():
 #     unix_socket = '/cloudsql/{}'.format(db_connection_name)
