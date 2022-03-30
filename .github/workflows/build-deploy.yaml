@@ -54,7 +54,6 @@ jobs:
         echo DBNAME=${{secrets.GKE_SQL_NAME}} >> .env
         echo PROJECT_ID=${{ secrets.GKE_PROJECT }} >> .env
         echo INSTANCE_NAME=${{secrets.CLOUD_SQL_INSTANCE_NAME}} >> .env
-        echo SA_KEY=${{secrets.GKE_SA_KEY}} >> .env
         cat .env
         docker-compose --env-file ./.env -f ./docker-compose.yml build           
 
@@ -72,7 +71,7 @@ jobs:
     #     echo credentials=${{ secrets.GKE_SA_KEY }} >> key.json
     #     kubectl create secret generic sasecret --from-file=service_acc.json=~/key.json}}
     # Deploy the Docker images to the GKE cluster
-    
+
     - name: Deploy
       run: |-
         kubectl apply -f ./gke_config/useless.yaml -f ./gke_config/useless-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml
