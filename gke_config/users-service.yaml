@@ -9,6 +9,6 @@ spec:
   selector:
     app: users
   ports:
-    # - protocol: TCP
+    - protocol: TCP
       port: 5003
       targetPort: 5003
