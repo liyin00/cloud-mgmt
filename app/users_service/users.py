@@ -9,7 +9,7 @@ from datetime import datetime
 import os
 import pymysql
 pymysql.install_as_MySQLdb()
-import MySQLdb     
+# import MySQLdb     
 from dotenv import load_dotenv
 load_dotenv()
 import hashlib
