@@ -8,7 +8,7 @@ from flask_cors import CORS
 from datetime import datetime
 import os
 import pymysql
-pymysql.install_as_MySQLdb()
+# pymysql.install_as_MySQLdb()
 # import MySQLdb     
 from dotenv import load_dotenv
 load_dotenv()
@@ -86,11 +86,6 @@ class User(db.Model):
             'creation_date': self.creation_date
         }
         return user_detail
-
-@app.route("/myenv", methods=['GET'])
-def myenv():
-    creds = "Password is" + str(PASSWORD) + " IP is " + str(PUBLIC_IP_ADDRESS) + " Database Name is " + str(DBNAME) + " Project ID is " + str(PROJECT_ID) + " Instance Name is " + str(INSTANCE_NAME)
-    return creds
 
 @app.route("/get_user_info/<string:email>", methods=['GET'])
 def get_user_info(email):
