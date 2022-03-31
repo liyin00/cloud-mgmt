@@ -5,7 +5,7 @@ metadata:
     app: product
   name: product-lb
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: product
   ports:

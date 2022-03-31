@@ -5,7 +5,7 @@ metadata:
     app: cart
   name: cart-lb
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: cart
   ports:
