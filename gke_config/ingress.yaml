@@ -9,14 +9,14 @@ spec:
   - http:
       paths:
       - path: /product/*
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: product-lb
             port:
               number: 5005
       - path: /cart/*
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: cart-lb
