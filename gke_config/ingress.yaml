@@ -8,13 +8,15 @@ spec:
   rules:
   - http:
       paths:
-      - path: /product
+      - path: /product(/|$)(.*)
+        pathType: Prefix
         backend:
           service:
             name: product-lb
             port:
               number: 5005
-      - path: /cart
+      - path: /cart(/|$)(.*)
+        pathType: Prefix
         backend:
           service:
             name: cart-lb
