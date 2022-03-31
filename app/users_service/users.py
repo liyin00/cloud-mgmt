@@ -7,7 +7,7 @@ from os import environ
 from flask_cors import CORS
 from datetime import datetime
 import os
-import pymysql
+# import pymysql
 # pymysql.install_as_MySQLdb()
 # import MySQLdb     
 from dotenv import load_dotenv
