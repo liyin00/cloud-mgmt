@@ -14,17 +14,14 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      # app: users
       greeting: hello 
 
   template:
     metadata:
       labels:
-        # app: users
         greeting: hello 
     spec:
       containers:
-
         - name: users
           image: "gcr.io/elegant-fort-344208/users:v1"
           imagePullPolicy: Always
