@@ -18,7 +18,7 @@ class Product extends Component {
             const product_id = window.location.pathname.split("/")[2];
             getProductById(productURL, product_id).then(result => {
                 console.log("result is ", result)
-                if (result.code == 200) {
+                if (result.code === 200) {
     
                     console.log('result is')
                     console.log(result.data)
@@ -56,7 +56,7 @@ class Product extends Component {
     // Formats and displays add to cart button
     formatValue = () => {
         const itemArray = this.props.cart.filter(item=>item.product_id === this.props.product.product_id);
-        return itemArray.length === 0 ? 'Add to Cart': 'Item in Cart';
+        return itemArray.length === 0 ? 'Add to Cart': 'Item added!';
     }
 
     formatButton = () => {
@@ -139,7 +139,7 @@ class Product extends Component {
     
     render() {
 
-        if(this.state.result == undefined ){
+        if(this.state.result === undefined ){
             console.log("herehehrehrhehreh nothing")
             return null
         }else{

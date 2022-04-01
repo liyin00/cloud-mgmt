@@ -34,10 +34,10 @@ const Navbar = ({totalCartItems}) => {
                         </div>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" href="/pricing">Pricing</Link>
+                        <Link className="nav-link" to="/pricing">Pricing</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" href="/faq">FAQ</Link>
+                        <Link className="nav-link" to="/faq">FAQ</Link>
                     </li>
                 </ul>
             </div>

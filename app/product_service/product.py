@@ -17,44 +17,18 @@ app = Flask(__name__)
 CORS(app)
 
 def service_acc_conversion():
-    service_account_info = {"credential":
-    {
-        "type" :os.getenv("TYPE"),
-        "project_id" : os.getenv("PROJECT_ID"),
-        "private_key_id" : os.getenv("PRIVATE_KEY_ID"),
-        "private_key" : os.getenv("PRIVATE_KEY").replace('\\n','\n'),
-        "client_email" : os.getenv("CLIENT_EMAIL"),
-        "client_id" : os.getenv("CLIENT_ID"),
-        "auth_uri" : os.getenv("AUTH_URI"),
-        "token_uri" : os.getenv("TOKEN_URI"),
-        "auth_provider_x509_cert_url" : os.getenv("AUTH_PROVIDER_X509_CERT_URL"),
-        "client_x509_cert_url" : os.getenv("CLIENT_X509_CERT_URL")
-    }}
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    config_path = 'elegant-fort-344208-514b10873dd0.json'
+    print("config_path: ", config_path)
+    service_account_info = json.load(open(config_path))
     return service_account_info
 
 service_info = service_acc_conversion()
-value = service_info['credential']
-# print(value)
-# print(type(value))
-# print(type(service_info))
-# s1 = json.dumps(service_info)
-# d2 = json.loads(s1)
-# print(d2)
-# print(service_info)
-# Initialize Firestore DB
-cred = credentials.Certificate(value)
+# print('service info is ' , service_info)
+cred = credentials.Certificate(service_info)
 default_app = firebase_admin.initialize_app(cred)
-# print("-====")
-# print(default_app)
 db = firestore.client()
-# print(db)
 collection = db.collection('Products')  # opens 'places' collection
-# doc = collection.document('59cgz68KGf1sF4Gz4Ilt') 
-# res = doc.get().to_dict()
-# print(res)
-# print("-----------")
-# docs = todo_ref.get()
-# print(docs)
 
 #testing
 @app.route("/get_product_name/<string:product_name>", methods=['GET'])
@@ -165,9 +139,6 @@ def get_product_list():
         )
     
 
-
-
-
 ## for developer to insert data 
 @app.route('/add', methods=['POST'])
 def create():
@@ -184,16 +155,6 @@ def create():
             'product_img': ' https://storage.cloud.google.com/is548_cloud_product_image/p10.png',
             'is_active': 1
         })
-
-
-
-
-
-
-
-
-
-
 
 
         return jsonify({"success": True}), 200
@@ -249,6 +210,17 @@ def create():
 # port = int(os.environ.get('PORT', 8080))
 # if __name__ == '__main__':
 #     app.run(threaded=True, host='0.0.0.0', port=port)
+
+@app.route("/check", methods=['GET'])
+def check():
+        return jsonify(
+            {
+                'code': 200,
+                'data': "product",
+                'desc': "success"
+                
+            }
+        )
 
 if __name__ == '__main__':
     print("order ")

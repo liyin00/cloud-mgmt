@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  ##################################
+  # Useless: The Useless microservice
+  ##################################
+  useless:
+    build:
+      context: ./app/useless
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/useless:v1
+    restart: always
+    ports:
+      - "5050:5050"
+

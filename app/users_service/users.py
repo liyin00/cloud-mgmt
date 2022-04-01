@@ -134,6 +134,17 @@ def login():
             }
         ), 500
 
+@app.route("/check", methods=['GET'])
+def check():
+        return jsonify(
+            {
+                'code': 200,
+                'data': "users",
+                'desc': "success"
+                
+            }
+        )
+
 if __name__ == '__main__':
     print("stock ")
     app.run(host='0.0.0.0', port=5003, debug=True)

@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { URL, checkoutPayment } from '../callAPI/paymentAPI.js'
+import { paymentURL, checkoutPayment } from '../callAPI/paymentAPI.js'
 import { Link, NavLink } from 'react-router-dom';
-import {cartURL,getCartByUserId,modifyCart} from  '../callAPI/cartAPI'
+import {cartURL, getCartByUserId, modifyCart} from  '../callAPI/cartAPI'
 
 class Cart extends Component {
     state = {
-        cart:[],
-        user_id: ""
+        cart: [],
+        user_id: "",
+        successAlert: false,
+        errorAlert: false,
+        alertMsg: ""
     }
 
     componentDidMount() {
-        if (this.state.cart.length === 0){
+        if (this.state.cart.length === 0) {
             getCartByUserId(cartURL,"u6").then(result => {
                 if (result.code == 200) {
                     this.error = false;
@@ -26,6 +29,79 @@ class Cart extends Component {
                 }
             });
         }
+        //check the url for success and cancelled
+        const query = new URLSearchParams(window.location.search);
+        if (query.get("success")) {
+            const body = {
+                result: {
+                    "product_list": [],
+                    "user_id": "u6"
+                }
+            }
+            // this.props.onClearCart();
+            // modifyCart(cartURL, body).then(result => {
+            //     console.log(result)
+            //     if (result.code === 200){
+            //         console.log("heloOOOoOOO PLSSS")
+            //         this.state.cart = []
+            //         this.setState(this.state);
+            //         console.log("Modified state:", this.state)
+            //     } else {
+            //         console.log("Error in deleting product from cart", result.data);
+            //         this.error = true;
+            //     }
+            // });
+
+            const msg = "Order placed. You will receive an email."
+            this.state.successAlert = true;
+            this.state.alertMsg = msg;
+            this.setState(this.state);
+
+        } if(query.get("cancelled")) {
+            const msg = "Order cancelled. Continue to shop around!"
+            this.state.errorAlert = true;
+            this.state.alertMsg = msg
+            this.setState(this.state)
+
+        }
+
+        console.log("before get Cart:", this.state)
+
+        // if (this.state.cart.length === 0) {
+        //     getCartByUserId(cartURL,"u6").then(result => {
+        //         if (result.code == 200) {
+        //             this.error = false;
+        //             const response = result.data;
+        //             if (response){
+        //                 this.setState({
+        //                     "cart": response.product_list,
+        //                     "user_id": response.user_id
+        //                 })       
+        //             }
+        //         } else {
+        //             console.log("Error getting cart data", result);
+        //         }
+        //     });
+        //     console.log("after get Cart:", this.state)
+    
+        // }
+
+        
+        
+
+
+        // if (query.get("success")) {
+        //     const msg = "Order placed. You will receive an email."
+        //     this.state.successAlert = true;
+        //     this.state.alertMsg = msg;
+        //     this.setState(this.state);
+        // }
+        // if (query.get("cancelled")) {
+        //     const msg = "Order cancelled. Continue to shop around!"
+        //     this.state.errorAlert = true;
+        //     this.state.alertMsg = msg
+        //     this.setState(this.state)
+        // }
 
     }
 
@@ -35,20 +111,46 @@ class Cart extends Component {
         }
     }
 
+    renderSuccessAlert(){
+        if (this.state.successAlert){
+            //clear cart of successful
+            return <div class="alert alert-success alert-dismissible fade show py-3 w-100" role="alert">
+            <strong>{ this.state.alertMsg }</strong>
+            <button type="button" className="close" data-dismiss="alert" >
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        }
+    }
+
+    renderErrorAlert(){
+        if (this.state.errorAlert){
+            return <div class="alert alert-danger alert-dismissible fade show py-3 w-100" role="alert">
+            <strong>{ this.state.alertMsg }</strong>
+            <button type="button" className="close" data-dismiss="alert" >
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        }
+    }
+
+    createReqBody(){
+        return {
+            "cart": this.state.cart,
+            "user_id":this.state.user_id
+        }
+    }
+
     modifyCartByUserId(){
         modifyCart(cartURL, this.state).then(result => {
-            console.log("result is ", result)
             if (result.code == 200) {
 
-                console.log('result is')
-                console.log(result.data)
                 this.error = false;
                 //const courses = result.data;
                 
                 //sort courses according to course id in ascending order
                 
             } else {
-                console.log("test")
                 this.error = true;
             }
         });
@@ -56,31 +158,22 @@ class Cart extends Component {
 
 
     changeCartQuantity(array_obj, quantity){
-        console.log(array_obj)
         var position = this.state.result.product_list.indexOf(array_obj);
-        console.log("in change cart quantity, position is " , position)
-        console.log("previous quantity" , this.state.result.product_list[position].quantity)
         this.state.result.product_list[position].quantity = quantity
-        console.log("after quantity" , this.state.result.product_list[position].quantity)
         this.setState(this.state);
         this.modifyCartByUserId();
 
     }
 
     deleteItem(product_obj){
-        console.log('delete item');
         var position = this.state.result.product_list.indexOf(product_obj);
         this.state.result.product_list.splice(position,1)
-        console.log("HERER!!!!", this.state.result)
         this.setState(this.state);
         this.modifyCartByUserId();
-        console.log(this.state);
     }
 
 
     renderTable() {
-        console.log(this.state)
-        console.log("run second")
         var counter = 0 
         return (
             <div className="cart-page-desk">
@@ -135,13 +228,13 @@ class Cart extends Component {
                     </tr>
                 </tfoot>
                 </table>
-                {/* <form action={`${URL}/create-checkout-session`} method="POST">
+                {/* <form action={`${paymentURL}/create-checkout-session`} method="POST">
                     <button className="btn primary-bg d-flex justify-content-center" type="submit">
                         Checkout
                     </button>
                 </form> */}
                 {/* checkoutPayment */}
-                <button className="btn primary-bg d-flex justify-content-center" onClick={() => checkoutPayment(URL, this.props.cart)} type="submit">
+                <button className="btn primary-bg d-flex justify-content-center" onClick={() => checkoutPayment(paymentURL, this.createReqBody())} disabled={this.state.cart.length===0 ? true: false} type="submit">
                     Checkout
                 </button>
             </div>
@@ -149,8 +242,6 @@ class Cart extends Component {
     }
 
     renderTableMobile() {
-        console.log('MObile view');
-        console.log(this.state);
         return (
             <div className="cart-page-mobile">
                 <table className='table mt-3'>
@@ -202,32 +293,28 @@ class Cart extends Component {
     }
 
     render() {
-        console.log("come here render")
         if(Object.keys(this.state).length === 0 ){
-            console.log("herehehrehrhehreh nothing")
             return null
-        }else{
-            console.log("value below")
-            console.log(this.state)
-            // console.log(this.state.result.product_list.length)
+        } else{
             return (
-                <div className='cart-page-margin'>
-                    <h3>My Shopping Cart</h3>
-                    {this.state.cart.length > 0 ? this.renderTable()
-                    : <div className="cart-page tertiary-bg">
-                        <p>Your shopping cart is currently empty.</p>
-                        <Link to="/shop" className="btn primary-bg ml-3">Continue Shopping</Link>
+                <div>
+                    <div className='cart-page-margin'>
+                        <h3>My Shopping Cart</h3>
+                        {this.renderSuccessAlert()}
+                        {this.renderErrorAlert()}
+                        {this.state.cart.length > 0 ? this.renderTable()
+                        : <div className="cart-page tertiary-bg">
+                            <p>Your shopping cart is currently empty.</p>
+                            <Link to="/shop" className="btn primary-bg ml-3">Continue Shopping</Link>
+                        </div>
+                            }
+                        {/* { this.state.result.product_list.length > 0 && this.renderTableMobile() } */}
                     </div>
-                        }
-                    
-                    {/* { this.state.result.product_list.length > 0 && this.renderTableMobile() } */}
                 </div>
                 
             );
         }
         
-
-     
 
     }
 }

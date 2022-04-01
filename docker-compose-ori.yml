@@ -9,7 +9,7 @@ services:
     build:
       context: ./app/product_service
       dockerfile: Dockerfile
-    image: jingweisim/product:v1
+    image: gcr.io/elegant-fort-344208/product:v1
     restart: always
     environment:
       SA_KEY: ${SA_KEY}
@@ -36,7 +36,7 @@ services:
     build:
       context: ./app/cart_service
       dockerfile: Dockerfile
-    image: jingweisim/cart:v1
+    image: gcr.io/elegant-fort-344208/cart:v1
     restart: always
     environment:
       SA_KEY: ${SA_KEY}
@@ -63,7 +63,7 @@ services:
     build:
       context: ./app/order_service
       dockerfile: Dockerfile
-    image: jingweisim/order:v1
+    image: gcr.io/elegant-fort-344208/order:v1
     restart: always
     environment:
       PASSWORD: ${PASSWORD}
@@ -84,7 +84,7 @@ services:
     build:
       context: ./app/payment_service
       dockerfile: Dockerfile
-    image: jingweisim/payment:v1
+    image: gcr.io/elegant-fort-344208/payment:v1
     restart: always
     environment:
       apikey: ${apikey}
@@ -101,7 +101,7 @@ services:
     build:
       context: ./app/stock_service
       dockerfile: Dockerfile
-    image: jingweisim/stock:v1
+    image: gcr.io/elegant-fort-344208/stock:v1
     restart: always
     environment:
       PASSWORD: ${PASSWORD}
@@ -122,7 +122,7 @@ services:
     build:
       context: ./app/users_service
       dockerfile: Dockerfile
-    image: jingweisim/users:v1
+    image: gcr.io/elegant-fort-344208/users:v1
     restart: always
     environment:
       PASSWORD: ${PASSWORD}
@@ -135,4 +135,16 @@ services:
       - "5003:5003"
     labels:
       kompose.service.type: LoadBalancer
+
+  ##################################
+  # Useless: The Useless microservice
+  ##################################
+  useless:
+    build:
+      context: ./app/useless
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/useless:v1
+    restart: always
+    ports:
+      - "5050:5050"
 

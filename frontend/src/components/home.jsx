@@ -3,8 +3,6 @@ import Banner from './banner';
 import Carousel from './carousel';
 import {Link} from 'react-router-dom';
 import {productURL, getAllProducts} from '../callAPI/productAPI';
-import product from './product';
-
 
 class Home extends Component {
 
@@ -18,7 +16,7 @@ class Home extends Component {
         // let output = await getProductName(productURL, "p10");
         // console.log(output);
         getAllProducts(productURL).then(result => {
-            if (result.code == 200) {
+            if (result.code === 200) {
                 this.setState({"products": result.data});
             } else {
                 console.log("code", result.code);

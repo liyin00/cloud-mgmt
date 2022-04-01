@@ -48,7 +48,8 @@ class App extends Component {
             'product_description': product.product_description,
             'product_img': product.product_img,
             'quantity':'1',
-            'price' : product.price
+            'price' : product.price,
+            'price_id': product.price_id
         }
 
         const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
@@ -134,6 +135,17 @@ class App extends Component {
         this.onModifyCart(body, cart);
     }
 
+    handleClearCart = () => {
+        const cart = []
+        const body = {
+            result: {
+                "product_list": cart,
+                "user_id": "u6"
+            }
+        }
+        this.onModifyCart(body, cart);
+    }
+
     handleTotalCartItems = () => {
         //calculate the sum of items
         return this.state.cart.map(item => Number(item.quantity)).reduce((a,b) => a + b, 0)
@@ -162,7 +174,7 @@ class App extends Component {
                         />
                     </Route>
                     <Route exact path="/shop">
-                        <div class="wrapper container mx-auto">
+                        <div className="wrapper container mx-auto">
                             <Suspense fallback={<div>Loading ... </div>}>
                             <Shop
                                 cart={this.state.cart} 
@@ -173,7 +185,7 @@ class App extends Component {
                         </div>
                     </Route>
                         <Route exact path="/shop/:productId/:encodedProductName">
-                            <div class="wrapper container mx-auto">
+                            <div className="wrapper container mx-auto">
                                 <Product 
                                     cart={this.state.cart} 
                                     onIncrement={this.handleIncrement}
@@ -182,12 +194,13 @@ class App extends Component {
                             </div>
                         </Route>
                     <Route exact path="/cart">
-                        <div class="wrapper container mx-auto">
+                        <div className="wrapper container mx-auto">
                             <Cart 
                                 cart={this.state.cart}
                                 onIncrement={this.handleIncrement}
                                 onChange = {this.handleChange}
                                 onDelete = {this.handleDelete}
+                                onClearCart = {this.handleClearCart}
                             />
                         </div>
                     </Route>

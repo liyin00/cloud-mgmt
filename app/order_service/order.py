@@ -1,5 +1,5 @@
 # Might change this to using os.environ.get() instead in future sprints
-from decouple import config
+# from decouple import config
 from flask import Flask, json, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
@@ -142,6 +142,7 @@ def get_orders_by_user_id(user_id):
 def create_order():
     #insert into class record, update slot available, delete from registration
     try:
+        print("test")
         #retrieve id 
         Order = Orders.query.order_by(Orders.order_id.desc()).first()
         print(Order.order_id)
@@ -152,21 +153,46 @@ def create_order():
         order_id_number = "o" + str(order_id_number)
         print("order id now is " , order_id_number)
 
+
+
         now = datetime.now()
         data = request.get_json()
+        data = data['data']
+        amount_subtotal = 0
+        amount_total = 0 
+        product = ''
+        quantity = ''
+        ###compute area #####
 
+        for i in range(0, len(data)):
+            print("------------------------")
+            print(data[i]['amount_subtotal'])
+            print(data[i]['amount_total'])
+            print(data[i]['product'] )
+            print(data[i]['quantity'])
+            print("------------------------")
+
+            amount_subtotal +=  data[i]['amount_subtotal']
+            amount_total += data[i]['amount_total']
+            product =  data[i]['product'] + ","  + product
+            quantity = str(data[i]['quantity'])  + ","  + quantity
+
+            
+ 
+
+        ###compute area #####
         # Should immediately exit upon failing this line.....
         
         order_record = Orders(
             order_id= order_id_number,
-            user_id=data['user_id'],
-            products_purchased=data['products_purchased'],
-            purchased_quantity=data['purchased_quantity'],
-            sub_prices=data['sub_prices'],
-            total_price=data['total_price'],
-            billing_address=data['billing_address'],
-            payment_status=data['payment_status'],
-            order_status = data['order_status'],
+            user_id="",
+            products_purchased=product[:len(product)-1],
+            purchased_quantity=quantity[:len(quantity)-1],
+            sub_prices=amount_subtotal,
+            total_price=amount_total,
+            billing_address="",
+            payment_status=1,
+            order_status = "",
             datetime_purchased = str(now)
             
         )
@@ -307,6 +333,18 @@ def update_payment_status():
                 "message": "An error occurred while updating the payment status. " + str(e)
             }
         ), 500
+
+
+@app.route("/check", methods=['GET'])
+def check():
+        return jsonify(
+            {
+                'code': 200,
+                'data': "order",
+                'desc': "success"
+                
+            }
+        )
 
 if __name__ == '__main__':
     print("order ")

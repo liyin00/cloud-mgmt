@@ -23,7 +23,7 @@ class Shop extends Component {
         //3. onRetrieveProductsData
         // this.props.onProductData(this.state.products);
         getAllProducts(productURL).then(result => {
-            if (result.code == 200) {
+            if (result.code === 200) {
                 this.setState({"products": result.data});
             } else {
                 console.log("code", result.code);

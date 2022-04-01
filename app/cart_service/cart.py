@@ -14,26 +14,16 @@ import os
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
+
 def service_acc_conversion():
-    service_account_info = {"credential":
-    {
-        "type" :os.getenv("TYPE"),
-        "project_id" : os.getenv("PROJECT_ID"),
-        "private_key_id" : os.getenv("PRIVATE_KEY_ID"),
-        "private_key" : os.getenv("PRIVATE_KEY").replace('\\n','\n'),
-        "client_email" : os.getenv("CLIENT_EMAIL"),
-        "client_id" : os.getenv("CLIENT_ID"),
-        "auth_uri" : os.getenv("AUTH_URI"),
-        "token_uri" : os.getenv("TOKEN_URI"),
-        "auth_provider_x509_cert_url" : os.getenv("AUTH_PROVIDER_X509_CERT_URL"),
-        "client_x509_cert_url" : os.getenv("CLIENT_X509_CERT_URL")
-    }}
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    file_path = 'elegant-fort-344208-514b10873dd0.json'
+    f = open(file_path)
+    service_account_info = json.load(f)
     return service_account_info
 
 service_info = service_acc_conversion()
-value = service_info['credential']
-# Initialize Firestore DB
-cred = credentials.Certificate(value)
+cred = credentials.Certificate(service_info)
 default_app = firebase_admin.initialize_app(cred)
 print("-====")
 print(default_app)
@@ -267,6 +257,16 @@ def modify_cart():
 #             }
 #         )
 
+@app.route("/check", methods=['GET'])
+def check():
+        return jsonify(
+            {
+                'code': 200,
+                'data': "cart",
+                'desc': "success"
+                
+            }
+        )
 
 
 
