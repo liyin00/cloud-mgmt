@@ -33,7 +33,7 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: users
+            name: users-service
             port:
               number: 60000
       # - path: /v2
