@@ -42,13 +42,11 @@ spec:
   selector:
     matchLabels:
       greeting: hello
-      version: one
   replicas: 1
   template:
     metadata:
       labels:
         greeting: hello
-        version: one
     spec:
       containers:
       - name: users
