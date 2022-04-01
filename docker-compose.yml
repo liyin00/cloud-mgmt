@@ -15,13 +15,13 @@ services:
       - "5003:5003"
 
   ###################################
-  # Product: The Product microservice
+  # Cart: The Cart microservice
   ###################################
   cart:
     build:
       context: ./app/cart_service
       dockerfile: Dockerfile
-    image: jingweisim/cart:v1
+    image: gcr.io/elegant-fort-344208/cart:v1
     restart: always
     ports:
       - "5006:5006"
