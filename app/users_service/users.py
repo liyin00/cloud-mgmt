@@ -7,6 +7,9 @@ from os import environ
 from flask_cors import CORS
 from datetime import datetime
 import os
+# import pymysql
+# pymysql.install_as_MySQLdb()
+# import MySQLdb     
 from dotenv import load_dotenv
 load_dotenv()
 import hashlib
@@ -26,16 +29,39 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 #                                            'pool_recycle': 280}
 
-PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
-PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
-DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
-PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
-INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
+# PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
+# PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
+# DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
+# PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
+# INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
+# PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
+
+# PUBLIC_IP_ADDRESS = "34.143.209.243"
+# DBNAME = "clae_cloud_sql"
+# PROJECT_ID = "elegant-fort-344208"
+# INSTANCE_NAME = "claecloudsqlbackup"
+# PASSWORD = "L0llip0p0!"
  
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"
-# app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket=/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
-app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}:3306/{DBNAME}"
+# app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:L0llip0p0!@10.208.16.2:3306/clae_cloud_sql?unix_socket=/cloudsql/elegant-fort-344208:claecloudsql"
+# app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}:3306/{DBNAME}"
+app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:L0llip0p0!@10.208.16.7:3306/clae_cloud_sql"
+
+# app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@/{DBNAME}?unix_socket=/cloudsql/{INSTANCE_NAME}"
+
+# def open_connection():
+#     unix_socket = '/cloudsql/{}'.format(db_connection_name)
+#     try:
+#         if os.environ.get('GAE_ENV') == 'standard':
+#             conn = pymysql.connect(user=db_user, password=db_password,
+#                                 unix_socket=unix_socket, db=db_name,
+#                                 cursorclass=pymysql.cursors.DictCursor
+#                                 )
+#     except pymysql.MySQLError as e:
+#         print(e)
+
+#     return conn
 # app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket=/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]= True
 
@@ -60,11 +86,6 @@ class User(db.Model):
             'creation_date': self.creation_date
         }
         return user_detail
-
-
-@app.route("/", methods=['GET'])
-def jx_asshole():
-    return "hihi working le"
 
 @app.route("/get_user_info/<string:email>", methods=['GET'])
 def get_user_info(email):
@@ -146,5 +167,5 @@ def check():
         )
 
 if __name__ == '__main__':
-    print("stock ")
+    print("users ")
     app.run(host='0.0.0.0', port=5003, debug=True)

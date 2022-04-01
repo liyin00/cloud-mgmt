@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: users
+  name: useless
   labels:
-    app: users
+    app: useless
 
 spec:
   replicas: 1
@@ -14,19 +14,18 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: users
+      app: useless
 
   template:
     metadata:
       labels:
-        app: users
+        app: useless
     spec:
       containers:
-
-        - name: users
-          image: "gcr.io/elegant-fort-344208/users:v1"
+        - name: useless 
+          image: "gcr.io/elegant-fort-344208/useless:v1"
           imagePullPolicy: Always
-
           ports:
-          - containerPort: 5003
-            name: users  
+          - containerPort: 5050
+            name: useless          
+      restartPolicy: Always

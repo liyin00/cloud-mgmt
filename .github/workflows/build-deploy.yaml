@@ -8,13 +8,12 @@ name: Build and Deploy to GKE
 on:
   push:
     branches:
-      - main
-      # - staging 
+      - main 
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: clae    # Add your cluster name here.
-  GKE_ZONE: asia-southeast1   # Add your cluster zone here.
+  GKE_CLUSTER: bbtired   # Add your cluster name here.
+  GKE_ZONE: asia-southeast1-b   # Add your cluster zone here.
 
 jobs:
   setup-build-publish-deploy:
@@ -43,33 +42,33 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
         credentials: ${{ secrets.GKE_SA_KEY }}
+  
 
     # Build the Docker images
     - name: Build
-      env: 
-        PASSWORD: ${{secrets.GKE_SQL_USER_PW}}
-        PUBLIC_IP_ADDRESS: ${{secrets.CLOUD_SQL_IP}}
-        DBNAME: ${{secrets.GKE_SQL_NAME}}
-        PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-        INSTANCE_NAME: ${{secrets.CLOUD_SQL_INSTANCE_NAME}}
-        SA_KEY: ${{secrets.GKE_SA_KEY}}
-        # apikey: ${apikey}
       run: |-
-        docker-compose -f ./docker-compose.yml build 
+        docker-compose -f ./docker-compose.yml build          
 
     # Push the Docker images to Google Container Registry
     - name: Publish
       run: |-
+        gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/product:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/cart:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/order:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/payment:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/stock:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
         
+    # # Authentication to DB
+    # - name: Authentication 
+    #   run: |-
+    #     touch key.json
+    #     echo credentials=${{ secrets.GKE_SA_KEY }} >> key.json
+    #     kubectl create secret generic sasecret --from-file=service_acc.json=~/key.json}}
     # Deploy the Docker images to the GKE cluster
+
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/users.yaml
-        kubectl expose deployment users --type LoadBalancer --port 5003 --target-port 5003
+        kubectl apply -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/cart.yaml -f ./gke_config/cart-service.yaml -f ./gke_config/ingress.yaml
+        kubectl get deployment/users -o yaml
+        kubectl rollout status deployment/product
+        kubectl rollout status deployment/cart
+        kubectl rollout status deployment/users
         kubectl get services -o wide

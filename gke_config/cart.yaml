@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: users
+  name: cart
   labels:
-    app: users
+    app: cart
 
 spec:
   replicas: 1
@@ -14,19 +14,19 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: users
+      app: cart
 
   template:
     metadata:
       labels:
-        app: users
+        app: cart
     spec:
       containers:
 
-        - name: users
-          image: "gcr.io/elegant-fort-344208/users:v1"
+        - name: cart
+          image: "gcr.io/elegant-fort-344208/cart:v1"
           imagePullPolicy: Always
-
+  
           ports:
-          - containerPort: 5003
-            name: users  
+          - containerPort: 5006
+            name: cart  

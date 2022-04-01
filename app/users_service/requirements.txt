@@ -11,3 +11,6 @@ python-decouple==3.3.0
 Flask-Testing==0.8.1
 python-dotenv==0.15.0
 PyMySQL==1.0.2
+Jinja2==3.0.3
+Werkzeug==0.16.0
+mysqlclient==2.1.0
