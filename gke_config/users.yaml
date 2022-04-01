@@ -1,32 +1,55 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: users
+#   labels:
+#     app: users
+
+# spec:
+#   replicas: 1
+#   strategy: 
+#     type: RollingUpdate 
+#     rollingUpdate: 
+#       maxSurge: 1
+#       maxUnavailable: 0
+#   selector:
+#     matchLabels:
+#       app: users
+
+#   template:
+#     metadata:
+#       labels:
+#         app: users
+#     spec:
+#       containers:
+
+#         - name: users
+#           image: "gcr.io/elegant-fort-344208/users:v1"
+#           imagePullPolicy: Always
+
+#           ports:
+#           - containerPort: 5003
+#             name: users  
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: users
-  labels:
-    app: users
-
 spec:
-  replicas: 1
-  strategy: 
-    type: RollingUpdate 
-    rollingUpdate: 
-      maxSurge: 1
-      maxUnavailable: 0
   selector:
     matchLabels:
-      app: users
-
+      greeting: hello
+      version: one
+  replicas: 1
   template:
     metadata:
       labels:
-        app: users
+        greeting: hello
+        version: one
     spec:
       containers:
-
-        - name: users
-          image: "gcr.io/elegant-fort-344208/users:v1"
-          imagePullPolicy: Always
-
-          ports:
-          - containerPort: 5003
-            name: users  
+      - name: users
+        image: "gcr.io/elegant-fort-344208/users:v1"
+        env:
+        - name: "PORT"
+          value: "50000"
