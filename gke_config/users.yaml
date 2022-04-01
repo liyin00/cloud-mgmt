@@ -35,6 +35,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: users
+  labels:
+    greeting: hello 
+    version: one 
 spec:
   selector:
     matchLabels:
