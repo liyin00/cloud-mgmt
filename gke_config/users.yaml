@@ -1,58 +1,58 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: users
-  labels:
-    greeting: hello
-
-spec:
-  replicas: 1
-  strategy: 
-    type: RollingUpdate 
-    rollingUpdate: 
-      maxSurge: 1
-      maxUnavailable: 0
-  selector:
-    matchLabels:
-      greeting: hello 
-
-  template:
-    metadata:
-      labels:
-        greeting: hello 
-    spec:
-      containers:
-        - name: users
-          image: "gcr.io/elegant-fort-344208/users:v1"
-          imagePullPolicy: Always
-          env:
-          - name: "PORT"
-            value: "50000"
-
-          # ports:
-          # - containerPort: 5003
-          #   name: users  
-
 # apiVersion: apps/v1
 # kind: Deployment
 # metadata:
 #   name: users
 #   labels:
-#     greeting: hello 
-#     version: one 
+#     greeting: hello
+
 # spec:
+#   replicas: 1
+#   strategy: 
+#     type: RollingUpdate 
+#     rollingUpdate: 
+#       maxSurge: 1
+#       maxUnavailable: 0
 #   selector:
 #     matchLabels:
-#       greeting: hello
-#   replicas: 1
+#       greeting: hello 
+
 #   template:
 #     metadata:
 #       labels:
-#         greeting: hello
+#         greeting: hello 
 #     spec:
 #       containers:
-#       - name: users
-#         image: "gcr.io/elegant-fort-344208/users:v1"
-#         env:
-#         - name: "PORT"
-#           value: "50000"
+#         - name: users
+#           image: "gcr.io/elegant-fort-344208/users:v1"
+#           imagePullPolicy: Always
+#           env:
+#           - name: "PORT"
+#             value: "50000"
+
+          # ports:
+          # - containerPort: 5003
+          #   name: users  
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users
+  labels:
+    greeting: hello 
+    version: one 
+spec:
+  selector:
+    matchLabels:
+      greeting: hello
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        greeting: hello
+    spec:
+      containers:
+      - name: users
+        image: "gcr.io/elegant-fort-344208/users:v1"
+        env:
+        - name: "PORT"
+          value: "5003"

@@ -1,32 +1,30 @@
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    greeting: hello 
-  name: users-service
-spec:
-  type: NodePort 
-  selector:
-    greeting: users 
-  ports:
-    - protocol: TCP
-      port: 60000
-      targetPort: 5003
-
 # apiVersion: v1
 # kind: Service
 # metadata:
-#   name: users
 #   labels:
 #     greeting: hello 
+#   name: users-service
 # spec:
-#   type: NodePort
+#   type: NodePort 
 #   selector:
-#     labels: 
-#       greeting: hello
+#     greeting: users 
 #   ports:
-#   - protocol: TCP
-#     port: 60000
-#     targetPort: 50000
+#     - protocol: TCP
+#       port: 60000
+#       targetPort: 5003
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-service
+spec:
+  type: NodePort
+  selector:
+    greeting: hello
+    version: one
+  ports:
+  - protocol: TCP
+    port: 60000
+    targetPort: 5003
 
 
