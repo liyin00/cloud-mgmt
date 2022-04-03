@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-pubsub
+  labels:
+    app: order-pubsub
+
+spec:
+  replicas: 1
+  strategy: 
+    type: RollingUpdate 
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: order-pubsub
+
+  template:
+    metadata:
+      labels:
+        app: order-pubsub
+    spec:
+      containers:
+
+        - name: order-pubsub
+          image: "gcr.io/elegant-fort-344208/order-pubsub:v1"
+          imagePullPolicy: Always
+  
+          ports:
+          - containerPort: 8080
+            name: order-pubsub  
