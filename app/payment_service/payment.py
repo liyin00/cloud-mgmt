@@ -12,7 +12,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 #Stripe API
-stripe.api_key = os.getenv('apikey') or environ.get("apikey")
+# stripe.api_key = os.getenv('apikey') or environ.get("apikey")
+stripe.api_key = 'sk_test_51IX1pfEh2v7rRS8AcPlo5xnom5URyB0pGOpVahhgBjIUWLThrnp864myMWWOj4Hbr6hxVJaDBiRI657dnwFOshmS008gjCP4fb'
 
 #file path
 # os.chdir(os.path.dirname(os.path.realpath(__file__)))

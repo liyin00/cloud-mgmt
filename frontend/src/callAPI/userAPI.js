@@ -1,4 +1,5 @@
-export const userURL = "http://127.0.0.1:5003";
+// export const userURL = "http://127.0.0.1:5003";
+export const userURL = "http://34.142.179.188:5003";
 
 // ====== create ========
 //Create payment

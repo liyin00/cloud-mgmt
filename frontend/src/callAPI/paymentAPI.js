@@ -1,14 +1,15 @@
 import { loadStripe } from '@stripe/stripe-js';
 import env from "react-dotenv";
 
-export const paymentURL = "http://127.0.0.1:4242";
+// export const paymentURL = "http://127.0.0.1:4242";
+export const paymentURL = "http://34.142.143.175:4242";
 
 // require('dotenv').config({path: '../../../.env'});
 
 // ====== create ========
 //Create payment
 export async function checkoutPayment(URL, body) {
-    const session = JSON.parse(sessionStorage.getItem("session"));
+    const session = JSON.parse(localStorage.getItem("session"));
     if (session) {
         const user_id = session.user_id;
         if (user_id === "") {
@@ -34,7 +35,9 @@ export async function checkoutPayment(URL, body) {
         }
         const response = await fetch(`${URL}/create-checkout-session`, data)
         if (response) {
+            console.log("response", response)
             const session = await response.json();
+            console.log("session", session)
             console.log("session_id: ", session.id);
             stripe.redirectToCheckout({ sessionId: session.id })
         }
