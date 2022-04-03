@@ -49,3 +49,15 @@ services:
     restart: always
     ports:
       - "4242:4242"
+
+  #################################################
+  # Order: The Order microservice
+  #################################################
+  order:
+    build:
+      context: ./app/order_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/order:v1
+    restart: always
+    ports:
+      - "5000:5000"
