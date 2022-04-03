@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: some-memcached
+  name: some-memcached-11211
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 11211
+      targetPort: 11211
