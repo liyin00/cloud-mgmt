@@ -15,27 +15,28 @@ class Cart extends Component {
     componentDidMount() {
         const session = JSON.parse(sessionStorage.getItem("session"));
         if (session) {
-            this.setState({user_id: session.user_id});
+            const user_id = session.user_id;
+            this.setState({"user_id": user_id});
+            //get cart data
+            if (this.state.cart.length === 0) {
+                getCartByUserId(cartURL, user_id).then(result => {
+                    if (result.code == 200) {
+                        const response = result.data;
+                        if (response){
+                            this.setState({
+                                "cart": response.product_list,
+                                "user_id": response.user_id
+                            })       
+                        }
+                    } else {
+                        console.log("Error getting cart data", result);
+                    }
+                });
+            }
         } else {
             window.location.href = "/login.html";
         }
 
-        if (this.state.cart.length === 0) {
-            getCartByUserId(cartURL,this.state.user_id).then(result => {
-                if (result.code == 200) {
-                    this.error = false;
-                    const response = result.data;
-                    if (response){
-                        this.setState({
-                            "cart": response.product_list,
-                            "user_id": response.user_id
-                        })       
-                    }
-                } else {
-                    console.log("Error getting cart data", result);
-                }
-            });
-        }
         //check the url for success and cancelled
         const query = new URLSearchParams(window.location.search);
         if (query.get("success")) {

@@ -25,29 +25,34 @@ class App extends Component {
     componentDidMount() {
         const session = JSON.parse(sessionStorage.getItem("session"));
         if (session) {
-            this.setState({user_id: session.user_id});
+            const user_id = session.user_id;
+            this.setState({user_id: user_id});
+
+            //get cart data
+            if (this.state.cart.length === 0){
+                getCartByUserId(cartURL, user_id).then(result => {
+                    if (result.code === 200){
+                        const response = result.data
+                        if (response){
+                            this.state.cart = response.product_list;
+                            this.state.user_id = response.user_id
+                            this.setState(this.state);
+                        }
+                    } else {
+                        console.log("error in getting cart items from home page", result.data);
+                    }
+                })
+            };
         } else {
             window.location.href = "/login.html";
         }
-        //get cart data
-        if (this.state.cart.length === 0){
-            getCartByUserId(cartURL, this.state.user_id).then(result => {
-                if (result.code === 200){
-                    const response = result.data
-                    if (response){
-                        this.state.cart = response.product_list;
-                        this.state.user_id = response.user_id
-                        this.setState(this.state);
-                    }
-                } else {
-                    console.log("error in getting cart items from home page", result.data);
-                }
-            })
-        };
+        
     }
 
     handleIncrement = (product, product_id) => {
-        if (this.state.user_id === "") window.location.href = '/login.html';
+        if (this.state.user_id === "") {
+            window.location.href = '/login.html';
+        }
         else{
             const product_data = {
                 'user_id' : this.state.user_id,

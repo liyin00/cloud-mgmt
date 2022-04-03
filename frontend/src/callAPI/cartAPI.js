@@ -27,8 +27,10 @@ export async function createCartItem(URL, body) {
 }
 
 export async function getCartByUserId(URL, userId) {
+    console.log("userId", userId)
     try {
         const response = await fetch(`${URL}/get_cart_by_user_id/${userId}`);
+        console.log(response)
         if (response) {
             const result = await response.json();
             return result;

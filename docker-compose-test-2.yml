@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+
+  ##################################
+  # Users: The Users microservice
+  ##################################
+  users:
+    build:
+      context: ./app/users_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/users:v1
+    restart: always
+    ports:
+      - "5003:5003"
+
+  ###################################
+  # Product: The Product microservice
+  ###################################
+  cart:
+    build:
+      context: ./app/cart_service
+      dockerfile: Dockerfile
+    image: jingweisim/cart:v1
+    restart: always
+    ports:
+      - "5006:5006"
+
+  # ##################################
+  # Product: The Product microservice
+  # ##################################
+  product:
+    build:
+      context: ./app/product_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/product:v1
+    restart: always
+    ports:
+      - "5005:5005"
+
