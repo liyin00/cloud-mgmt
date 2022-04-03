@@ -1,4 +1,5 @@
-export const cartURL = "http://127.0.0.1:5006";
+// export const cartURL = "http://127.0.0.1:5006";
+export const cartURL = "http://34.142.147.70:5006";
 
 // ====== create ========
 //Create payment

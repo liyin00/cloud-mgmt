@@ -13,7 +13,7 @@ import json
 from flask_cors import CORS
 
 from werkzeug.contrib.cache import MemcachedCache
-cache = MemcachedCache(['34.142.224.68:11211'])
+cache = MemcachedCache(['34.142.170.99:11211'])
 
 # Initialize Flask app 
 app = Flask(__name__)
@@ -21,7 +21,6 @@ CORS(app)
 
 
 # print('service info is ' , service_info)
-print("gg into function now!!!!!!!!!")
 
 service_account_info = {
         "type": "service_account",
