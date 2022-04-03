@@ -52,7 +52,7 @@ jobs:
     # Push the Docker images to Google Container Registry
     - name: Publish
       run: |-
-        gcloud docker -- push gcr.io/$PROJECT_ID/cart:v1
+        gcloud docker -- push gcr.io/$PROJECT_ID/product:v1
         
     # # Authentication to DB
     # - name: Authentication 
