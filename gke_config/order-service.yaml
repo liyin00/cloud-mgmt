@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: cart
-  name: cart-lb
+    app: order
+  name: order-lb
 spec:
   type: LoadBalancer
   selector:
-    app: cart
+    app: order
   ports:
     - protocol: TCP
-      port: 5006
-      targetPort: 5006
+      port: 5000
+      targetPort: 5000

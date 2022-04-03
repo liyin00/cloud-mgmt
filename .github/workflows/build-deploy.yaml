@@ -1,8 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Build and Deploy to GKE
 
 on:
@@ -12,14 +7,13 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GKE_CLUSTER: bbtired   # Add your cluster name here.
+  GKE_CLUSTER: clae-gke   # Add your cluster name here.
   GKE_ZONE: asia-southeast1-b   # Add your cluster zone here.
 
 jobs:
   setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+    name: Setup, Build, Publish, and Deploy to GKE 
     runs-on: ubuntu-latest
-    # environment: production
 
     steps:
     - name: Checkout
@@ -54,19 +48,19 @@ jobs:
       run: |-
         gcloud docker -- push gcr.io/$PROJECT_ID/product:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
-        
-    # # Authentication to DB
-    # - name: Authentication 
-    #   run: |-
-    #     touch key.json
-    #     echo credentials=${{ secrets.GKE_SA_KEY }} >> key.json
-    #     kubectl create secret generic sasecret --from-file=service_acc.json=~/key.json}}
-    # Deploy the Docker images to the GKE cluster
+        gcloud docker -- push gcr.io/$PROJECT_ID/payment:v1
+        gcloud docker -- push gcr.io/$PROJECT_ID/cart:v1
+        gcloud docker -- push gcr.io/$PROJECT_ID/order:v1
+        gcloud docker -- push gcr.io/$PROJECT_ID/stock:v1
 
+    # Apply Kubernetes Cluster based on Manifest files 
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml  -f ./gke_config/memcached.yaml -f ./gke_config/memcached-service.yaml
+        kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml -f ./gke_config/payment.yaml -f ./gke_config/payment-service.yaml -f ./gke_config/cart.yaml -f ./gke_config/cart-service.yaml -f ./gke_config/order.yaml -f ./gke_config/order-service.yaml -f ./gke_config/stock.yaml -f ./gke_config/stock-service.yaml
         kubectl rollout status deployment/product
         kubectl rollout status deployment/users
-        kubectl rollout status deployment/memcached
+        kubectl rollout status deployment/payment
+        kubectl rollout status deployment/cart
+        kubectl rollout status deployment/order 
+        kubectl rollout status deployment/stock
         kubectl get services -o wide
