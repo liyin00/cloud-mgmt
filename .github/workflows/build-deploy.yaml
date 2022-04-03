@@ -52,8 +52,6 @@ jobs:
     # Push the Docker images to Google Container Registry
     - name: Publish
       run: |-
-        gcloud docker -- push gcr.io/$PROJECT_ID/users:v1
-        gcloud docker -- push gcr.io/$PROJECT_ID/product:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/cart:v1
         
     # # Authentication to DB
@@ -66,9 +64,6 @@ jobs:
 
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/cart.yaml -f ./gke_config/cart-service.yaml -f ./gke_config/k8s/ingress.yaml
-        kubectl get deployment/users -o yaml
+        kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml 
         kubectl rollout status deployment/product
-        kubectl rollout status deployment/cart
-        kubectl rollout status deployment/users
         kubectl get services -o wide
