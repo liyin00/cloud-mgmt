@@ -1,0 +1,8 @@
+apiVersion: cloud.google.com/v1beta1
+kind: BackendConfig
+metadata:
+  namespace: cloud-armor
+  name: cloud-armor
+spec:
+  securityPolicy:
+    name: k8s-lb-policy
