@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  labels:
+    app: payment
+
+spec:
+  replicas: 1
+  strategy: 
+    type: RollingUpdate 
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: payment
+
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+        - name: payment 
+          image: "gcr.io/elegant-fort-344208/payment:v1"
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 4242
+            name: payment          
+      restartPolicy: Always
