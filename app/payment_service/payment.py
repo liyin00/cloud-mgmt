@@ -42,9 +42,13 @@ topic_path = publisher.topic_path('elegant-fort-344208', 'orderfulfillment')
 app = Flask(__name__)
 CORS(app)
 
-# DOMAIN = 'http://clae.me/cart'
-DOMAIN = 'http://127.0.0.1:3000/cart'
+DOMAIN = 'http://clae.me/cart'
+# DOMAIN = 'http://127.0.0.1:3000/cart'
 
+@app.route("/")
+def payment_up():
+    return "payment is uppppppp"
+    
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:

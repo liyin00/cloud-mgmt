@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: payment
+  name: payment-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: payment
+  ports:
+    - protocol: TCP
+      port: 4242
+      targetPort: 4242
