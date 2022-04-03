@@ -17,6 +17,7 @@ class Shop extends Component {
     state = {}
 
     componentDidMount() {
+        if (this.state.user_id === "") window.location.href = '/login.html';
         //1. API call to retrieve all product data
         //2. update the product in state with new data using setState
         // meaning call each API whenever use access each site

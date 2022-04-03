@@ -28,8 +28,8 @@ const Navbar = ({totalCartItems}) => {
                             Shop
                         </Link>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <Link className="dropdown-item" to="/shop/dog-collection">Dog Collection</Link>
-                            <Link className="dropdown-item" to="/shop/cat-collection">Cat Collection</Link>
+                            {/* <Link className="dropdown-item" to="/shop/dog-collection">Dog Collection</Link>
+                            <Link className="dropdown-item" to="/shop/cat-collection">Cat Collection</Link> */}
                             <Link className="dropdown-item" to="/shop">All</Link>
                         </div>
                     </li>

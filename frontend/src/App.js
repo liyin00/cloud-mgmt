@@ -23,9 +23,15 @@ class App extends Component {
     };
 
     componentDidMount() {
+        const session = JSON.parse(sessionStorage.getItem("session"));
+        if (session) {
+            this.setState({user_id: session.user_id});
+        } else {
+            window.location.href = "/login.html";
+        }
         //get cart data
         if (this.state.cart.length === 0){
-            getCartByUserId(cartURL, 'u6').then(result => {
+            getCartByUserId(cartURL, this.state.user_id).then(result => {
                 if (result.code === 200){
                     const response = result.data
                     if (response){
@@ -41,52 +47,47 @@ class App extends Component {
     }
 
     handleIncrement = (product, product_id) => {
-        const product_data = {
-            'user_id' : 'u6',
-            'product_id' :  product_id,
-            'product_name': product.product_name,
-            'product_description': product.product_description,
-            'product_img': product.product_img,
-            'quantity':'1',
-            'price' : product.price,
-            'price_id': product.price_id
+        if (this.state.user_id === "") window.location.href = '/login.html';
+        else{
+            const product_data = {
+                'user_id' : this.state.user_id,
+                'product_id' :  product_id,
+                'product_name': product.product_name,
+                'product_description': product.product_description,
+                'product_img': product.product_img,
+                'quantity':'1',
+                'price' : product.price,
+                'price_id': product.price_id
+            }
+    
+            const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
+            //create the value attribute in product
+            if (itemArray.length === 0) {
+                createCartItem(cartURL, product_data).then(result => {
+                    console.log("result is ", result)
+                    if (result.code === 200) {
+                        this.setState({ alert: true });
+                        this.error = false;
+        
+                        const cart = [...this.state.cart];
+                        const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
+                        //create the value attribute in product
+                        if (itemArray.length === 0) {
+                            // convert quantity to numeric to count
+                            product_data.quantity = Number(product_data.quantity)
+                            cart.push(product_data);
+                            this.setState({cart});
+                        }
+                        
+                    } else {
+                         console.log("test")
+                        this.error = true;
+                    }
+                    
+                })
+            }
         }
 
-        const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
-        //create the value attribute in product
-        if (itemArray.length === 0) {
-            createCartItem(cartURL, product_data).then(result => {
-                console.log("result is ", result)
-                if (result.code === 200) {
-                    this.setState({ alert: true });
-                    this.error = false;
-    
-                    const cart = [...this.state.cart];
-                    const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
-                    //create the value attribute in product
-                    if (itemArray.length === 0) {
-                        // convert quantity to numeric to count
-                        product_data.quantity = Number(product_data.quantity)
-                        cart.push(product_data);
-                        this.setState({cart});
-                    }
-                    // else {
-                    //     const itemInCart = itemArray[0];
-                    //     //ensure only max 5 products can be added to cart
-                    //     if (itemInCart.value === 5 ) return;
-                    //     const index = cart.indexOf(itemInCart);
-                    //     cart[index] = {...itemInCart};
-                    //     cart[index].value++;
-                    //     this.setState({cart});
-                    // }
-                    
-                } else {
-                    console.log("test")
-                    this.error = true;
-                }
-                
-            })
-        }
     }
 
     onModifyCart = (body, cart) => {
@@ -114,7 +115,7 @@ class App extends Component {
         const body = {
             result: {
                 "product_list": cart,
-                "user_id": "u6"
+                "user_id": this.state.user_id
             }
         }
         this.onModifyCart(body, cart);
@@ -129,7 +130,7 @@ class App extends Component {
         const body = {
             result: {
                 "product_list": cart,
-                "user_id": "u6"
+                "user_id": this.state.user_id
             }
         }
         this.onModifyCart(body, cart);
@@ -140,7 +141,7 @@ class App extends Component {
         const body = {
             result: {
                 "product_list": cart,
-                "user_id": "u6"
+                "user_id": this.state.user_id
             }
         }
         this.onModifyCart(body, cart);

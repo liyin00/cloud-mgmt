@@ -1,0 +1,317 @@
+<html>
+<div class="overlay">
+<style>
+        /* Fonts Form Google Font ::- https://fonts.google.com/  -:: */
+    @import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+    /* End Fonts */
+
+    /* Start Global rules */
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    /* End Global rules */
+
+    /* Start body rules */
+    body {
+        background-image: linear-gradient(-225deg, #808080 0%, #ccb1a0 100%);
+        background-image: linear-gradient(to top, #808080 0%, #ccb1a0 100%);
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+
+        font-family: 'Vibur', cursive;
+        /*   the main font */
+        font-family: 'Abel', sans-serif;
+        opacity: .95;
+    /* background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); */
+    }
+
+    /* End body rules */
+
+    /* Start form  attributes */
+    form {
+        width: 450px;
+        min-height: 500px;
+        height: auto;
+        border-radius: 5px;
+        margin: 2% auto;
+        box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+        padding: 2%;
+        background-image: linear-gradient(-225deg, #E6DCD3 50%, #CACFCB 50%);
+    }
+    /* form Container */
+    form .con {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin: 0 auto;
+    }
+
+    /* the header form form */
+    header {
+        margin: 2% auto 10% auto;
+        text-align: center;
+    }
+    /* Login title form form */
+    header h2 {
+        font-size: 250%;
+        font-family: 'Playfair Display', serif;
+        color: #3e403f;
+    }
+    /*  A welcome message or an explanation of the login form */
+    header p {letter-spacing: 0.05em;}
+
+
+    .input-item {
+        background: #fff;
+        color: #333;
+        padding: 14.5px 0px 15px 9px;
+        border-radius: 5px 0px 0px 5px;
+    }
+
+    /* Show/hide password Font Icon */
+
+    /* inputs form  */
+    input[class="form-input"]{
+        width: 240px;
+        height: 50px;
+        margin: 10px 0 0 0;
+        padding: 15px;
+        font-size: 16px;
+        font-family: 'Abel', sans-serif;
+        color: #5E6472;
+        outline: none;
+        border: none;
+        border-radius: 0px 5px 5px 0px;
+        transition: 0.2s linear;
+        
+    }
+    input[id="txt-input"] {width: 250px;}
+    /* focus  */
+    input:focus {
+        transform: translateX(-2px);
+        border-radius: 5px;
+    }
+
+    input[id="pwd"] {width: 250px;}
+    /* focus  */
+    input:focus {
+        transform: translateX(-2px);
+        border-radius: 5px;
+    }
+
+    /* //////////////////////////////////////////// */
+    /* //////////////////////////////////////////// */
+
+    /* input[type="text"] {min-width: 250px;} */
+    /* buttons  */
+    button {
+        display: inline-block;
+        color: #252537;
+
+        width: 260px;
+        height: 50px;
+
+        padding: 0 20px;
+        background: #fff;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s linear;
+        
+        margin: 7% auto;
+        letter-spacing: 0.05em;
+    }
+    
+    .log-in {
+        margin: 15px 0 50px 0;
+    }
+
+    /* Submits */
+    .submits {
+        width: 48%;
+        display: inline-block;
+        float: left;
+        margin-left: 2%;
+    }
+
+    /*       Forgot Password button FAF3DD  */
+    .frgt-pass {background: transparent;}
+
+    /*     Sign Up button  */
+    .sign-up {background: #B8F2E6;}
+
+
+    /* buttons hover */
+    button:hover {
+        transform: translatey(3px);
+        box-shadow: none;
+    }
+
+    /* buttons hover Animation */
+    button:hover {
+        animation: ani9 0.4s ease-in-out infinite alternate;
+    }
+    @keyframes ani9 {
+        0% {
+            transform: translateY(3px);
+        }
+        100% {
+            transform: translateY(5px);
+        }
+    }
+
+</style>
+    <!-- LOGN IN FORM by Omar Dsoky -->
+
+<head>
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <link ref="stylesheet" type="text/css" href="/css/style.css" >
+    <link rel='icon' href="favicon.ico" type="image/x-icon"/>
+</head>
+
+<body>
+<form>
+    <!--   con = Container  for items in the form-->
+    <div class="con">
+    <!--     Start  header Content  -->
+    <header class="head-form">
+        <!-- <img style="border-radius: 20%;" src="./images/clae_display.jpg"/> -->
+        <div style="width:450px;">
+            <h1>Clae.SG</h1>
+        </div>
+        <!-- <h2>Log In</h2> -->
+        <!--     A welcome message or an explanation of the login form -->
+        <h3>Login to clae.me</h3>
+    </header>
+    <!--     End  header Content  -->
+    <br>
+    <div class="field-set">
+    
+        <!--   user name -->
+            <span class="input-item">
+                <i class="fa fa-user-circle"></i>
+            </span>
+        <!--   user name Input-->
+            <input class="form-input" id="txt-input" type="text" placeholder="Enter email" >
+        
+        <br>
+        
+            <!--   Password -->
+        
+        <span class="input-item">
+            <i class="fa fa-key"></i>
+        </span>
+
+        <!--   Password Input-->
+        <input class="form-input" type="password" placeholder="Enter password" id="pwd"  name="password" >
+        
+<!--      Show/hide password  -->
+
+        <br>
+<!--        buttons -->
+<!--      button LogIn -->
+        <button type="button" class="log-in" > Log In </button>
+    </div>
+    
+<!--   other buttons -->
+    <div class="other">
+<!--      Forgot Password button-->
+        <!-- <button class="btn submits frgt-pass">Forgot Password</button> -->
+<!--     Sign Up button -->
+        <button  type="button" onclick="clickon();">
+        <img src="./images/google_icon.jpg" width="20px" height="20px"/>
+        <label>Sign In with Google</label>
+<!--         Sign Up font icon -->
+        <i class="fa fa-user-plus" aria-hidden="true"></i>
+        </button>
+<!--      End Other the Division -->
+    </div>
+        
+<!--   End Conrainer  -->
+    </div>
+    
+    <!-- End Form -->
+</form>
+</body>
+
+</html>
+<script>
+        // Show/hide password onClick of button using Javascript only
+
+// https://stackoverflow.com/questions/31224651/show-hide-password-onclick-of-button-using-javascript-only
+
+
+    function test(){
+        console.log('asdasda');
+    }
+
+    var config = {
+        apiKey: "AIzaSyBD1T00f4IqJ2UyQ8mYom1yowZSssN1GDk",
+        // authDomain: "app.clae.me",
+        authDomain: "linen-age-337916.firebaseapp.com",
+
+        // appDisplayName:"clae me"
+        };
+    firebase.initializeApp(config);
+
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().languageCode = 'eng';
+
+
+    function clickon(){
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+    
+    // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var email = result.user.email;
+        console.log("success")
+        var session = {
+            "user_id": email
+        };
+        sessionStorage.setItem("session", JSON.stringify(session));
+        window.location.href = "/";
+
+    // ...
+    }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    console.log(errorCode)
+    if(errorCode == 'auth/cancelled-popup-request'){
+        console.log("is not error is cancel ")
+    }else{
+        console.log("There is an unexce")
+    }
+    
+    // ...
+    });
+
+    }
+    
+
+
+    function logout(){
+        data = firebase.auth().signOut();
+        console.log("logout");
+        console.log(data);
+    }
+
+</script>
+
+
+</div>

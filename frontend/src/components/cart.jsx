@@ -13,8 +13,15 @@ class Cart extends Component {
     }
 
     componentDidMount() {
+        const session = JSON.parse(sessionStorage.getItem("session"));
+        if (session) {
+            this.setState({user_id: session.user_id});
+        } else {
+            window.location.href = "/login.html";
+        }
+
         if (this.state.cart.length === 0) {
-            getCartByUserId(cartURL,"u6").then(result => {
+            getCartByUserId(cartURL,this.state.user_id).then(result => {
                 if (result.code == 200) {
                     this.error = false;
                     const response = result.data;
@@ -35,7 +42,7 @@ class Cart extends Component {
             const body = {
                 result: {
                     "product_list": [],
-                    "user_id": "u6"
+                    "user_id": this.state.user_id
                 }
             }
             // this.props.onClearCart();

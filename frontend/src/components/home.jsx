@@ -11,6 +11,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        if (this.state.user_id === "") window.location.href = '/login.html';
         // 1. API call for featured collection
         // 2. update state with new data invoked
         // let output = await getProductName(productURL, "p10");
