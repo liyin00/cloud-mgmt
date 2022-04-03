@@ -42,7 +42,7 @@ jobs:
     - name: Build Core Services 
       working-directory: ./app
       run: |-
-        docker-compose -f ./docker-compose.yml build   
+        docker-compose -f docker-compose.yml build   
 
     - name: Build Stock Pub/Sub 
       working-directory: ./app/stock_subscriber
