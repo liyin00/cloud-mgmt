@@ -5,7 +5,7 @@ metadata:
     app: cart
   name: cart-lb
   annotations: 
-    beta.cloud.google.com/backend-config: '{"ports": {"http":"cloud-armor"}}
+    beta.cloud.google.com/backend-config: '{"ports": {"http":"cloud-armor"}}'
 spec:
   type: LoadBalancer
   selector:
