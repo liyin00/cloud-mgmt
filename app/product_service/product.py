@@ -54,18 +54,18 @@ CORS(app)
 #     return service_account_info
 
 def service_acc_conversion():
-    service_account_info = {
-        "type": "service_account",
-        "project_id": "elegant-fort-344208",
-        "private_key_id": "8b484a00d77396a82c74551a181090526741569c",
-        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCJzircP6r2wYEG\nZ0oiB53Za6GS4aVoItkx00cDLyJjx3uD3BmUzwkLgSaeUSsw8kXKzD5VeT/lqQaA\nCK3NaEuaTDAh9z8+1/jzODo46F+RyLrrgvdEi9hpHUsgZyqqmGnzqDETGOjZHrmd\nVAL4YczUbPgwyaN8OfB1HaCuDyrQbnPSnsER7VqdrpH9vxvVue3TVTTX1BQ62pnP\nN7muGLv0PO77KHNiERg4ghgYhDjTfO0O9HdH+djQtE4DDSddBurQqilkxH/tq5HY\nYmrGOHvAaG1HYFAw070EiWDnuo4Afgjx/EokkL7vYoDXSTFWkaZHAAEshf3wijPK\nlGQUrJErAgMBAAECggEABsf/cfEsH5JsH/2LN1t6mA1k2Q6DjjlQyNPlxbFXFuPl\nHxsAo0MA5fEIDnheEL2LU6xzUM9zpoCH0lsa+mWser5PDAzXrub/2DAnJU/CDDF9\niUNbmaLsFlgbr0+EWPrBE/1t1MvAAZcyeRx+POzLIJTwLa5ufhl3zLuVgZs7dyA1\n0i5M5XIiPw6mDq4+Q6Qi7VO/GTOuiXpRUQ3MEy40Px12+W1N70G3G9xXZqGEwknB\nQp62xD6AUxOr34QNv9TvI5mKJg/HInfSZTSz4HCwdsoBDtgScy6U7oIgxByiWOlq\ndbFKtqX4m4qLwChxRvO/JXAbv+ytifKIlVHzMN/A8QKBgQDB5qAK3uFcSeJaSlmx\nTkuAV6ZDbBSu2yE0jC/REJY3cHzq9oUF9TwGgVZhXwx66VknlwLNli8jtOsxwlrk\nHhLdEi446Qmfcp12iXtFUfuhnPnn4P/4WOBeAFNFys1RL/gfYeKCuGZpGdTuZta6\nk7rYUFE9uHWJkseGhXN9On6dOQKBgQC18G47+X57z8whDSahjGaGIis31by3we25\nIwgi9hNaGbi0pZk89XkJ+E5NeBCtBaTMqY72iZq3hf8DZFf8m2Bo1Gshfgmve9oz\n/j7GbM95anCEie2drXrdEIKviMWrgY8XRu6kvP/EcvN4+1i11jSz/eLSX8nZXf4r\nao2w41AFgwKBgQCh7sUBzxlORbXvyeAWH1kWmhyUehLb5M1aYSkd5EhPjHYGlFKL\noz66ABHvx71YeMCoO4lvwFkl7NXu/G2DzUnbrm9Dv/r1Wnb+o9p7DfikA8EBUfrz\noOXgG01wH+pQP0tsigbtPKrqY1RctS3nK7EDLjBq5z3h4t8XDSRiFRPgoQKBgHXJ\nHdR+BUCqmoCbPvM/LfCQlmIjYXWlev1sjIv1uzmNhWKOAtLQKHgn5KmKnWEmUjad\nXwyEsUE24o2TnNLQ1G2Jd4HLUwHksLMQWhujvf3gxs9HbCm0ceJEGhcB+Na7naN4\nLG9CXGMV+EHOlvPBpYURTJLdqJOsoiwBY5Gs19V5AoGASyYDQzJWa+evtwjXw3n0\nPCeqfJUjSTRKBOYRsubGG6UM3+2aQSSEpoLxzBm3JLP6qxmTEuV0IJ1/ybuK3YVf\n4LBw3kZyX2bfhJ8UF7jnbPU7IAxsoY5L14n10nO+Y7lJ3sS8A3SnKSBkOWzUIZKe\nDk12b/QZ3b/tlZ/NcqnjIhI=\n-----END PRIVATE KEY-----\n",
-        "client_email": "claeserviceaccount@elegant-fort-344208.iam.gserviceaccount.com",
-        "client_id": "114151717133567707894",
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/claeserviceaccount%40elegant-fort-344208.iam.gserviceaccount.com"
-    }
+    # service_account_info = {
+    #     "type": "service_account",
+    #     "project_id": "elegant-fort-344208",
+    #     "private_key_id": "8b484a00d77396a82c74551a181090526741569c",
+    #     "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCJzircP6r2wYEG\nZ0oiB53Za6GS4aVoItkx00cDLyJjx3uD3BmUzwkLgSaeUSsw8kXKzD5VeT/lqQaA\nCK3NaEuaTDAh9z8+1/jzODo46F+RyLrrgvdEi9hpHUsgZyqqmGnzqDETGOjZHrmd\nVAL4YczUbPgwyaN8OfB1HaCuDyrQbnPSnsER7VqdrpH9vxvVue3TVTTX1BQ62pnP\nN7muGLv0PO77KHNiERg4ghgYhDjTfO0O9HdH+djQtE4DDSddBurQqilkxH/tq5HY\nYmrGOHvAaG1HYFAw070EiWDnuo4Afgjx/EokkL7vYoDXSTFWkaZHAAEshf3wijPK\nlGQUrJErAgMBAAECggEABsf/cfEsH5JsH/2LN1t6mA1k2Q6DjjlQyNPlxbFXFuPl\nHxsAo0MA5fEIDnheEL2LU6xzUM9zpoCH0lsa+mWser5PDAzXrub/2DAnJU/CDDF9\niUNbmaLsFlgbr0+EWPrBE/1t1MvAAZcyeRx+POzLIJTwLa5ufhl3zLuVgZs7dyA1\n0i5M5XIiPw6mDq4+Q6Qi7VO/GTOuiXpRUQ3MEy40Px12+W1N70G3G9xXZqGEwknB\nQp62xD6AUxOr34QNv9TvI5mKJg/HInfSZTSz4HCwdsoBDtgScy6U7oIgxByiWOlq\ndbFKtqX4m4qLwChxRvO/JXAbv+ytifKIlVHzMN/A8QKBgQDB5qAK3uFcSeJaSlmx\nTkuAV6ZDbBSu2yE0jC/REJY3cHzq9oUF9TwGgVZhXwx66VknlwLNli8jtOsxwlrk\nHhLdEi446Qmfcp12iXtFUfuhnPnn4P/4WOBeAFNFys1RL/gfYeKCuGZpGdTuZta6\nk7rYUFE9uHWJkseGhXN9On6dOQKBgQC18G47+X57z8whDSahjGaGIis31by3we25\nIwgi9hNaGbi0pZk89XkJ+E5NeBCtBaTMqY72iZq3hf8DZFf8m2Bo1Gshfgmve9oz\n/j7GbM95anCEie2drXrdEIKviMWrgY8XRu6kvP/EcvN4+1i11jSz/eLSX8nZXf4r\nao2w41AFgwKBgQCh7sUBzxlORbXvyeAWH1kWmhyUehLb5M1aYSkd5EhPjHYGlFKL\noz66ABHvx71YeMCoO4lvwFkl7NXu/G2DzUnbrm9Dv/r1Wnb+o9p7DfikA8EBUfrz\noOXgG01wH+pQP0tsigbtPKrqY1RctS3nK7EDLjBq5z3h4t8XDSRiFRPgoQKBgHXJ\nHdR+BUCqmoCbPvM/LfCQlmIjYXWlev1sjIv1uzmNhWKOAtLQKHgn5KmKnWEmUjad\nXwyEsUE24o2TnNLQ1G2Jd4HLUwHksLMQWhujvf3gxs9HbCm0ceJEGhcB+Na7naN4\nLG9CXGMV+EHOlvPBpYURTJLdqJOsoiwBY5Gs19V5AoGASyYDQzJWa+evtwjXw3n0\nPCeqfJUjSTRKBOYRsubGG6UM3+2aQSSEpoLxzBm3JLP6qxmTEuV0IJ1/ybuK3YVf\n4LBw3kZyX2bfhJ8UF7jnbPU7IAxsoY5L14n10nO+Y7lJ3sS8A3SnKSBkOWzUIZKe\nDk12b/QZ3b/tlZ/NcqnjIhI=\n-----END PRIVATE KEY-----\n",
+    #     "client_email": "claeserviceaccount@elegant-fort-344208.iam.gserviceaccount.com",
+    #     "client_id": "114151717133567707894",
+    #     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    #     "token_uri": "https://oauth2.googleapis.com/token",
+    #     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    #     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/claeserviceaccount%40elegant-fort-344208.iam.gserviceaccount.com"
+    # }
 
     # service_account_info = {"credential":{
     #     "type": "service_account",
@@ -80,9 +80,9 @@ def service_acc_conversion():
     #     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/claeserviceaccount%40elegant-fort-344208.iam.gserviceaccount.com"
     #     }
     # }
-    # os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    # config_path = 'elegant-fort-344208-514b10873dd0.json'
-    # service_account_info = json.load(open(config_path))
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    config_path = 'elegant-fort-344208-514b10873dd0.json'
+    service_account_info = json.load(open(config_path))
     return service_account_info
 
 service_info = service_acc_conversion()
