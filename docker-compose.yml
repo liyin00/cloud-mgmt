@@ -73,3 +73,23 @@ services:
     restart: always
     ports:
       - "5001:5001"
+
+  ###############################################
+  # Stock-PubSub: The Stock microservice
+  ###############################################
+  stock-pubsub:
+    build:
+      context: ./app/stock_subscriber
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/stock-pubsub:v1
+    restart: always
+
+  ###############################################
+  # Order-PubSub: The Order microservice
+  ###############################################
+  order-pubsub:
+    build:
+      context: ./app/order_subscriber
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/order-pubsub:v1
+    restart: always
