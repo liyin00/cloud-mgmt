@@ -17,16 +17,16 @@ load_dotenv()
 app = Flask(__name__)
 
 
-PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
-PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
-DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
-PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
-INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
+# PASSWORD =os.getenv('PASSWORD') or  environ.get("PASSWORD")
+# PUBLIC_IP_ADDRESS =os.getenv('PUBLIC_IP_ADDRESS') or  environ.get("PUBLIC_IP_ADDRESS")
+# DBNAME =os.getenv('DBNAME') or  environ.get("DBNAME")
+# PROJECT_ID =os.getenv('PROJECT_ID') or  environ.get("PROJECT_ID")
+# INSTANCE_NAME =os.getenv('INSTANCE_NAME') or  environ.get("INSTANCE_NAME")
  
 # configuration
 # app.config["SECRET_KEY"] = "yoursecretkey"
 # app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}/{DBNAME}?unix_socket=/cloudsql/{PROJECT_ID}:{INSTANCE_NAME}"
-app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:{PASSWORD}@{PUBLIC_IP_ADDRESS}:3306/{DBNAME}"
+app.config["SQLALCHEMY_DATABASE_URI"]= f"mysql+pymysql://root:L0llip0p0!@10.208.16.7:3306/clae_cloud_sql"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]= True
 db = SQLAlchemy(app)
 

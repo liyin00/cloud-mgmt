@@ -61,3 +61,15 @@ services:
     restart: always
     ports:
       - "5000:5000"
+
+  ###############################################
+  # Stock: The Stock microservice
+  ###############################################
+  stock:
+    build:
+      context: ./app/stock_service
+      dockerfile: Dockerfile
+    image: gcr.io/elegant-fort-344208/stock:v1
+    restart: always
+    ports:
+      - "5001:5001"

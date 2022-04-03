@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock
+  labels:
+    app: stock
+
+spec:
+  replicas: 1
+  strategy: 
+    type: RollingUpdate 
+    rollingUpdate: 
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: stock
+
+  template:
+    metadata:
+      labels:
+        app: stock
+    spec:
+      containers:
+        - name: stock 
+          image: "gcr.io/elegant-fort-344208/stock:v1"
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5001
+            name: stock          
+      restartPolicy: Always
