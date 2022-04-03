@@ -13,7 +13,7 @@ import json
 from flask_cors import CORS
 
 from werkzeug.contrib.cache import MemcachedCache
-cache = MemcachedCache(['127.0.0.1:11211'])
+cache = MemcachedCache(['34.142.224.68:11211'])
 
 # Initialize Flask app 
 app = Flask(__name__)
