@@ -83,10 +83,12 @@ def service_acc_conversion():
     # os.chdir(os.path.dirname(os.path.realpath(__file__)))
     # config_path = 'elegant-fort-344208-514b10873dd0.json'
     # service_account_info = json.load(open(config_path))
+    print(service_account_info)
     return service_account_info
 
+# print('service info is ' , service_info)
+print("gg into function now!!!!!!!!!")
 service_info = service_acc_conversion()
-print('service info is ' , service_info)
 cred = credentials.Certificate(service_info)
 default_app = firebase_admin.initialize_app(cred)
 db = firestore.client()
