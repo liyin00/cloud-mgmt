@@ -38,8 +38,8 @@ services:
     ports:
       - "5005:5005"
 
-  memcached:
-    container_name: some-memcached
-    image: launcher.gcr.io/google/memcached1
-    ports:
-      - '11211:11211'
+  # memcached:
+  #   container_name: some-memcached
+  #   image: launcher.gcr.io/google/memcached1
+  #   ports:
+  #     - '11211:11211'

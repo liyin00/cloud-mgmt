@@ -65,7 +65,7 @@ jobs:
 
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml  
+        kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml  -f ./gke_config/memcached.yaml
         kubectl expose pod some-memcached --name some-memcached-11211 --type LoadBalancer --port 11211 --protocol TCP
         kubectl rollout status deployment/product
         kubectl rollout status deployment/users
