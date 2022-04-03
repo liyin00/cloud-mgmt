@@ -39,9 +39,20 @@ jobs:
   
 
     # Build the Docker images
-    - name: Build
+    - name: Build Core Services 
+      working-directory: ./app
       run: |-
-        docker-compose -f ./docker-compose.yml build          
+        docker-compose -f ./docker-compose.yml build   
+
+    - name: Build Stock Pub/Sub 
+      working-directory: ./app/stock_subscriber
+      run: |- 
+        docker build . -f Dockerfile -t gcr.io/elegant-fort-344208/stock-pubsub:v1
+    
+    - name: Build Order Pub/Sub 
+      working-directory: ./app/order_subscriber 
+      run: |-
+        docker build . -f Dockerfile -t gcr.io/elegant-fort-344208/order-pubsub:v1
 
     # Push the Docker images to Google Container Registry
     - name: Publish
@@ -52,15 +63,19 @@ jobs:
         gcloud docker -- push gcr.io/$PROJECT_ID/cart:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/order:v1
         gcloud docker -- push gcr.io/$PROJECT_ID/stock:v1
+        gcloud docker -- push gcr.io/$PROJECT_ID/order-pubsub:v1
+        gcloud docker -- push gcr.io/$PROJECT_ID/stock-pubsub:v1
 
     # Apply Kubernetes Cluster based on Manifest files 
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml -f ./gke_config/payment.yaml -f ./gke_config/payment-service.yaml -f ./gke_config/cart.yaml -f ./gke_config/cart-service.yaml -f ./gke_config/order.yaml -f ./gke_config/order-service.yaml -f ./gke_config/stock.yaml -f ./gke_config/stock-service.yaml
+        kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml -f ./gke_config/payment.yaml -f ./gke_config/payment-service.yaml -f ./gke_config/cart.yaml -f ./gke_config/cart-service.yaml -f ./gke_config/order.yaml -f ./gke_config/order-service.yaml -f ./gke_config/stock.yaml -f ./gke_config/stock-service.yaml -f ./gke_config/order-pubsub.yaml ./gke_config/order-pubsub-service.yaml -f ./gke_config/stock-pubsub.yaml -f ./gke_config/stock-pubsub-service.yaml 
         kubectl rollout status deployment/product
         kubectl rollout status deployment/users
         kubectl rollout status deployment/payment
         kubectl rollout status deployment/cart
         kubectl rollout status deployment/order 
         kubectl rollout status deployment/stock
+        kubectl rollout status deployment/order-pubsub
+        kubectl rollout status deployment/stock-pubsub
         kubectl get services -o wide

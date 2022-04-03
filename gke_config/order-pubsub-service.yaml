@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: order-pubsub
+  name: order-pubsub-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: order-pubsub
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
