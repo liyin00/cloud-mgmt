@@ -19,7 +19,7 @@ class Cart extends Component {
             this.setState({user_id: user_id});
 
             if (this.state.cart.length === 0) {
-                getCartByUserId(cartURL,this.state.user_id).then(result => {
+                getCartByUserId(cartURL, user_id).then(result => {
                     if (result.code == 200) {
                         this.error = false;
                         const response = result.data;

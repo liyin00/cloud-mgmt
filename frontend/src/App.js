@@ -30,7 +30,7 @@ class App extends Component {
 
             //get cart data
             if (this.state.cart.length === 0){
-                getCartByUserId(cartURL, this.state.user_id).then(result => {
+                getCartByUserId(cartURL, user_id).then(result => {
                     if (result.code === 200){
                         const response = result.data
                         if (response){
@@ -84,7 +84,7 @@ class App extends Component {
                         }
                         
                     } else {
-                         console.log("test")
+                        console.log("test")
                         this.error = true;
                     }
                     
