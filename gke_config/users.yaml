@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: users
   labels:
-    greeting: hello
+    app: users
 
 spec:
   replicas: 1
@@ -14,48 +14,18 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      # app: users
-      greeting: hello 
+      app: users
 
   template:
     metadata:
       labels:
-        # app: users
-        greeting: hello 
+        app: users
     spec:
       containers:
-
-        - name: users
+        - name: users 
           image: "gcr.io/elegant-fort-344208/users:v1"
           imagePullPolicy: Always
-          env:
-          - name: "PORT"
-            value: "50000"
-
-          # ports:
-          # - containerPort: 5003
-          #   name: users  
-
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: users
-#   labels:
-#     greeting: hello 
-#     version: one 
-# spec:
-#   selector:
-#     matchLabels:
-#       greeting: hello
-#   replicas: 1
-#   template:
-#     metadata:
-#       labels:
-#         greeting: hello
-#     spec:
-#       containers:
-#       - name: users
-#         image: "gcr.io/elegant-fort-344208/users:v1"
-#         env:
-#         - name: "PORT"
-#           value: "50000"
+          ports:
+          - containerPort: 5003
+            name: users          
+      restartPolicy: Always
