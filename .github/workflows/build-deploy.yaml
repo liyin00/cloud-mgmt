@@ -68,4 +68,5 @@ jobs:
         kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml
         kubectl rollout status deployment/product
         kubectl rollout status deployment/users
+        kubectl rollout status deployment/memcached
         kubectl get services -o wide
