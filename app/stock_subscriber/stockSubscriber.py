@@ -45,7 +45,8 @@ def callback(message: pubsub_v1.subscriber.message.Message) -> None:
     try :
 
         headers =  {"Content-Type":"application/json"}
-        response = requests.post('http://127.0.0.1:5001/update_deduct_stock_by_product_id', data=json.dumps(value), headers=headers)
+        # response = requests.post('http://127.0.0.1:5001/update_deduct_stock_by_product_id', data=json.dumps(value), headers=headers)
+        response = requests.post('http://34.142.141.221:5001/update_deduct_stock_by_product_id', data=json.dumps(value), headers=headers)
         print(response)
     except Exception as e:
         print(e)
