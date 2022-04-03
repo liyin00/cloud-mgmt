@@ -29,9 +29,9 @@ def service_acc_conversion():
         "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/claeserviceaccount%40elegant-fort-344208.iam.gserviceaccount.com"
         }
     }
-    os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    config_path = 'elegant-fort-344208-514b10873dd0.json'
-    service_account_info = json.load(open(config_path))
+    # os.chdir(os.path.dirname(os.path.realpath(__file__)))
+    # config_path = 'elegant-fort-344208-514b10873dd0.json'
+    # service_account_info = json.load(open(config_path))
     return service_account_info
 
 # def service_acc_conversion():
@@ -140,7 +140,6 @@ def create_cart_item():
 
 @app.route("/get_cart_by_user_id/<string:user_id>", methods=['GET'])
 def get_cart_by_user_id(user_id):
-    print("user_id ", user_id)
     try:
         doc = collection.document(user_id)
         res = doc.get().to_dict()

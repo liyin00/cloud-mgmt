@@ -28,6 +28,7 @@ class Home extends Component {
     }
 
     render() {
+        console.log(this.props.products)
         const {cart, onIncrement, onProductData} = this.props;
         return (
             <React.Fragment>

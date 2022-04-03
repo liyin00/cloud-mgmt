@@ -19,6 +19,8 @@ cache = MemcachedCache(['127.0.0.1:11211'])
 app = Flask(__name__)
 CORS(app)
 
+
+
 # def service_acc_conversion():
 #     service_account_info = {"credential":
 #     {
@@ -81,9 +83,6 @@ def service_acc_conversion():
     # # os.chdir(os.path.dirname(os.path.realpath(__file__)))
     # # config_path = 'elegant-fort-344208-514b10873dd0.json'
     # # service_account_info = json.load(open(config_path))
-    os.chdir(os.path.dirname(os.path.realpath(__file__)))
-    config_path = 'elegant-fort-344208-514b10873dd0.json'
-    service_account_info = json.load(open(config_path))
     return service_account_info
 
 service_info = service_acc_conversion()
