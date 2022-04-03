@@ -13,7 +13,7 @@ class Cart extends Component {
     }
 
     componentDidMount() {
-        const session = JSON.parse(sessionStorage.getItem("session"));
+        const session = JSON.parse(localStorage.getItem("session"));
         if (session) {
             const user_id = session.user_id;
             this.setState({user_id: user_id});

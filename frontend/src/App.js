@@ -23,7 +23,7 @@ class App extends Component {
     };
 
     componentDidMount() {
-        const session = JSON.parse(sessionStorage.getItem("session"));
+        const session = JSON.parse(localStorage.getItem("session"));
         if (session) {
             const user_id = session.user_id;
             this.setState({user_id: user_id});
@@ -51,50 +51,51 @@ class App extends Component {
     }
 
     handleIncrement = (product, product_id) => {
-        if (this.state.user_id === "") window.location.href = '/login.html';
-        else{
-            const product_data = {
-                'user_id' : this.state.user_id,
-                'product_id' :  product_id,
-                'product_name': product.product_name,
-                'product_description': product.product_description,
-                'product_img': product.product_img,
-                'quantity':'1',
-                'price' : product.price,
-                'price_id': product.price_id
-            }
-    
-            const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
-            //create the value attribute in product
-            if (itemArray.length === 0) {
-                createCartItem(cartURL, product_data).then(result => {
-                    console.log("result is ", result)
-                    if (result.code === 200) {
-                        this.setState({ alert: true });
-                        this.error = false;
+        this.checkSession();
         
-                        const cart = [...this.state.cart];
-                        const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
-                        //create the value attribute in product
-                        if (itemArray.length === 0) {
-                            // convert quantity to numeric to count
-                            product_data.quantity = Number(product_data.quantity)
-                            cart.push(product_data);
-                            this.setState({cart});
-                        }
-                        
-                    } else {
-                        console.log("test")
-                        this.error = true;
+        const product_data = {
+            'user_id' : this.state.user_id,
+            'product_id' :  product_id,
+            'product_name': product.product_name,
+            'product_description': product.product_description,
+            'product_img': product.product_img,
+            'quantity':'1',
+            'price' : product.price,
+            'price_id': product.price_id
+        }
+    
+        const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
+            //create the value attribute in product
+        if (itemArray.length === 0) {
+            createCartItem(cartURL, product_data).then(result => {
+                console.log("result is ", result)
+                if (result.code === 200) {
+                    this.setState({ alert: true });
+                    this.error = false;
+    
+                    const cart = [...this.state.cart];
+                    const itemArray = this.state.cart.filter(item=>item.product_id == product_data.product_id);
+                    //create the value attribute in product
+                    if (itemArray.length === 0) {
+                        // convert quantity to numeric to count
+                        product_data.quantity = Number(product_data.quantity)
+                        cart.push(product_data);
+                        this.setState({cart});
                     }
                     
-                })
-            }
+                } else {
+                    console.log("test")
+                    this.error = true;
+                }
+                
+            })
         }
 
     }
 
     onModifyCart = (body, cart) => {
+        this.checkSession();
+
         modifyCart(cartURL, body).then(result => {
             console.log(result)
             if (result.code === 200){
@@ -111,6 +112,8 @@ class App extends Component {
 
 
     handleDelete = (product) => {
+        this.checkSession();
+
         const cart = [...this.state.cart];
         const product_data = cart.filter(item => item.product_id === product.product_id)[0];
         const index = cart.indexOf(product_data);
@@ -126,6 +129,8 @@ class App extends Component {
     }
 
     handleChange = (product, selectedQuantity) => {
+        this.checkSession();
+
         const cart = [...this.state.cart];
         const product_data = cart.filter(item => item.product_id === product.product_id)[0];
         const index = cart.indexOf(product_data);
@@ -159,6 +164,21 @@ class App extends Component {
     handleProductData = (productData) => {
         this.setState({product: productData});
         // console.log(this.state);
+    }
+
+    checkSession = () => {
+        const session = JSON.parse(localStorage.getItem("session"));
+        if (session) {
+            const user_id = session.user_id;
+            if (user_id === "") {
+                window.location.href = '/login.html';
+                return;
+            }
+        }
+        else {
+            window.location.href = '/login.html';
+            return;
+        }
     }
 
     render() { 

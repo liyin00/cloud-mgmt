@@ -43,7 +43,7 @@ app = Flask(__name__)
 CORS(app)
 
 # DOMAIN = 'http://clae.me/cart'
-DOMAIN = 'http://127.0.0.1:3000/cart'
+DOMAIN = 'http://localhost:3000/cart'
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
@@ -65,6 +65,7 @@ def create_checkout_session():
         ## see what we want 
         checkout_session = stripe.checkout.Session.create(
             line_items = line_items,
+            metadata = {"user_id": data['user_id']},
             mode = 'payment',
             success_url = DOMAIN + '?success=true', #this should redirect to the cart page with success alert
             cancel_url = DOMAIN + '?cancelled=true', #this should redirect to checkout page with error alert
@@ -112,10 +113,11 @@ def payment_success_webhook():
 
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
+        user_id = event['data']['object']['metadata']['user_id']
         try :
             value = {
                 "result": {
-                    "user_id": "u6",
+                    "user_id": user_id,
                     "product_list": []
                 }
             }
@@ -128,8 +130,8 @@ def payment_success_webhook():
         session_id = event['data']['object']['id']
         print("session_id: ", session_id)
         line_items = stripe.checkout.Session.list_line_items(session_id, limit=100)
-        print(line_items)
-        print("line_items type: ", type(line_items))
+        # print(line_items)
+        # print("line_items type: ", type(line_items))
 
         pass_data = {
             'data' : []
@@ -147,7 +149,7 @@ def payment_success_webhook():
         # print(pass_data)
 
     # Data must be a bytestring
-        # data = json.dumps(pass_data)
+        data = json.dumps(pass_data)
         data = data.encode("utf-8")
         # When you publish a message, the client returns a future.
         future = publisher.publish(topic_path, data)

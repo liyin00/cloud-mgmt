@@ -8,6 +8,19 @@ export const paymentURL = "http://127.0.0.1:4242";
 // ====== create ========
 //Create payment
 export async function checkoutPayment(URL, body) {
+    const session = JSON.parse(sessionStorage.getItem("session"));
+    if (session) {
+        const user_id = session.user_id;
+        if (user_id === "") {
+            window.location.href = '/login.html';
+            return;
+        }
+    }
+    else {
+        window.location.href = '/login.html';
+        return;
+    }
+    
     const stripePromise = loadStripe(env.STRIPE_PK_KEY);
     const stripe = await stripePromise;
 
