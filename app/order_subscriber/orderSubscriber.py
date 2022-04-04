@@ -22,6 +22,7 @@ svc_account =  {
 }
 
 timeout = 5.0
+# DOMAIN = '34.142.180.229'
 DOMAIN = '34.142.180.229'
 credentials = service_account.Credentials.from_service_account_info(svc_account)
 

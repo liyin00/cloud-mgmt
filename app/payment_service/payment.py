@@ -127,7 +127,7 @@ def payment_success_webhook():
                 }
             }
             headers =  {"Content-Type":"application/json"}
-            response = requests.post('http://127.0.0.1:5006/modify_cart', data=json.dumps(value), headers=headers)
+            response = requests.post('http://34.142.147.70:5006/modify_cart', data=json.dumps(value), headers=headers)
             print(response)
         except Exception as e:
             print(e)

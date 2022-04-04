@@ -2,7 +2,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import env from "react-dotenv";
 
 // export const paymentURL = "http://127.0.0.1:4242";
-export const paymentURL = "http://34.142.143.175:4242";
+export const paymentURL = "http://34.142.208.37:4242";
 
 // require('dotenv').config({path: '../../../.env'});
 
