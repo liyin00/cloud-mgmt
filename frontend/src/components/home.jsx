@@ -11,7 +11,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        const session = JSON.parse(sessionStorage.getItem("session"));
+        const session = JSON.parse(localStorage.getItem("session"));
         if (session) {
             const user_id = session.user_id;
             if (user_id === "") {

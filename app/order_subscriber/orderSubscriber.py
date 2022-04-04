@@ -22,6 +22,7 @@ svc_account =  {
 }
 
 timeout = 5.0
+DOMAIN = '34.142.141.178'
 credentials = service_account.Credentials.from_service_account_info(svc_account)
 
 
@@ -46,9 +47,7 @@ def callback(message: pubsub_v1.subscriber.message.Message) -> None:
     try :
         print('value value is ' , value)
         headers =  {"Content-Type":"application/json"}
-        ###need to change to elastic IP
-        # response = requests.post('http://127.0.0.1:5000/create_order', data=json.dumps(value), headers=headers)
-        response = requests.post('http://34.142.141.178:5000/create_order', data=json.dumps(value), headers=headers)
+        response = requests.post(f'http://{DOMAIN}:5000/create_order', data=json.dumps(value), headers=headers)
         print(response)
     except Exception as e:
         print(e)
