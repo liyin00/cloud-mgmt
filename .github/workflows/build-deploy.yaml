@@ -58,7 +58,7 @@ jobs:
     # Apply Kubernetes Cluster based on Manifest files 
     - name: Deploy
       run: |-
-        kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml -f ./gke_config/payment.yaml -f ./gke_config/payment-service.yaml -f ./gke_config/cart.yaml -f ./gke_config/cart-service.yaml -f ./gke_config/order.yaml -f ./gke_config/order-service.yaml -f ./gke_config/stock.yaml -f ./gke_config/stock-service.yaml -f ./gke_config/order-pubsub.yaml -f ./gke_config/order-pubsub-service.yaml -f ./gke_config/stock-pubsub.yaml -f ./gke_config/stock-pubsub-service.yaml -f ./gke_config/cloud-armour.yaml 
+        kubectl apply -f ./gke_config/product.yaml -f ./gke_config/product-service.yaml -f ./gke_config/users.yaml -f ./gke_config/users-service.yaml -f ./gke_config/payment.yaml -f ./gke_config/payment-service.yaml -f ./gke_config/cart.yaml -f ./gke_config/cart-service.yaml -f ./gke_config/order.yaml -f ./gke_config/order-service.yaml -f ./gke_config/stock.yaml -f ./gke_config/stock-service.yaml -f ./gke_config/order-pubsub.yaml -f ./gke_config/order-pubsub-service.yaml -f ./gke_config/stock-pubsub.yaml -f ./gke_config/stock-pubsub-service.yaml 
         kubectl rollout status deployment/product
         kubectl rollout status deployment/users
         kubectl rollout status deployment/payment
