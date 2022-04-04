@@ -175,6 +175,7 @@ def create_order():
             amount_total += data[i]['amount_total']
             product =  data[i]['product'] + ","  + product
             quantity = str(data[i]['quantity'])  + ","  + quantity
+            user_id = data[i]['user_id']
 
             
  
@@ -184,14 +185,14 @@ def create_order():
         
         order_record = Orders(
             order_id= order_id_number,
-            user_id="",
+            user_id=user_id,
             products_purchased=product[:len(product)-1],
             purchased_quantity=quantity[:len(quantity)-1],
             sub_prices=amount_subtotal,
             total_price=amount_total,
-            billing_address="",
+            billing_address="Pasir Ris Ave 10 Block 123 560123",
             payment_status=1,
-            order_status = "",
+            order_status = "Pending",
             datetime_purchased = str(now)
             
         )

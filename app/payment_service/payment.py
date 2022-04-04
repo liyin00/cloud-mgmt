@@ -142,12 +142,14 @@ def payment_success_webhook():
             'data' : []
         }
         value_data = line_items
+        print(value_data)
         for i in range (0, len(value_data['data'])):
             container_array = {
                 'amount_subtotal' : value_data['data'][i]['amount_subtotal'],
                 'amount_total' : value_data['data'][i]['amount_total'],
                 'product' :  value_data['data'][i]['price']['product'],
-                'quantity' : str(value_data['data'][i]['quantity'])
+                'quantity' : str(value_data['data'][i]['quantity']),
+                'user_id': user_id
                 }
             pass_data['data'].append(container_array)
 

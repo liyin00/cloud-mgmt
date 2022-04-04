@@ -14,7 +14,7 @@ export async function login(URL, body) {
             },
             body: JSON.stringify(body)
         }
-        const response = await fetch(`${URL}/login`,data)
+        const response = await fetch(`${URL}/login`, data)
         if (response) {
             console.log("SUCCESS")
             const result = await response.json()

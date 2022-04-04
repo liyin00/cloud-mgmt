@@ -4,7 +4,7 @@
         /* Fonts Form Google Font ::- https://fonts.google.com/  -:: */
     @import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
     /* End Fonts */
-
+    
     /* Start Global rules */
     * {
         padding: 0;
@@ -221,7 +221,7 @@
         <br>
 <!--        buttons -->
 <!--      button LogIn -->
-        <button type="button" class="log-in" > Log In </button>
+        <button type="button" class="log-in" onclick="onLogin();"> Log In </button>
     </div>
     
 <!--   other buttons -->
@@ -230,10 +230,10 @@
         <!-- <button class="btn submits frgt-pass">Forgot Password</button> -->
 <!--     Sign Up button -->
         <button  type="button" onclick="clickon();">
-        <img src="./images/google_icon.jpg" width="20px" height="20px"/>
-        <label>Sign In with Google</label>
-<!--         Sign Up font icon -->
-        <i class="fa fa-user-plus" aria-hidden="true"></i>
+            <img src="./images/google_icon.jpg" width="20px" height="20px"/>
+            <label>Sign In with Google</label>
+    <!--         Sign Up font icon -->
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
         </button>
 <!--      End Other the Division -->
     </div>
@@ -248,28 +248,77 @@
 </html>
 <script>
         // Show/hide password onClick of button using Javascript only
-
+// import { userURL, login } from  '../src/callAPI/userAPI.js'
 // https://stackoverflow.com/questions/31224651/show-hide-password-onclick-of-button-using-javascript-only
-
 
     function test(){
         console.log('asdasda');
     }
 
-    var config = {
-        apiKey: "AIzaSyBD1T00f4IqJ2UyQ8mYom1yowZSssN1GDk",
-        // authDomain: "app.clae.me",
-        authDomain: "linen-age-337916.firebaseapp.com",
+    // var config = {
+    //     apiKey: "AIzaSyBD1T00f4IqJ2UyQ8mYom1yowZSssN1GDk",
+    //     // authDomain: "app.clae.me",
+    //     authDomain: "linen-age-337916.firebaseapp.com",
 
-        // appDisplayName:"clae me"
+    //     // appDisplayName:"clae me"
+    //     };
+    
+
+    function onLogin(){
+        console.log("inside function!")
+        var dict = {}
+        var request = new XMLHttpRequest();
+        var dropDown_str = "";
+        var email = document.getElementById("txt-input").value;
+        var pwd = document.getElementById("pwd").value; 
+
+        request.onreadystatechange  = function(){
+            if(this.readyState == 4 && this.status==200){
+                //working
+                var obj = JSON.parse(this.responseText);
+                if (obj.code === 200) {
+                    localStorage.setItem("session", JSON.stringify({ "user_id": email }))
+                    console.log("sucess")
+                    window.location.href = "http://clae.me"
+                } else {
+                    alert("Wrong credentials!")
+                }
+
+            }else if(request.readyState == 4 && request.status == 404){
+                //alert("hehe");
+                alert("Error 404 things are not found!");
+
+            }
         };
-    firebase.initializeApp(config);
 
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().languageCode = 'eng';
+        var url = "http://34.142.179.188:5003/login";
+        request.open("POST",url,true);
+
+        //true = aynsc = what load first come out first
+        //false = synchonous = show all at the same time
+        request.setRequestHeader('Content-Type', 'application/json');
+        request.send(JSON.stringify({
+            "email" : email,
+            "password": pwd
+            }));
+
+    }
+
 
 
     function clickon(){
+        var config = {
+            apiKey: "AIzaSyCNgUFzRxzvfAa0IqM4fyAZjwRrFdbagIg",
+            authDomain: "elegant-fort-344208.firebaseapp.com",
+        };
+            
+        firebase.initializeApp(config);
+
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().languageCode = 'eng';
+
+        console.log("provider", provider)
+
         firebase.auth().signInWithPopup(provider).then(function(result) {
     
     // This gives you a Google Access Token. You can use it to access the Google API.
