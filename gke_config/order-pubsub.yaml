@@ -28,5 +28,5 @@ spec:
           imagePullPolicy: Always
   
           ports:
-          - containerPort: 8080
+          - containerPort: 8000
             name: order-pubsub  
