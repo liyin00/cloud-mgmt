@@ -43,7 +43,7 @@ topic_path = publisher.topic_path('elegant-fort-344208', 'orderfulfillment')
 app = Flask(__name__)
 CORS(app)
 
-DOMAIN = 'http://clae.me/cart'
+DOMAIN = 'http://www.clae.me/cart'
 # DOMAIN = 'http://127.0.0.1:3000/cart'
 
 @app.route("/")
@@ -127,8 +127,10 @@ def payment_success_webhook():
                     "product_list": []
                 }
             }
+            print(value)
             headers =  {"Content-Type":"application/json"}
             response = requests.post('http://34.142.147.70:5006/modify_cart', data=json.dumps(value), headers=headers)
+            # response = requests.post('http://127.0.0.1:5006/modify_cart', data=json.dumps(value), headers=headers)
             print(response)
         except Exception as e:
             print(e)
