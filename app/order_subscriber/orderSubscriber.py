@@ -50,6 +50,7 @@ def callback(message: pubsub_v1.subscriber.message.Message) -> None:
         headers =  {"Content-Type":"application/json"}
         response = requests.post(f'http://{DOMAIN}:5000/create_order', data=json.dumps(value), headers=headers)
         print(response)
+        print(response['data'])
     except Exception as e:
         print(e)
 

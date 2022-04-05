@@ -119,6 +119,7 @@ def payment_success_webhook():
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
         user_id = event['data']['object']['metadata']['user_id']
+        print("user_id", user_id)
         try :
             value = {
                 "result": {
@@ -142,7 +143,6 @@ def payment_success_webhook():
             'data' : []
         }
         value_data = line_items
-        print(value_data)
         for i in range (0, len(value_data['data'])):
             container_array = {
                 'amount_subtotal' : value_data['data'][i]['amount_subtotal'],
@@ -153,7 +153,6 @@ def payment_success_webhook():
                 }
             pass_data['data'].append(container_array)
 
-        # print(pass_data)
 
     # Data must be a bytestring
         data = json.dumps(pass_data)
